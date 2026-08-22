@@ -1,16 +1,4 @@
-import { createMetadata } from "@/lib/metadata";
-import PartnersSection from "@/components/sections/PartnersSection";
-
-export const metadata = createMetadata({
-    title: "Partners",
-    description: "Meet the organizations and sponsors supporting NLDS 2026.",
-    path: "/partners",
-});
-
+// TODO: Partners page — under development
 export default function PartnersPage() {
-    return (
-        <div className="pt-20">
-            <PartnersSection />
-        </div>
-    );
+    return <main><h1>Partners — Under Development</h1></main>;
 }

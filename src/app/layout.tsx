@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import { createMetadata } from "@/lib/metadata";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,7 +8,10 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = createMetadata();
+export const metadata: Metadata = {
+  title: "NLDS 2026",
+  description: "National Leadership Development Seminar 2026 — AIESEC in Sri Lanka",
+};
 
 export const viewport: Viewport = {
   themeColor: "#000000",
@@ -25,11 +25,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} scroll-smooth`}>
-      <body className="bg-black text-white antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" className={`${inter.variable}`}>
+      <body className="bg-black text-white">
+        {children}
       </body>
     </html>
   );
