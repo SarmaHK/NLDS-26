@@ -1,4 +1,24 @@
-// TODO: Store page — under development
+import type { Metadata } from "next";
+import PageHero    from "@/components/ui/PageHero";
+import StoreFront  from "@/components/sections/StoreFront";
+
+export const metadata: Metadata = {
+  title: "Store — NLDS'26 | AIESEC in Sri Lanka",
+  description:
+    "Official NLDS'26 merchandise. Gear up for the mission. Limited edition items for the National Leadership Development Seminar 2026.",
+};
+
 export default function StorePage() {
-    return <main><h1>Store — Under Development</h1></main>;
+  return (
+    <main>
+      <PageHero
+        label="MISSION STORE"
+        fileNo="NLDS-2026-STORE"
+        title="MISSION"
+        subtitle="STORE"
+        description="Official NLDS'26 merchandise. Wear the mission. Limited edition gear available while supplies last."
+      />
+      <StoreFront />
+    </main>
+  );
 }
