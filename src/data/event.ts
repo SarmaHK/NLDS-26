@@ -43,13 +43,13 @@ export const eventData: EventData = {
     fullName: "National Leadership Development Seminar 2026",
     year: 2026,
     edition: "NLDS",
-    theme: "TBA",                       // ← Update when announced
-    tagline: "Lead. Inspire. Transform.",  // ← Update when finalized
+    theme: "MISSION IMPOSSIBLE",
+    tagline: "THE IMPOSSIBLE IS YOURS TO DEFINE.",
     description:
         "The National Leadership Development Seminar (NLDS) is one of the largest conferences organized by AIESEC in Sri Lanka, bringing together over 250 delegates from more than 11 prestigious universities across the country.",
-    startDate: "2026-10-01T08:00:00+05:30",   // ← Update when finalized
-    endDate: "2026-10-03T20:00:00+05:30",     // ← Update when finalized
-    registrationDeadline: "2026-09-15T23:59:00+05:30",
+    startDate: "2026-10-09T08:00:00+05:30",
+    endDate: "2026-10-11T20:00:00+05:30",
+    registrationDeadline: "2026-09-30T23:59:00+05:30",
     venue: {
         name: "TBA",                      // ← Update when announced
         city: "Sri Lanka",
