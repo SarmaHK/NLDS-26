@@ -102,7 +102,7 @@ export default function PageHero({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="mt-3 max-w-xl text-center"
+              className="mt-6 max-w-xl text-center"
               style={{
                 fontSize: "0.9rem",
                 color: "var(--text-muted)",

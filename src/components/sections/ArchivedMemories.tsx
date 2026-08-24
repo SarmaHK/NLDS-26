@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 
 /* ── Types ─────────────────────────────────────────── */
@@ -17,7 +17,7 @@ interface MemoryCard {
   status: "ARCHIVED" | "MEMORY RECOVERED" | "RESTRICTED ACCESS";
   type: CardType;
   caption: string;
-  imageCount?: number;
+  images?: string[];   // Cloudinary URLs — up to 10
   timestamp: string;
   classification: string;
   note: string;
@@ -36,7 +36,28 @@ const MEMORIES: MemoryCard[] = [
     status: "MEMORY RECOVERED",
     type: "gallery",
     caption: "Selected frames recovered from NLDS'25 field operations. 270+ operatives, 3 days of high-intensity leadership missions across Sri Lanka.",
-    imageCount: 6,
+    images: [
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591168/565646989_1223927079782015_25125892466108142_n_bcs5ba.jpg", // 01
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591169/566246539_1223927329781990_8284568885312634037_n_u6n0en.jpg", // 02
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591171/566248598_1223929143115142_3057621255956916376_n_a30h8k.jpg", // 03
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591166/565073233_1223931486448241_7667211820858219830_n_c5vwlg.jpg", // 04
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591167/564771820_1223948089779914_2988539675561097372_n_jthlg9.jpg", // 05
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591168/565663583_1223948193113237_3350892479167177681_n_o9on9o.jpg", // 06
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591175/565651631_1225455946295795_3406666120953231335_n_tgwhkf.jpg", // 07
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591183/568287037_1225455776295812_704809359654714512_n_ntbby1.jpg", // 08
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591182/566226298_1225456232962433_5110394865440818267_n_heevcp.jpg", // 09
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591181/568262177_1225457039629019_8718331261583370447_n_myskli.jpg", // 10
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591181/565924030_1225452446296145_1295927776338078882_n_gmwx7a.jpg", // 11
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591177/565778487_1225453712962685_441618948757874449_n_l6k8x1.jpg", // 12
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591176/565764748_1225452082962848_6352350495239519275_n_tnp4k0.jpg", // 13
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591190/571116597_1228118572696199_7382186628250061950_n_kl86hp.jpg", // 14
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591191/571142506_1228120119362711_7822180569853533684_n_y8yalb.jpg", // 15
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591189/569504270_1228122172695839_5499246612296751673_n_tgttoo.jpg", // 16
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591192/571158095_1228120159362707_3384596598249505808_n_srhqcp.jpg", // 17
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591593/572336437_1228120712695985_7653258150541034195_n_wlk08e.jpg", // 18
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591197/571199642_1228121116029278_686156072037816826_n_fwfnz4.jpg", // 19
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787591194/571174338_1228117002696356_4610205807903310978_n_ackrwu.jpg", // 20
+    ],
     timestamp: "2025:11:07 09:14:32",
     classification: "ARCHIVAL RECORD",
     note: "Some frames redacted for operational security.",
@@ -44,15 +65,26 @@ const MEMORIES: MemoryCard[] = [
   {
     id: "02",
     fileNum: "MEM-NLDS25-002",
-    edition: "GALA AWARDS NIGHT",
+    edition: "GALA NIGHT",
     date: "NOV 2025 // FINAL NIGHT",
     coords: "6.8895°N / 79.8517°E",
-    title: "GALA AWARDS NIGHT",
+    title: "GALA NIGHT",
     subtitle: "The night they were recognised",
     status: "ARCHIVED",
     type: "gallery",
-    caption: "Classified images from the Gala Awards Ceremony — NLDS'25's final night. Outstanding operatives recognised for leadership under pressure.",
-    imageCount: 4,
+    caption: "Classified images from the Gala Ceremony — NLDS'25's final night. Outstanding operatives recognised for leadership under pressure.",
+    images: [
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585794/571256432_1230052342502822_2293923886028176538_n_pcqsfi.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585799/571448603_1230049729169750_7279052457716443494_n_zrkgc7.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585796/571343355_1230060149168708_5640428504050073784_n_tueotu.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585791/570115345_1230055212502535_6374022892192885500_n_bfbofq.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585800/571791147_1230049345836455_7423746920045761569_n_mpqwfq.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585792/571231448_1230048152503241_1678166474363396444_n_afnzjd.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585792/571134186_1230047842503272_4615556096503260860_n_azin0m.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585794/571134314_1230060489168674_7994456661734102270_n_fwlgwj.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585796/571334185_1230060615835328_3917540636811162534_n_fvkksx.jpg",
+      "https://res.cloudinary.com/daamlqcer/image/upload/v1787585798/571365832_1230055029169220_4613873526737992373_n_wzmbwm.jpg",
+    ],
     timestamp: "2025:11:09 21:47:55",
     classification: "RESTRICTED ARCHIVE",
     note: "██████████ ACCESS CONTROLLED.",
@@ -84,45 +116,159 @@ function statusColour(s: MemoryCard["status"]) {
   return "var(--red)";
 }
 
-/* ── Image placeholder grid ─────────────────────────── */
-function ImagePlaceholders({ count, hovered }: { count: number; hovered: boolean }) {
-  const cols = count <= 2 ? count : count <= 4 ? 2 : 3;
+/* ── Image Carousel ─────────────────────────────────── */
+function ImageCarousel({ images }: { images: string[] }) {
+  const slots = images; // supports any length
+  const total = slots.length;
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const [direction, setDirection] = useState(1);
+
+  const go = useCallback((next: number) => {
+    const d = next > current ? 1 : -1;
+    setDirection(d);
+    setCurrent((next + total) % total);
+  }, [current, total]);
+
+  useEffect(() => {
+    if (paused || total <= 1) return;
+    const id = setInterval(() => {
+      setDirection(1);
+      setCurrent((c) => (c + 1) % total);
+    }, 5000);
+    return () => clearInterval(id);
+  }, [paused, total]);
+
+  const slide = slots[current];
+
   return (
     <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${cols}, 1fr)`,
-        gap: "2px",
-        width: "100%",
-        aspectRatio: cols === 3 ? "3/1.2" : "2/1",
-      }}
+      style={{ width: "100%", position: "relative", userSelect: "none" }}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
-      {Array.from({ length: count }).map((_, i) => (
-        <motion.div
-          key={i}
-          animate={{ opacity: hovered ? 1 : 0.55 }}
-          transition={{ duration: 0.4, delay: i * 0.04 }}
-          style={{
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(255,255,255,0.07)",
-            position: "relative",
-            overflow: "hidden",
-            aspectRatio: "4/3",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* Grain overlay */}
-          <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.08 }} />
-          {/* Corner marks */}
-          <div style={{ position: "absolute", top: 4, left: 4, width: 8, height: 8, borderTop: "1px solid rgba(255,255,255,0.2)", borderLeft: "1px solid rgba(255,255,255,0.2)" }} />
-          <div style={{ position: "absolute", bottom: 4, right: 4, width: 8, height: 8, borderBottom: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)" }} />
-          <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.12)", letterSpacing: "0.15em" }}>
-            IMG_{String(i + 1).padStart(3, "0")}
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          aspectRatio: "16/9",
+          overflow: "hidden",
+          background: "rgba(255,255,255,0.03)",
+          border: "1px solid rgba(255,255,255,0.08)",
+        }}
+      >
+        <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.06, zIndex: 2, pointerEvents: "none" }} />
+
+        <div style={{ position: "absolute", top: 8, left: 8, width: 12, height: 12, borderTop: "1px solid rgba(255,255,255,0.2)", borderLeft: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
+        <div style={{ position: "absolute", top: 8, right: 8, width: 12, height: 12, borderTop: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
+        <div style={{ position: "absolute", bottom: 8, left: 8, width: 12, height: 12, borderBottom: "1px solid rgba(255,255,255,0.2)", borderLeft: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
+        <div style={{ position: "absolute", bottom: 8, right: 8, width: 12, height: 12, borderBottom: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
+
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={current}
+            custom={direction}
+            variants={{
+              enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+              center: { x: 0, opacity: 1 },
+              exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.45, ease: [0.32, 0, 0.67, 0] }}
+            style={{ position: "absolute", inset: 0, zIndex: 1 }}
+          >
+            {slide ? (
+              <img
+                src={slide}
+                alt={`Frame ${current + 1}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
+                <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.08 }} />
+                <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.2em", position: "relative", zIndex: 1 }}>
+                  IMG_{String(current + 1).padStart(3, "0")}
+                </span>
+                <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.08)", letterSpacing: "0.15em", position: "relative", zIndex: 1 }}>
+                  AWAITING UPLOAD
+                </span>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        <div style={{ position: "absolute", bottom: 10, left: 12, zIndex: 4, display: "flex", alignItems: "center", gap: "0.4rem" }}>
+          <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em", background: "rgba(6,6,8,0.6)", padding: "2px 6px", backdropFilter: "blur(4px)" }}>
+            {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
           </span>
-        </motion.div>
-      ))}
+        </div>
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.75rem" }}>
+        <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+          {slots.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => go(i)}
+              style={{
+                width: i === current ? "18px" : "6px",
+                height: "6px",
+                borderRadius: "3px",
+                background: i === current ? "var(--red)" : "rgba(255,255,255,0.15)",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                transition: "all 0.3s ease",
+              }}
+            />
+          ))}
+        </div>
+
+        <div style={{ display: "flex", gap: "0.5rem" }}>
+          <button
+            onClick={() => go(current - 1)}
+            style={{
+              width: "32px",
+              height: "32px",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              color: "rgba(255,255,255,0.6)",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(196,30,58,0.15)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(196,30,58,0.4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.12)"; }}
+          >
+            ←
+          </button>
+          <button
+            onClick={() => go(current + 1)}
+            style={{
+              width: "32px",
+              height: "32px",
+              background: "rgba(255,255,255,0.05)",
+              border: "1px solid rgba(255,255,255,0.12)",
+              color: "rgba(255,255,255,0.6)",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "12px",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(196,30,58,0.15)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(196,30,58,0.4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.12)"; }}
+          >
+            →
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
@@ -276,8 +422,8 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         </div>
 
         {/* ── Media area ── */}
-        {card.type === "gallery" && card.imageCount ? (
-          <ImagePlaceholders count={card.imageCount} hovered={hovered} />
+        {card.type === "gallery" && card.images ? (
+          <ImageCarousel images={card.images} />
         ) : (
           <FilmPlaceholder hovered={hovered} />
         )}

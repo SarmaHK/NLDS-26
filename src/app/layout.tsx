@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Bebas_Neue, JetBrains_Mono } from "next/font/google";
+import { Poppins, Bebas_Neue, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar        from "@/components/layout/Navbar";
 import Footer        from "@/components/layout/Footer";
 import LenisProvider from "@/components/providers/LenisProvider";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-poppins",
   display: "swap",
 });
 
@@ -56,7 +56,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${bebasNeue.variable} ${jetbrainsMono.variable}`}
+      className={`${poppins.variable} ${bebasNeue.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased">
         <LenisProvider>

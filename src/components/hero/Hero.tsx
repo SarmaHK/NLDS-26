@@ -8,7 +8,6 @@ type Phase = 0 | 1 | 2 | 3 | 4;
 
 const PHASE_DELAYS = [700, 1900, 3100, 4400];
 
-/* Floating coordinate data */
 const COORDS = [
   { text: "6.9271°N", top: "14%", left: "7%", delay: 0 },
   { text: "79.8612°E", top: "20%", left: "7%", delay: 0.6 },

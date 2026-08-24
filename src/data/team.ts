@@ -1,8 +1,3 @@
-/**
- * Organising Committee (OC) and Main Committee (MC) team data.
- * Populate when team details are confirmed.
- */
-
 export type TeamRole = "OC" | "MC";
 
 export interface TeamMember {
