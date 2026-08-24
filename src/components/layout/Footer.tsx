@@ -38,7 +38,7 @@ export default function Footer() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 pt-16 pb-10">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 pt-28 pb-10">
         {/* Top row */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-12 mb-16">
           {/* Brand */}
@@ -46,7 +46,7 @@ export default function Footer() {
             <span className="font-display text-5xl tracking-[0.05em] text-white">
               NLDS<span style={{ color: "var(--red)" }}>'26</span>
             </span>
-            <p className="font-classified text-[10px] tracking-[0.2em] leading-relaxed text-white/30">
+            <p className="font-classified text-[10px] tracking-[0.2em] leading-relaxed text-white">
               NATIONAL LEADERSHIP DEVELOPMENT SEMINAR
               <br />
               AIESEC IN SRI LANKA
@@ -56,7 +56,7 @@ export default function Footer() {
                 className="animate-blink w-1.5 h-1.5 rounded-full"
                 style={{ background: "var(--red)" }}
               />
-              <span className="font-classified text-[9px] tracking-[0.25em] text-white/25">
+              <span className="font-classified text-[9px] tracking-[0.25em] text-white">
                 MISSION STATUS: ACTIVE
               </span>
             </div>
@@ -71,7 +71,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="font-classified text-[10px] tracking-[0.22em] text-white/30 hover:text-white/70 transition-colors no-underline"
+                      className="font-classified text-[10px] tracking-[0.22em] text-white hover:text-white/70 transition-colors no-underline"
                     >
                       {link.label}
                     </Link>
@@ -89,7 +89,7 @@ export default function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-classified text-[10px] tracking-[0.22em] text-white/30 hover:text-white/70 transition-colors no-underline"
+                      className="font-classified text-[10px] tracking-[0.22em] text-white hover:text-white/70 transition-colors no-underline"
                     >
                       {link.label} ↗
                     </a>
@@ -101,10 +101,10 @@ export default function Footer() {
             <div>
               <p className="label-section mb-5">MISSION DATE</p>
               <div className="flex flex-col gap-1">
-                <span className="font-classified text-[10px] tracking-[0.2em] text-white/50">
+                <span className="font-classified text-[10px] tracking-[0.2em] text-white">
                   09 — 11 OCTOBER 2026
                 </span>
-                <span className="font-classified text-[10px] tracking-[0.2em] text-white/25">
+                <span className="font-classified text-[10px] tracking-[0.2em] text-white">
                   SRI LANKA
                 </span>
               </div>
@@ -117,10 +117,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <p className="font-classified text-[9px] tracking-[0.2em] text-white/15">
+          <p className="font-classified text-[9px] tracking-[0.2em] text-white">
             PROPERTY OF AIESEC IN SRI LANKA — CLASSIFIED
           </p>
-          <p className="font-classified text-[9px] tracking-[0.15em] text-white/12">
+          <p className="font-classified text-[9px] tracking-[0.15em] text-white">
             © 2026 AIESEC IN SRI LANKA. ALL RIGHTS RESERVED.
           </p>
         </div>
