@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { organisingCommittee, type TeamMember } from "@/data/team";
+import { organizingCommittee, type TeamMember } from "@/data/team";
 
 /** Display order for OC roles */
 const OC_ROLE_ORDER = [
@@ -145,7 +145,7 @@ function RoleRow({
 export default function ConferenceTeamSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const groups = groupByRole(organisingCommittee);
+  const groups = groupByRole(organizingCommittee);
 
   return (
     <section
@@ -215,7 +215,7 @@ export default function ConferenceTeamSection() {
               letterSpacing: "0.04em",
             }}
           >
-            ORGANISING COMMITTEE
+            organizing COMMITTEE
           </h2>
         </motion.div>
 
@@ -233,7 +233,7 @@ export default function ConferenceTeamSection() {
               </div>
             </div>
             <p className="font-classified text-[9px] tracking-[0.25em] text-white/20">
-              ORGANISING COMMITTEE — PERSONNEL FILES PENDING
+              organizing COMMITTEE — PERSONNEL FILES PENDING
             </p>
           </div>
         ) : (

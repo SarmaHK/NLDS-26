@@ -2,42 +2,42 @@
 
 /* ─── Tailwind v4 Theme Tokens ───────────────────────────────── */
 @theme {
-  --color-mission:        #C41E3A;
-  --color-mission-dark:   #8B0000;
-  --color-mission-light:  #E53E3E;
-  --font-display:         var(--font-bebas), "Arial Narrow", sans-serif;
-  --font-sans:            var(--font-poppins), system-ui, sans-serif;
-  --font-classified:      var(--font-jetbrains), "Courier New", monospace;
+  --color-mission: #C41E3A;
+  --color-mission-dark: #8B0000;
+  --color-mission-light: #E53E3E;
+  --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-classified: var(--font-jetbrains), "Courier New", monospace;
 }
 
 /* ─── CSS Custom Properties ──────────────────────────────────── */
 :root {
   /* Color System */
-  --red:              #C41E3A;
-  --red-dim:          rgba(196, 30, 58, 0.25);
-  --red-glow:         rgba(196, 30, 58, 0.12);
-  --red-bright:       #E53E3E;
+  --red: #C41E3A;
+  --red-dim: rgba(196, 30, 58, 0.25);
+  --red-glow: rgba(196, 30, 58, 0.12);
+  --red-bright: #E53E3E;
 
   /* Surfaces */
-  --bg:               #060608;
-  --surface-1:        #0E0E11;
-  --surface-2:        #161619;
+  --bg: #060608;
+  --surface-1: #0E0E11;
+  --surface-2: #161619;
 
   /* Text */
-  --text:             #F0EDE8;
-  --text-dim:         rgba(240, 237, 232, 0.55);
-  --text-muted:       rgba(240, 237, 232, 0.22);
-  --text-ghost:       rgba(240, 237, 232, 0.07);
+  --text: #F0EDE8;
+  --text-dim: rgba(240, 237, 232, 0.55);
+  --text-muted: rgba(240, 237, 232, 0.22);
+  --text-ghost: rgba(240, 237, 232, 0.07);
 
   /* Borders */
-  --border:           rgba(255, 255, 255, 0.06);
-  --border-strong:    rgba(255, 255, 255, 0.12);
-  --border-red:       rgba(196, 30, 58, 0.35);
+  --border: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --border-red: rgba(196, 30, 58, 0.35);
 
   /* Fonts */
-  --font-sans:        var(--font-poppins), system-ui, sans-serif;
-  --font-display:     var(--font-bebas), "Arial Narrow", sans-serif;
-  --font-mono:        var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
 }
 
 /* ─── Reset & Base ───────────────────────────────────────────── */
@@ -55,6 +55,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   background: var(--bg);
   color: var(--text);
+  overflow-x: hidden;
   /* scroll-behavior handled by Lenis */
 }
 
@@ -73,9 +74,18 @@ img {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar        { width: 3px; }
-::-webkit-scrollbar-track  { background: #000; }
-::-webkit-scrollbar-thumb  { background: var(--red); border-radius: 2px; }
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border-radius: 2px;
+}
 
 /* Text selection */
 ::selection {
@@ -84,132 +94,361 @@ img {
 }
 
 /* ─── Typography Utilities ───────────────────────────────────── */
-.font-display    { font-family: var(--font-display); letter-spacing: 0.03em; }
-.font-classified { font-family: var(--font-mono); }
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
+}
+
+.font-classified {
+  font-family: var(--font-mono);
+}
 
 /* ─── Keyframe Animations ────────────────────────────────────── */
 
 @keyframes grain {
-  0%,  100% { transform: translate(0, 0); }
-  10%        { transform: translate(-3%, -8%); }
-  20%        { transform: translate(-12%, 5%); }
-  30%        { transform: translate(5%, -22%); }
-  40%        { transform: translate(-3%, 22%); }
-  50%        { transform: translate(-12%, 8%); }
-  60%        { transform: translate(12%, 0%); }
-  70%        { transform: translate(0%, 12%); }
-  80%        { transform: translate(2%, 30%); }
-  90%        { transform: translate(-8%, 8%); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10% {
+    transform: translate(-3%, -8%);
+  }
+
+  20% {
+    transform: translate(-12%, 5%);
+  }
+
+  30% {
+    transform: translate(5%, -22%);
+  }
+
+  40% {
+    transform: translate(-3%, 22%);
+  }
+
+  50% {
+    transform: translate(-12%, 8%);
+  }
+
+  60% {
+    transform: translate(12%, 0%);
+  }
+
+  70% {
+    transform: translate(0%, 12%);
+  }
+
+  80% {
+    transform: translate(2%, 30%);
+  }
+
+  90% {
+    transform: translate(-8%, 8%);
+  }
 }
 
 @keyframes scanline {
-  from { transform: translateY(-100vh); }
-  to   { transform: translateY(200vh); }
+  from {
+    transform: translateY(-100vh);
+  }
+
+  to {
+    transform: translateY(200vh);
+  }
 }
 
 @keyframes flicker {
-  0%, 100%  { opacity: 1; }
-  90%        { opacity: 1; }
-  92%        { opacity: 0.75; }
-  93%        { opacity: 1; }
-  96%        { opacity: 0.88; }
-  98%        { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  92% {
+    opacity: 0.75;
+  }
+
+  93% {
+    opacity: 1;
+  }
+
+  96% {
+    opacity: 0.88;
+  }
+
+  98% {
+    opacity: 1;
+  }
 }
 
 @keyframes mission-blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.25; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.25;
+  }
 }
 
 @keyframes marquee {
-  0%   { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes float-coord {
-  0%, 100% { transform: translateY(0px);   opacity: 0.15; }
-  50%       { transform: translateY(-8px);  opacity: 0.28; }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+    opacity: 0.15;
+  }
+
+  50% {
+    transform: translateY(-8px);
+    opacity: 0.28;
+  }
 }
 
 @keyframes pulse-ring {
-  0%   { transform: scale(0.8); opacity: 0.6; }
-  100% { transform: scale(2.2); opacity: 0; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 @keyframes expand-width {
-  from { width: 0; }
-  to   { width: 100%; }
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes glitch-slice {
-  0%, 40%, 44%, 58%, 61%, 65%, 69%, 73%, 100% {
+
+  0%,
+  40%,
+  44%,
+  58%,
+  61%,
+  65%,
+  69%,
+  73%,
+  100% {
     transform: skewX(0deg);
     clip-path: none;
   }
-  41%  { clip-path: inset(58% 0 28% 0); transform: skewX(-5deg) translateX(-4px); }
-  43%  { clip-path: inset(30% 0 55% 0); transform: skewX(3deg) translateX(4px); }
-  59%  { clip-path: inset(10% 0 80% 0); transform: skewX(2deg) translateX(-3px); }
-  62%  { clip-path: inset(75% 0 5% 0);  transform: skewX(-3deg) translateX(3px); }
-  66%  { clip-path: inset(40% 0 40% 0); transform: skewX(1deg) translateX(-2px); }
-  70%  { clip-path: inset(20% 0 65% 0); transform: skewX(-2deg); }
+
+  41% {
+    clip-path: inset(58% 0 28% 0);
+    transform: skewX(-5deg) translateX(-4px);
+  }
+
+  43% {
+    clip-path: inset(30% 0 55% 0);
+    transform: skewX(3deg) translateX(4px);
+  }
+
+  59% {
+    clip-path: inset(10% 0 80% 0);
+    transform: skewX(2deg) translateX(-3px);
+  }
+
+  62% {
+    clip-path: inset(75% 0 5% 0);
+    transform: skewX(-3deg) translateX(3px);
+  }
+
+  66% {
+    clip-path: inset(40% 0 40% 0);
+    transform: skewX(1deg) translateX(-2px);
+  }
+
+  70% {
+    clip-path: inset(20% 0 65% 0);
+    transform: skewX(-2deg);
+  }
 }
 
 @keyframes counter-update {
-  0%   { transform: translateY(100%); opacity: 0; }
-  100% { transform: translateY(0);    opacity: 1; }
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slide-up {
-  from { transform: translateY(8px); opacity: 0; }
-  to   { transform: translateY(0);   opacity: 1; }
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes horizontal-scan {
-  0%   { left: -30%; }
-  100% { left: 130%; }
+  0% {
+    left: -30%;
+  }
+
+  100% {
+    left: 130%;
+  }
 }
 
 @keyframes target-ping {
-  0%   { transform: scale(1);   opacity: 0.8; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
 /* ─── Animation Utility Classes ──────────────────────────────── */
 
-.animate-grain      { animation: grain 8s steps(10) infinite; }
-.animate-scanline   { animation: scanline 8s linear infinite; }
-.animate-flicker    { animation: flicker 7s ease-in-out infinite; }
-.animate-blink      { animation: mission-blink 1.4s ease-in-out infinite; }
-.animate-marquee    { animation: marquee 28s linear infinite; }
-.animate-float      { animation: float-coord 5s ease-in-out infinite; }
-.animate-glitch     { animation: glitch-slice 6s ease-in-out infinite; }
-.animate-fade-in    { animation: fade-in 1s ease both; }
-.animate-fade-in-up { animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-grain {
+  animation: grain 8s steps(10) infinite;
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+.animate-flicker {
+  animation: flicker 7s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: mission-blink 1.4s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 28s linear infinite;
+}
+
+.animate-float {
+  animation: float-coord 5s ease-in-out infinite;
+}
+
+.animate-glitch {
+  animation: glitch-slice 6s ease-in-out infinite;
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease both;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
 
 /* ─── Animation Delays ───────────────────────────────────────── */
-.delay-100  { animation-delay: 0.10s; }
-.delay-200  { animation-delay: 0.20s; }
-.delay-300  { animation-delay: 0.30s; }
-.delay-400  { animation-delay: 0.40s; }
-.delay-500  { animation-delay: 0.50s; }
-.delay-600  { animation-delay: 0.60s; }
-.delay-700  { animation-delay: 0.70s; }
-.delay-800  { animation-delay: 0.80s; }
-.delay-1000 { animation-delay: 1.00s; }
-.delay-1200 { animation-delay: 1.20s; }
-.delay-1500 { animation-delay: 1.50s; }
-.delay-2000 { animation-delay: 2.00s; }
-.delay-2500 { animation-delay: 2.50s; }
+.delay-100 {
+  animation-delay: 0.10s;
+}
+
+.delay-200 {
+  animation-delay: 0.20s;
+}
+
+.delay-300 {
+  animation-delay: 0.30s;
+}
+
+.delay-400 {
+  animation-delay: 0.40s;
+}
+
+.delay-500 {
+  animation-delay: 0.50s;
+}
+
+.delay-600 {
+  animation-delay: 0.60s;
+}
+
+.delay-700 {
+  animation-delay: 0.70s;
+}
+
+.delay-800 {
+  animation-delay: 0.80s;
+}
+
+.delay-1000 {
+  animation-delay: 1.00s;
+}
+
+.delay-1200 {
+  animation-delay: 1.20s;
+}
+
+.delay-1500 {
+  animation-delay: 1.50s;
+}
+
+.delay-2000 {
+  animation-delay: 2.00s;
+}
+
+.delay-2500 {
+  animation-delay: 2.50s;
+}
 
 /* ─── Mission Design Primitives ──────────────────────────────── */
 
@@ -233,10 +472,25 @@ img {
 }
 
 /* Corner targeting marks */
-.corner-tl { border-top:    1px solid; border-left:  1px solid; }
-.corner-tr { border-top:    1px solid; border-right: 1px solid; }
-.corner-bl { border-bottom: 1px solid; border-left:  1px solid; }
-.corner-br { border-bottom: 1px solid; border-right: 1px solid; }
+.corner-tl {
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-tr {
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.corner-bl {
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-br {
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
 
 /* Mission red line accent */
 .mission-line {
@@ -320,15 +574,18 @@ img {
 }
 
 /* Tabular numbers for countdown */
-.tabular { font-variant-numeric: tabular-nums; }
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
 
 /* ─── Reduced Motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {
-    animation-duration:       0.01ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration:      0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

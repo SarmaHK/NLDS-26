@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import PageHero      from "@/components/ui/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import ConferenceTeamSection from "@/components/sections/ConferenceTeamSection";
 
 export const metadata: Metadata = {
   title: "Conference Team — NLDS'26 | AIESEC in Sri Lanka",
   description:
-    "Meet the organising committee and main committee behind NLDS'26 — the people making the mission possible.",
+    "Meet the organizing committee and main committee behind NLDS'26 — the people making the mission possible.",
 };
 
 export default function TeamPage() {

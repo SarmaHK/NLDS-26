@@ -8,6 +8,8 @@ export interface TeamMember {
     department?: string;    // e.g. "Finance", "Delegate Experience"
     university?: string;
     image: string;          // Public URL or path under /images/team/
+    phone?: string;         // Contact number (optional)
+    email?: string;         // Email address (optional)
 }
 
 /** MC — Main Committee */
@@ -22,20 +24,20 @@ export const mainCommittee: TeamMember[] = [
     // },
 ];
 
-/** OC — Organising Committee */
-export const organisingCommittee: TeamMember[] = [
+/** OC — organizing Committee */
+export const organizingCommittee: TeamMember[] = [
 
     // ── Conference Managers ───────────────────────────────────────────────────
     {
         id: "oc-cm-1",
-        name: "Name Here",
+        name: "Ijas Ahamed",
         role: "Conference Manager",
         committee: "OC",
         image: "",
     },
     {
         id: "oc-cm-2",
-        name: "Name Here",
+        name: "Shymal De Silva",
         role: "Conference Manager",
         committee: "OC",
         image: "",
@@ -89,6 +91,8 @@ export const organisingCommittee: TeamMember[] = [
         role: "OC Vice President — Partnership Development",
         committee: "OC",
         image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787579403/Alex_Dinith_-_PD_tzswdm.jpg",
+        phone: "+94 70 654 4700",
+        email: "alexdinith04@aiesec.net",
     },
     {
         id: "oc-vp-pd-2",
@@ -96,6 +100,8 @@ export const organisingCommittee: TeamMember[] = [
         role: "OC Vice President — Partnership Development",
         committee: "OC",
         image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787579402/Binithi_Sarithya_-_PD_mtfo0e.jpg",
+        phone: "+94 75 877 4090",
+        email: "binithi.sarithya@aiesec.net",
     },
     {
         id: "oc-vp-pd-3",
@@ -103,6 +109,8 @@ export const organisingCommittee: TeamMember[] = [
         role: "OC Vice President — Partnership Development",
         committee: "OC",
         image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787579408/Vinuthi_Hirimuthugoda_-_PD_z58y7q.jpg",
+        phone: "+94 72 422 4514",
+        email: "vinuthi.hirimuthugoda@aiesec.net",
     },
 
     // ── Vice President — Logistics ────────────────────────────────────────────
