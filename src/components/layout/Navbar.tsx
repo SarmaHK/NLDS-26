@@ -15,12 +15,12 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: "HOME",             href: "/" },
-  { label: "ABOUT",            href: "/",        scrollTo: "mission" },
-  { label: "CONFERENCE TEAM",  href: "/team" },
-  { label: "PARTNERS",         href: "/partners" },
-  { label: "STORE",            href: "/store" },
-  { label: "ROOM ALLOCATION",  href: "/delegates", locked: true },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/", scrollTo: "mission" },
+  { label: "CONFERENCE TEAM", href: "/team" },
+  { label: "PARTNERS", href: "/partners" },
+  { label: "STORE", href: "/store" },
+  { label: "ROOM ALLOCATION", href: "/delegates", locked: true },
 ];
 
 function smoothScrollTo(id: string) {
@@ -33,7 +33,7 @@ function smoothScrollTo(id: string) {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const router   = useRouter();
+  const router = useRouter();
 
   // Close mobile menu on Escape
   useEffect(() => {
@@ -81,16 +81,16 @@ export default function Navbar() {
           borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <div className="max-w-[1440px] mx-auto px-6 md:px-10 flex items-center justify-between h-[64px] md:h-[72px] lg:h-[78px]">
+        <div className="max-w-[1440px] mx-auto px-5 sm:px-6 md:px-10 flex items-center justify-between h-[76px] sm:h-[82px] md:h-[88px] lg:h-[94px]">
 
           {/* ── Logo ───────── */}
-          <Link href="/" className="flex items-center gap-3 no-underline flex-shrink-0 ml-2 md:ml-4 lg:ml-6" id="nav-logo">
+          <Link href="/" className="flex items-center no-underline flex-shrink-0" id="nav-logo">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/Logos/NLDS 2026.png"
               alt="NLDS 2026"
-              className="h-12 md:h-11 lg:h-13 w-[150px] object-contain transition-transform duration-300 hover:scale-105"
-              style={{ filter: "brightness(1.1) drop-shadow(0 0 12px rgba(196,30,58,0.25))" }}
+              className="h-14 sm:h-16 md:h-18 lg:h-20 w-auto max-w-[190px] sm:max-w-[220px] md:max-w-[250px] lg:max-w-[280px] object-contain transition-transform duration-300 hover:scale-105"
+              style={{ filter: "brightness(1.1) drop-shadow(0 0 14px rgba(196,30,58,0.28))" }}
             />
           </Link>
 
@@ -146,11 +146,11 @@ export default function Navbar() {
           {/* ── Mobile hamburger ─── */}
           <button
             onClick={() => setMenuOpen((p) => !p)}
-            className="lg:hidden flex items-center justify-center w-11 h-11 text-white/60 hover:text-white transition-colors"
+            className="lg:hidden flex items-center justify-center w-12 h-12 -mr-1.5 text-white/80 hover:text-white transition-colors cursor-pointer"
             aria-label="Toggle menu"
             id="nav-menu-toggle"
           >
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+            {menuOpen ? <X size={30} /> : <Menu size={30} />}
           </button>
         </div>
       </motion.header>
@@ -177,21 +177,21 @@ export default function Navbar() {
 
             {/* Header row */}
             <div
-              className="flex items-center justify-between px-6 h-[76px] flex-shrink-0"
+              className="flex items-center justify-between px-5 sm:px-6 h-[76px] sm:h-[82px] md:h-[88px] flex-shrink-0"
               style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/images/Logos/NLDS 2026.png"
                 alt="NLDS 2026"
-                className="h-10 w-auto object-contain"
+                className="h-14 sm:h-16 w-auto max-w-[190px] sm:max-w-[220px] object-contain"
               />
               <button
                 onClick={() => setMenuOpen(false)}
-                className="text-white/50 hover:text-white transition-colors p-2"
+                className="text-white/80 hover:text-white transition-colors w-12 h-12 flex items-center justify-center -mr-1.5 cursor-pointer"
                 aria-label="Close menu"
               >
-                <X size={20} />
+                <X size={30} />
               </button>
             </div>
 

@@ -13,9 +13,9 @@ export default function PartnersPage() {
     <main>
       <PageHero
         label="STRATEGIC SUPPORT"
-        fileNo="NLDS-2026-ALLIES"
+        fileNo="NLDS-2026-PARTNERS"
         title="MISSION"
-        subtitle="ALLIES"
+        subtitle="PARTNERS"
         description="No mission succeeds alone. Our strategic partners provide the infrastructure, resources, and reach that make NLDS'26 possible."
       />
       <AlliesSection />

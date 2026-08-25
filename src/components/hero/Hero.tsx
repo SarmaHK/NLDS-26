@@ -8,7 +8,6 @@ type Phase = 0 | 1 | 2 | 3 | 4;
 
 const PHASE_DELAYS = [700, 1900, 3100, 4400];
 
-/* Floating coordinate data */
 const COORDS = [
   { text: "6.9271°N", top: "14%", left: "7%", delay: 0 },
   { text: "79.8612°E", top: "20%", left: "7%", delay: 0.6 },
@@ -56,7 +55,7 @@ export default function Hero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative min-h-screen flex flex-col overflow-hidden"
+      className="relative h-[100dvh] min-h-[100dvh] flex flex-col overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
       {/* ── Parallax Background Image ─────────────────── */}
@@ -229,7 +228,7 @@ export default function Hero() {
       {/* ── Main Hero Content ─────────────────────────── */}
       <motion.div
         style={{ y: contentY, opacity: fadeOut }}
-        className="relative z-20 flex flex-col items-center justify-center min-h-screen text-center px-6 py-24"
+        className="relative z-20 flex flex-col items-center justify-center flex-1 text-center px-6 pt-20 pb-10"
       >
         {phase >= 4 && (
           <motion.div
@@ -243,13 +242,13 @@ export default function Hero() {
               initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.6 }}
-              className="flex items-center gap-4 mb-10"
+              className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-8"
             >
-              <div className="h-[1px] w-12" style={{ background: "var(--red)" }} />
-              <span className="font-classified text-[9px] tracking-[0.35em] text-white/30 uppercase">
+              <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
+              <span className="font-classified text-[7px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.35em] text-white/30 uppercase whitespace-nowrap">
                 TOP SECRET // AIESEC IN SRI LANKA
               </span>
-              <div className="h-[1px] w-12" style={{ background: "var(--red)" }} />
+              <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
             </motion.div>
 
             {/* ── NLDS 2026 LOGO ── */}
@@ -263,9 +262,9 @@ export default function Hero() {
               <img
                 src="/images/Logos/NLDS 2026.png"
                 alt="NLDS 2026 — National Leadership Development Seminar"
-                className="mx-auto w-auto max-w-[70vw] max-h-[50vh] object-contain"
+                className="mx-auto w-auto max-w-[85vw] sm:max-w-[70vw] max-h-[50vh] object-contain"
                 style={{
-                  height: "clamp(200px, 42vw, 480px)",
+                  height: "clamp(140px, 35vw, 420px)",
                   filter:
                     "drop-shadow(0 0 50px rgba(196,30,58,0.45)) drop-shadow(0 0 100px rgba(196,30,58,0.2)) brightness(1.08)",
                 }}

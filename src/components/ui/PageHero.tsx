@@ -19,13 +19,14 @@ export default function PageHero({
 }: PageHeroProps) {
   return (
     <section
-      className="relative overflow-hidden flex flex-col justify-end"
+      className="relative overflow-hidden flex flex-col justify-center items-center"
       style={{
         background: "var(--bg)",
         minHeight: "clamp(280px, 38vh, 420px)",
         paddingTop: "100px",
         paddingBottom: "4rem",
         borderBottom: "1px solid var(--border)",
+        textAlign: "center",
       }}
     >
       {/* Background grid */}
@@ -64,13 +65,13 @@ export default function PageHero({
       <div className="absolute bottom-6 right-6 z-10 w-4 h-4 corner-br border-white/10" />
       <div className="absolute bottom-6 left-6 z-10 w-4 h-4 corner-bl border-white/10" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full flex flex-col items-center">
         {/* File metadata row */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center gap-4 mb-6"
+          className="flex items-center justify-center gap-4 mb-6"
         >
           <div className="h-[1px] w-6" style={{ background: "var(--red)" }} />
           <span className="label-classified">{label}</span>
@@ -84,7 +85,7 @@ export default function PageHero({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col gap-1"
+          className="flex flex-col items-center gap-1 text-center"
         >
           <h1
             className="font-display leading-[0.85] tracking-[0.04em]"
@@ -101,7 +102,7 @@ export default function PageHero({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="mt-3 max-w-xl"
+              className="mt-6 max-w-xl text-center"
               style={{
                 fontSize: "0.9rem",
                 color: "var(--text-muted)",

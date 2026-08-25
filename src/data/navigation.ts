@@ -13,10 +13,10 @@ export interface NavLink {
 
 export const navLinks: NavLink[] = [
     { label: "Home", href: "/" },
-    { label: "About", href: "/#about" },
-    { label: "Team", href: "/#team" },
+    { label: "About", href: "/#mission" },
+    { label: "Conference Team", href: "/team" },
     { label: "Partners", href: "/partners" },
-    { label: "Delegates", href: "/delegates" },
     { label: "Store", href: "/store" },
+    { label: "Room Allocation", href: "/delegates" },
     { label: "Register", href: "/register", isCTA: true },
 ];

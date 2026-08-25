@@ -93,7 +93,7 @@ export default function CountdownSection() {
     <section
       ref={ref}
       id="countdown"
-      className="w-full py-24 md:py-32"
+      className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background: "var(--surface-1)",
         marginTop: "clamp(4rem, 10vw, 8rem)",
@@ -154,7 +154,7 @@ export default function CountdownSection() {
           className="font-classified text-[10px] tracking-[0.3em] text-white/25"
           style={{ marginBottom: "4rem" }}
         >
-          09 OCTOBER 2026 // Venue: TO BE ANNOUNCED!
+          09 OCTOBER 2026 // VENUE: TO BE ANNOUNCED
         </motion.p>
 
         {/* Countdown cells */}

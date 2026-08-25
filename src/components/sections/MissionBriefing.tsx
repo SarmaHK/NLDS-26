@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const STATS = [
-  { value: "250+", label: "OPERATIVES", sub: "Future leaders" },
+  { value: "270+", label: "OPERATIVES", sub: "Future leaders" },
   { value: "11+", label: "UNIVERSITIES", sub: "Across Sri Lanka" },
   { value: "03", label: "DAYS", sub: "Of transformation" },
   { value: "01", label: "MISSION", sub: "Impossible" },
@@ -28,7 +28,7 @@ export default function MissionBriefing() {
     <section
       ref={ref}
       id="mission"
-      className="w-full py-24 md:py-32"
+      className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background: "var(--bg)",
         marginTop: "clamp(4rem, 10vw, 8rem)",
@@ -134,12 +134,11 @@ export default function MissionBriefing() {
 
           {/* Stats Grid */}
           <motion.div
+            className="grid grid-cols-2 lg:grid-cols-4"
             variants={stagger}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4, 1fr)",
               gap: "1px",
               width: "100%",
               background: "var(--border)",
@@ -159,7 +158,7 @@ export default function MissionBriefing() {
                   alignItems: "center",
                   textAlign: "center",
                   gap: "0.5rem",
-                  padding: "2rem",
+                  padding: "1.5rem 0.75rem",
                   position: "relative",
                   transition: "background 0.3s",
                 }}
@@ -171,7 +170,7 @@ export default function MissionBriefing() {
                 <span
                   className="font-display leading-none"
                   style={{
-                    fontSize: "clamp(2.8rem, 5.5vw, 4.2rem)",
+                    fontSize: "clamp(2rem, 10vw, 4.2rem)",
                     color: i === 3 ? "var(--red)" : "var(--text)",
                   }}
                 >
