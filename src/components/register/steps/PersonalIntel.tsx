@@ -3,7 +3,8 @@
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormInput, FormSelect } from "@/components/register/FormField";
 import { FileUpload } from "@/components/register/FileUpload";
-import { UNIVERSITIES, GENDERS } from "@/lib/register/constants";
+import SectionLabel from "@/components/register/SectionLabel";
+import { GENDERS } from "@/lib/register/constants";
 import type { PersonalIntelData } from "@/lib/register/types";
 
 export default function PersonalIntel() {
@@ -17,17 +18,14 @@ export default function PersonalIntel() {
 
     return (
         <div className="flex flex-col gap-8">
-            {/* Section: Identity */}
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">IDENTITY VERIFICATION</span>
-                </legend>
+                <SectionLabel>IDENTITY VERIFICATION</SectionLabel>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
                         label="Full Name"
                         placeholder="Enter your full name"
+                        hint="Enter your legal name as it appears on official documents."
                         required
                         error={e?.fullName}
                         {...register("personalIntel.fullName")}
@@ -86,15 +84,14 @@ export default function PersonalIntel() {
                 />
             </fieldset>
 
-            {/* Section: Profile */}
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">IDENTIFICATION DATA</span>
-                </legend>
+                <SectionLabel>IDENTIFICATION DATA</SectionLabel>
 
                 <FileUpload
                     label="Profile Picture"
+                    classification="IDENTITY FILE"
+                    dropLabel="DROP YOUR PROFILE PHOTO HERE"
+                    successLabel="✓ PROFILE PHOTO SECURED"
                     accept="image/jpeg, image/png, image/webp, image/jpg"
                     maxSizeMB={5}
                     uploadUrl="/api/register/upload/photo"
@@ -106,7 +103,6 @@ export default function PersonalIntel() {
                     currentFileId={useWatch({ name: "personalIntel.profilePicture" })}
                 />
 
-                {/* Hidden input to strictly validate in Zod */}
                 <input type="hidden" {...register("personalIntel.profilePicture")} />
                 {e?.profilePicture && (
                     <div className="text-[var(--red)] text-sm -mt-4 mb-4">{e.profilePicture.message}</div>

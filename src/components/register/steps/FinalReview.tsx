@@ -1,23 +1,31 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { READINESS_OPTIONS } from "@/lib/register/constants";
 import type { RegistrationFormData } from "@/lib/register/types";
+import SectionLabel from "@/components/register/SectionLabel";
 
 interface FinalReviewProps {
     onEditStep: (stepIndex: number) => void;
 }
 
+function fileSecured(value?: string) {
+    return Boolean(value && value.trim() !== "");
+}
+
 export default function FinalReview({ onEditStep }: FinalReviewProps) {
+    const form = useWatch() as RegistrationFormData;
+    const { personalIntel, aiesecIntel, agentProfile, missionIntel, missionReadiness } = form;
     const { getValues } = useFormContext<RegistrationFormData>();
 
-    // We can use getValues here because we only reach this step after all other data is entered.
-    // However, to ensure reactivity if we flip back and forth, we could also use useWatch.
-    // But since it's the final review, a simple dump of getValues() is appropriate for presentation.
-    const form = getValues();
-    const { personalIntel, aiesecIntel, agentProfile, missionIntel, missionReadiness } = form;
+    const pi = personalIntel ?? getValues("personalIntel");
+    const ai = aiesecIntel ?? getValues("aiesecIntel");
+    const ap = agentProfile ?? getValues("agentProfile");
+    const mi = missionIntel ?? getValues("missionIntel");
+    const mr = missionReadiness ?? getValues("missionReadiness");
 
-    const readinessObj = READINESS_OPTIONS.find((o) => o.level === missionReadiness.readinessLevel);
+    const readinessObj = READINESS_OPTIONS.find((o) => o.level === mr.readinessLevel);
 
     const ReviewSection = ({
         title,
@@ -26,20 +34,17 @@ export default function FinalReview({ onEditStep }: FinalReviewProps) {
     }: {
         title: string;
         stepIndex: number;
-        children: React.ReactNode;
+        children: ReactNode;
     }) => (
-        <fieldset className="flex flex-col gap-4 p-5 dossier-card relative">
+        <fieldset className="flex flex-col gap-4 p-5 reg-panel relative">
             <button
                 type="button"
                 onClick={() => onEditStep(stepIndex)}
-                className="absolute top-4 right-4 font-classified text-[10px] tracking-[0.2em] text-white/50 hover:text-[var(--red)] transition-colors uppercase"
+                className="absolute top-4 right-4 font-classified text-[10px] tracking-[0.2em] text-[var(--red)] hover:text-white transition-colors uppercase"
             >
-                [ EDIT ]
+                EDIT
             </button>
-            <legend className="flex items-center gap-3 mb-2">
-                <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                <span className="label-classified">{title}</span>
-            </legend>
+            <SectionLabel>{title}</SectionLabel>
             <div className="flex flex-col gap-3">{children}</div>
         </fieldset>
     );
@@ -57,43 +62,53 @@ export default function FinalReview({ onEditStep }: FinalReviewProps) {
 
     return (
         <div className="flex flex-col gap-8">
+            <p className="font-classified text-[9px] tracking-[0.28em] uppercase text-white/35">
+                MISSION BRIEFING
+            </p>
+
             <ReviewSection title="PERSONAL INTEL" stepIndex={0}>
-                <DataRow label="Full Name" value={personalIntel.fullName} />
-                <DataRow label="Preferred Name" value={personalIntel.preferredName} />
-                <DataRow label="Personal Email" value={personalIntel.personalEmail} />
-                <DataRow label="Phone Number" value={personalIntel.phone} />
-                <DataRow label="Profile Picture" value={personalIntel.profilePicture} />
-                <DataRow label="Gender" value={personalIntel.gender} />
-                <DataRow label="Date of Birth" value={personalIntel.dateOfBirth} />
-                <DataRow label="National ID / Passport" value={personalIntel.nationalIdOrPassport} />
+                <DataRow label="Full Name" value={pi.fullName} />
+                <DataRow label="Preferred Name" value={pi.preferredName} />
+                <DataRow label="Personal Email" value={pi.personalEmail} />
+                <DataRow label="Phone Number" value={pi.phone} />
+                <DataRow
+                    label="Profile Picture"
+                    value={fileSecured(pi.profilePicture) ? "✓ Profile photo secured" : undefined}
+                />
+                <DataRow label="Gender" value={pi.gender} />
+                <DataRow label="Date of Birth" value={pi.dateOfBirth} />
+                <DataRow label="National ID / Passport" value={pi.nationalIdOrPassport} />
             </ReviewSection>
 
             <ReviewSection title="AIESEC INTEL" stepIndex={1}>
-                <DataRow label="AIESEC Email" value={aiesecIntel.aiesecEmail} />
-                <DataRow label="AIESEC Entity" value={aiesecIntel.entity} />
-                {/* Omit IG if custom empty, or just pass the value because our DataRow handles empty implicitly */}
-                {aiesecIntel.entity === "Other" && aiesecIntel.initiativeGroup === "Other IG" ? (
-                    <DataRow label="Initiative Group" value={aiesecIntel.customInitiativeGroup} />
+                <DataRow label="Newbie / Oldbie" value={ai.participantType} />
+                <DataRow label="AIESEC Email" value={ai.aiesecEmail} />
+                <DataRow label="AIESEC Entity" value={ai.entity} />
+                {ai.entity === "Other" && ai.initiativeGroup === "Other IG" ? (
+                    <DataRow label="Initiative Group" value={ai.customInitiativeGroup} />
                 ) : (
-                    <DataRow label="Initiative Group" value={aiesecIntel.initiativeGroup} />
+                    <DataRow label="Initiative Group" value={ai.initiativeGroup} />
                 )}
-                <DataRow label="Current Position" value={aiesecIntel.currentPosition} />
+                <DataRow label="Current Position" value={ai.currentPosition} />
             </ReviewSection>
 
             <ReviewSection title="AGENT PROFILE" stepIndex={2}>
-                <DataRow label="Food Preference" value={agentProfile.foodPreference} />
-                <DataRow label="Medical Conditions / Allergies" value={agentProfile.medicalConditions} />
-                <DataRow label="Guardian Name" value={agentProfile.guardianName} />
-                <DataRow label="Guardian Contact" value={agentProfile.guardianContact} />
-                <DataRow label="CV Link" value={agentProfile.cvLink} />
-                {agentProfile.cvLink && agentProfile.cvLink.trim() !== "" && (
-                    <DataRow label="CV Consent" value={agentProfile.cvConsent} />
+                <DataRow label="Food Preference" value={ap.foodPreference} />
+                <DataRow label="Medical Conditions / Allergies" value={ap.medicalConditions} />
+                <DataRow label="Guardian Name" value={ap.guardianName} />
+                <DataRow label="Guardian Contact" value={ap.guardianContact} />
+                <DataRow
+                    label="CV"
+                    value={fileSecured(ap.cvLink) ? "✓ CV secured" : undefined}
+                />
+                {fileSecured(ap.cvLink) && (
+                    <DataRow label="CV Consent" value={ap.cvConsent} />
                 )}
             </ReviewSection>
 
             <ReviewSection title="MISSION INTEL" stepIndex={3}>
-                <DataRow label="Mission Goal" value={missionIntel.missionGoal} />
-                <DataRow label="Additional Information" value={missionIntel.additionalInformation} />
+                <DataRow label="Mission Goal" value={mi.missionGoal} />
+                <DataRow label="Additional Information" value={mi.additionalInformation} />
             </ReviewSection>
 
             <ReviewSection title="MISSION READINESS" stepIndex={4}>

@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormSelect, FormInput } from "@/components/register/FormField";
+import SectionLabel from "@/components/register/SectionLabel";
 import { AIESEC_ENTITIES, ENTITY_IG_MAPPING, OTHER_ENTITY_IGS, AIESEC_POSITIONS } from "@/lib/register/constants";
 import type { AiesecIntelData } from "@/lib/register/types";
 
@@ -26,49 +27,77 @@ export default function AiesecIntel() {
         return ENTITY_IG_MAPPING[entity] || [];
     }, [entity]);
 
-    // When entity changes, if the current IG is not in the new options list, clear it
     useEffect(() => {
         if (entity) {
-            if (initiativeGroup && !igOptions.includes(initiativeGroup as any)) {
+            if (initiativeGroup && !igOptions.includes(initiativeGroup as never)) {
                 setValue("aiesecIntel.initiativeGroup", "", { shouldValidate: true });
                 setValue("aiesecIntel.customInitiativeGroup", "", { shouldValidate: true });
             }
         }
     }, [entity, igOptions, initiativeGroup, setValue]);
 
-    // If IG changes away from Other IG, clear custom IG name
     useEffect(() => {
         if (initiativeGroup !== "Other IG") {
             setValue("aiesecIntel.customInitiativeGroup", "", { shouldValidate: true });
         }
     }, [initiativeGroup, setValue]);
 
+    const selectType = (type: "NEWBIE" | "OLDBIE") => {
+        setValue("aiesecIntel.participantType", type, { shouldValidate: true });
+    };
+
     return (
         <div className="flex flex-col gap-8">
-            {/* Section: Entity */}
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">AIESEC AFFILIATION & IDENTITY VERIFICATION</span>
-                </legend>
+                <SectionLabel>AIESEC AFFILIATION & IDENTITY VERIFICATION</SectionLabel>
 
-                {/* Section: Newbie or Oldbie */}
                 <div className="flex flex-col gap-3 mb-2">
-                    <label className="text-[11px] font-classified tracking-widest text-[#F9B62A] uppercase">
+                    <label className="font-classified text-[11px] tracking-[0.22em] uppercase text-white/55">
                         Are you a Newbie or Oldbie? <span className="text-[var(--red)]">*</span>
                     </label>
-                    <div className="grid grid-cols-2 gap-4">
-                        <label className={`cursor-pointer border p-4 flex flex-col items-center justify-center gap-2 transition-all ${participantType === "NEWBIE" ? "border-[#F9B62A] bg-[#F9B62A]/10 text-white" : "border-[var(--border)] text-white/50 hover:border-white/30"}`}>
-                            <input type="radio" value="NEWBIE" className="hidden" {...register("aiesecIntel.participantType")} />
-                            <span className="font-bebas text-xl tracking-widest">NEWBIE</span>
-                            <span className="text-[10px] uppercase font-sans tracking-wide opacity-70">New to AIESEC</span>
-                        </label>
-                        <label className={`cursor-pointer border p-4 flex flex-col items-center justify-center gap-2 transition-all ${participantType === "OLDBIE" ? "border-[#F9B62A] bg-[#F9B62A]/10 text-white" : "border-[var(--border)] text-white/50 hover:border-white/30"}`}>
-                            <input type="radio" value="OLDBIE" className="hidden" {...register("aiesecIntel.participantType")} />
-                            <span className="font-bebas text-xl tracking-widest">OLDBIE</span>
-                            <span className="text-[10px] uppercase font-sans tracking-wide opacity-70">Existing member</span>
-                        </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button
+                            type="button"
+                            className={`reg-choice ${participantType === "NEWBIE" ? "reg-choice--active" : ""}`}
+                            aria-pressed={participantType === "NEWBIE"}
+                            onClick={() => selectType("NEWBIE")}
+                        >
+                            {participantType === "NEWBIE" && (
+                                <span
+                                    className="absolute top-3 right-3 w-5 h-5 flex items-center justify-center z-10"
+                                    style={{ background: "var(--red)" }}
+                                    aria-hidden
+                                >
+                                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                        <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                            )}
+                            <span className="font-display text-[2rem] leading-none tracking-[0.12em]">NEWBIE</span>
+                            <span className="font-sans text-[11px] tracking-wide text-white/50">New to AIESEC</span>
+                        </button>
+                        <button
+                            type="button"
+                            className={`reg-choice ${participantType === "OLDBIE" ? "reg-choice--active" : ""}`}
+                            aria-pressed={participantType === "OLDBIE"}
+                            onClick={() => selectType("OLDBIE")}
+                        >
+                            {participantType === "OLDBIE" && (
+                                <span
+                                    className="absolute top-3 right-3 w-5 h-5 flex items-center justify-center z-10"
+                                    style={{ background: "var(--red)" }}
+                                    aria-hidden
+                                >
+                                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                        <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                            )}
+                            <span className="font-display text-[2rem] leading-none tracking-[0.12em]">OLDBIE</span>
+                            <span className="font-sans text-[11px] tracking-wide text-white/50">Existing AIESEC member</span>
+                        </button>
                     </div>
+                    <input type="hidden" {...register("aiesecIntel.participantType")} />
                     {e?.participantType && (
                         <p className="text-[11px] text-red-500 font-medium m-0">{e.participantType.message}</p>
                     )}
@@ -104,7 +133,7 @@ export default function AiesecIntel() {
                 )}
 
                 {entity && igOptions.length === 0 && entity !== "Other" && (
-                    <p className="font-classified text-[10px] tracking-[0.12em] text-white/40 uppercase p-4 mt-2" style={{ border: "1px dashed var(--border-strong)", borderRadius: "4px" }}>
+                    <p className="font-classified text-[10px] tracking-[0.12em] text-white/40 uppercase p-4 mt-2" style={{ border: "1px dashed var(--border-strong)" }}>
                         No mapped Initiative Groups for {entity}. Please proceed.
                     </p>
                 )}

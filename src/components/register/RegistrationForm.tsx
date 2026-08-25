@@ -7,19 +7,19 @@ import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 
 import StepIndicator from "@/components/register/StepIndicator";
+import StepHeader from "@/components/register/StepHeader";
+import StepNavigation from "@/components/register/StepNavigation";
 import PersonalIntel from "@/components/register/steps/PersonalIntel";
 import AiesecIntel from "@/components/register/steps/AiesecIntel";
 import AgentProfile from "@/components/register/steps/AgentProfile";
 import MissionIntel from "@/components/register/steps/MissionIntel";
 import MissionReadiness from "@/components/register/steps/MissionReadiness";
 import FinalReview from "@/components/register/steps/FinalReview";
-import LockedStep from "@/components/register/steps/LockedStep";
 import SubmissionSuccess from "@/components/register/SubmissionSuccess";
 
-import { STEP_META, TOTAL_STEPS, type RegistrationFormData } from "@/lib/register/types";
+import { TOTAL_STEPS, type RegistrationFormData } from "@/lib/register/types";
 import { personalIntelSchema, aiesecIntelSchema, agentProfileSchema, missionIntelSchema, missionReadinessSchema } from "@/lib/register/schema";
 
-/* Full form schema — validates step 0 strictly, rest are permissive */
 const registrationSchema = z.object({
     personalIntel: personalIntelSchema,
     aiesecIntel: aiesecIntelSchema,
@@ -27,8 +27,6 @@ const registrationSchema = z.object({
     missionIntel: missionIntelSchema,
     missionReadiness: missionReadinessSchema,
 });
-
-/* ─── Form default values ────────────────────────────────── */
 
 const defaultValues: RegistrationFormData = {
     personalIntel: {
@@ -66,29 +64,35 @@ const defaultValues: RegistrationFormData = {
     },
 };
 
-/* ─── Step animation variants ────────────────────────────── */
-
 const stepVariants = {
     enter: (direction: number) => ({
-        x: direction > 0 ? 60 : -60,
+        x: direction > 0 ? 28 : -28,
         opacity: 0,
+        filter: "blur(8px)",
+        scale: 0.985,
     }),
     center: {
         x: 0,
         opacity: 1,
+        filter: "blur(0px)",
+        scale: 1,
     },
     exit: (direction: number) => ({
-        x: direction > 0 ? -60 : 60,
+        x: direction > 0 ? -28 : 28,
         opacity: 0,
+        filter: "blur(6px)",
+        scale: 0.99,
     }),
 };
-
-/* ─── Main Registration Form ────────────────────────────── */
 
 export default function RegistrationForm() {
     const [currentStep, setCurrentStep] = useState(0);
     const [completedSteps, setCompletedSteps] = useState<number[]>([]);
     const [direction, setDirection] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [submitReferenceCode, setSubmitReferenceCode] = useState<string | null>(null);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
     const methods = useForm<RegistrationFormData>({
         defaultValues,
@@ -98,11 +102,12 @@ export default function RegistrationForm() {
 
     const { handleSubmit, trigger } = methods;
 
-    /* ── Step navigation ──────────────────────────────────── */
+    const markComplete = useCallback((step: number) => {
+        setCompletedSteps((prev) => (prev.includes(step) ? prev : [...prev, step]));
+    }, []);
 
     const goToStep = useCallback(
         async (targetStep: number) => {
-            // Can only go forward from step 0 after validation
             if (targetStep > currentStep && currentStep === 0) {
                 type PersonalField = `personalIntel.${keyof RegistrationFormData["personalIntel"]}`;
                 const fieldsToValidate: PersonalField[] = [
@@ -115,17 +120,11 @@ export default function RegistrationForm() {
                     "personalIntel.dateOfBirth",
                     "personalIntel.nationalIdOrPassport",
                 ];
-
                 const valid = await trigger(fieldsToValidate);
                 if (!valid) return;
-
-                // Mark step as completed
-                setCompletedSteps((prev) =>
-                    prev.includes(currentStep) ? prev : [...prev, currentStep]
-                );
+                markComplete(currentStep);
             }
 
-            // Can only go forward from step 1 after validation
             if (targetStep > currentStep && currentStep === 1) {
                 type AiesecField = `aiesecIntel.${keyof RegistrationFormData["aiesecIntel"]}`;
                 const fieldsToValidate: AiesecField[] = [
@@ -136,17 +135,11 @@ export default function RegistrationForm() {
                     "aiesecIntel.customInitiativeGroup",
                     "aiesecIntel.currentPosition",
                 ];
-
                 const valid = await trigger(fieldsToValidate);
                 if (!valid) return;
-
-                // Mark step as completed
-                setCompletedSteps((prev) =>
-                    prev.includes(currentStep) ? prev : [...prev, currentStep]
-                );
+                markComplete(currentStep);
             }
 
-            // Can only go forward from step 2 after validation
             if (targetStep > currentStep && currentStep === 2) {
                 type AgentField = `agentProfile.${keyof RegistrationFormData["agentProfile"]}`;
                 const fieldsToValidate: AgentField[] = [
@@ -157,51 +150,36 @@ export default function RegistrationForm() {
                     "agentProfile.cvLink",
                     "agentProfile.cvConsent",
                 ];
-
                 const valid = await trigger(fieldsToValidate);
                 if (!valid) return;
-
-                // Mark step as completed
-                setCompletedSteps((prev) =>
-                    prev.includes(currentStep) ? prev : [...prev, currentStep]
-                );
+                markComplete(currentStep);
             }
 
-            // Can only go forward from step 3 after validation
             if (targetStep > currentStep && currentStep === 3) {
                 type MissionIntelField = `missionIntel.${keyof RegistrationFormData["missionIntel"]}`;
                 const fieldsToValidate: MissionIntelField[] = [
                     "missionIntel.missionGoal",
                     "missionIntel.additionalInformation",
                 ];
-
                 const valid = await trigger(fieldsToValidate);
                 if (!valid) return;
-
-                setCompletedSteps((prev) =>
-                    prev.includes(currentStep) ? prev : [...prev, currentStep]
-                );
+                markComplete(currentStep);
             }
 
-            // Can only go forward from step 4 after validation
             if (targetStep > currentStep && currentStep === 4) {
                 type MissionReadinessField = `missionReadiness.${keyof RegistrationFormData["missionReadiness"]}`;
                 const fieldsToValidate: MissionReadinessField[] = [
                     "missionReadiness.readinessLevel",
                 ];
-
                 const valid = await trigger(fieldsToValidate);
                 if (!valid) return;
-
-                setCompletedSteps((prev) =>
-                    prev.includes(currentStep) ? prev : [...prev, currentStep]
-                );
+                markComplete(currentStep);
             }
 
             setDirection(targetStep > currentStep ? 1 : -1);
             setCurrentStep(targetStep);
         },
-        [currentStep, trigger]
+        [currentStep, trigger, markComplete]
     );
 
     const handleNext = useCallback(() => {
@@ -217,19 +195,13 @@ export default function RegistrationForm() {
         }
     }, [currentStep]);
 
-    const [isSubmitted, setIsSubmitted] = useState(false);
-    const [submitReferenceCode, setSubmitReferenceCode] = useState<string | null>(null);
-    const [submitError, setSubmitError] = useState<string | null>(null);
-
-    /* ── Form submit ──────────────────────────────────────── */
-
     const onSubmit = async (data: RegistrationFormData) => {
-        setIsSubmitted(true);
+        if (isSubmitting) return;
+        setIsSubmitting(true);
         setSubmitError(null);
         setSubmitReferenceCode(null);
 
         try {
-            // Map the nested Form structure to the flat Backend DTO gracefully
             const payload = {
                 fullName: data.personalIntel.fullName,
                 preferredName: data.personalIntel.preferredName,
@@ -272,17 +244,16 @@ export default function RegistrationForm() {
             }
 
             setSubmitReferenceCode(responseData.referenceCode);
-        } catch (error: any) {
+            setIsSuccess(true);
+        } catch (error: unknown) {
+            const message = error instanceof Error ? error.message : "Failed to transmit file.";
             console.error("[Submission Error]", error);
-            setSubmitError(error.message);
+            setSubmitError(message);
+            setIsSuccess(true);
+        } finally {
+            setIsSubmitting(false);
         }
     };
-
-    /* ── Current step label ───────────────────────────────── */
-
-    const currentMeta = STEP_META[currentStep];
-
-    /* ── Render step content ──────────────────────────────── */
 
     function renderStep() {
         switch (currentStep) {
@@ -306,51 +277,59 @@ export default function RegistrationForm() {
         }
     }
 
+    const showOutcome = isSuccess || (isSubmitting && currentStep === TOTAL_STEPS - 1);
+
     return (
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                {isSubmitted ? (
-                    <section
-                        className="w-full flex items-center justify-center"
+                <section
+                    className="reg-shell w-full"
+                    style={{
+                        minHeight: "70vh",
+                        paddingTop: "5.5rem",
+                        paddingBottom: "6rem",
+                    }}
+                >
+                    <div className="reg-shell__radar" />
+
+                    <div
+                        className="relative z-10 mx-auto"
                         style={{
-                            background: "var(--bg)",
-                            minHeight: "60vh",
-                            paddingTop: "3rem",
-                            paddingBottom: "6rem",
+                            maxWidth: "1400px",
+                            paddingLeft: "clamp(1.5rem, 4vw, 2.5rem)",
+                            paddingRight: "clamp(1.5rem, 4vw, 2.5rem)",
                         }}
                     >
-                        <SubmissionSuccess
-                            referenceCode={submitReferenceCode}
-                            error={submitError}
-                            onRetry={() => {
-                                setIsSubmitted(false);
-                                setSubmitError(null);
-                                setSubmitReferenceCode(null);
-                            }}
-                        />
-                    </section>
-                ) : (
-                    <section
-                        className="w-full"
-                        style={{
-                            background: "var(--bg)",
-                            minHeight: "60vh",
-                            paddingTop: "3rem",
-                            paddingBottom: "6rem",
-                        }}
-                    >
-                        <div
-                            className="relative z-10 mx-auto"
-                            style={{
-                                maxWidth: "1400px",
-                                paddingLeft: "clamp(1.5rem, 4vw, 2.5rem)",
-                                paddingRight: "clamp(1.5rem, 4vw, 2.5rem)",
-                            }}
-                        >
-                            {/* ── Layout: Sidebar + Form ──────────────────── */}
+                        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 pt-4">
+                            <div>
+                                <p className="font-classified text-[9px] tracking-[0.28em] text-white/35 mb-2">
+                                    NLDS 2026
+                                </p>
+                                <h1
+                                    className="font-display leading-[0.85] tracking-[0.04em]"
+                                    style={{ fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "var(--text)" }}
+                                >
+                                    REGISTRATION
+                                </h1>
+                            </div>
+                            <p className="font-classified text-[9px] tracking-[0.28em] uppercase text-[var(--red)] sm:text-right">
+                                CLASSIFIED // REGISTRATION PROTOCOL
+                            </p>
+                        </header>
+
+                        {showOutcome ? (
+                            <SubmissionSuccess
+                                referenceCode={submitReferenceCode}
+                                error={submitError}
+                                onRetry={() => {
+                                    setIsSuccess(false);
+                                    setSubmitError(null);
+                                    setSubmitReferenceCode(null);
+                                }}
+                            />
+                        ) : (
                             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-                                {/* Sidebar — Step Indicator */}
-                                <div className="lg:w-[280px] xl:w-[320px] flex-shrink-0">
+                                <div className="lg:w-[280px] xl:w-[300px] flex-shrink-0">
                                     <div className="lg:sticky lg:top-[100px]">
                                         <StepIndicator
                                             currentStep={currentStep}
@@ -359,57 +338,18 @@ export default function RegistrationForm() {
                                     </div>
                                 </div>
 
-                                {/* Main Content Area */}
                                 <div className="flex-1 min-w-0">
-                                    {/* Step header */}
-                                    <div className="mb-8">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <span
-                                                className="w-1.5 h-1.5 rounded-full animate-blink"
-                                                style={{ background: "var(--red)" }}
-                                            />
-                                            <span className="font-classified text-[9px] tracking-[0.25em] uppercase" style={{ color: "var(--red)" }}>
-                                                MISSION {currentMeta.missionNumber} OF {TOTAL_STEPS}
-                                            </span>
-                                            <div className="h-[1px] flex-1" style={{ background: "var(--border)" }} />
-                                            <span className="font-classified text-[8px] tracking-[0.15em] text-white/15">
-                      // {currentMeta.fileNo}
-                                            </span>
-                                        </div>
+                                    <StepHeader currentStep={currentStep} />
 
-                                        <h2
-                                            className="font-display leading-[0.9] tracking-[0.04em] mb-2"
-                                            style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", color: "var(--text)" }}
-                                        >
-                                            {currentMeta.title}
-                                            <span style={{ color: "var(--red)" }}> {currentMeta.subtitle}</span>
-                                        </h2>
-
-                                        <p
-                                            className="max-w-lg"
-                                            style={{
-                                                fontSize: "0.9rem",
-                                                color: "var(--text-dim)",
-                                                fontWeight: 300,
-                                                lineHeight: 1.7,
-                                            }}
-                                        >
-                                            {currentMeta.description}
-                                        </p>
-                                    </div>
-
-                                    {/* Form card */}
                                     <div
-                                        className="dossier-card"
+                                        className="reg-panel"
                                         style={{ padding: "clamp(1.5rem, 4vw, 3rem)" }}
                                     >
-                                        {/* Corner marks */}
                                         <div className="absolute top-3 left-3 w-3 h-3 corner-tl border-white/08" />
                                         <div className="absolute top-3 right-3 w-3 h-3 corner-tr border-white/08" />
                                         <div className="absolute bottom-3 left-3 w-3 h-3 corner-bl border-white/08" />
                                         <div className="absolute bottom-3 right-3 w-3 h-3 corner-br border-white/08" />
 
-                                        {/* Animated step content */}
                                         <AnimatePresence mode="wait" custom={direction}>
                                             <motion.div
                                                 key={currentStep}
@@ -419,7 +359,7 @@ export default function RegistrationForm() {
                                                 animate="center"
                                                 exit="exit"
                                                 transition={{
-                                                    duration: 0.35,
+                                                    duration: 0.4,
                                                     ease: [0.16, 1, 0.3, 1],
                                                 }}
                                             >
@@ -428,57 +368,13 @@ export default function RegistrationForm() {
                                         </AnimatePresence>
                                     </div>
 
-                                    {/* Navigation buttons */}
-                                    <div
-                                        className="flex flex-col items-center justify-between mt-8 sm:flex-row gap-4"
-                                        style={{ borderTop: "1px solid var(--border)", paddingTop: "1.5rem" }}
-                                    >
-                                        {/* Back */}
-                                        {currentStep > 0 ? (
-                                            <button
-                                                type="button"
-                                                onClick={handlePrev}
-                                                className="btn-ghost"
-                                                id="reg-btn-prev"
-                                                disabled={isSubmitted}
-                                            >
-                                                ← PREVIOUS MISSION
-                                            </button>
-                                        ) : (
-                                            <div className="hidden sm:block" /> /* Spacer */
-                                        )}
+                                    <StepNavigation
+                                        currentStep={currentStep}
+                                        isSubmitting={isSubmitting}
+                                        onPrev={handlePrev}
+                                        onNext={handleNext}
+                                    />
 
-                                        {/* Next / Submit */}
-                                        {currentStep < TOTAL_STEPS - 1 ? (
-                                            <button
-                                                type="button"
-                                                onClick={handleNext}
-                                                className="btn-mission"
-                                                id="reg-btn-next"
-                                            >
-                                                NEXT MISSION →
-                                            </button>
-                                        ) : (
-                                            <div className="flex flex-col items-end gap-3 text-right">
-                                                {!isSubmitted && (
-                                                    <span className="font-sans text-xs tracking-wide text-white/50 max-w-[280px]">
-                                                        Once submitted, your mission profile will be sent to the NLDS 2026 Conference Team for review.
-                                                    </span>
-                                                )}
-                                                <button
-                                                    type={isSubmitted ? "button" : "submit"}
-                                                    className="btn-mission"
-                                                    id="reg-btn-submit"
-                                                    disabled={isSubmitted}
-                                                    style={{ opacity: isSubmitted ? 0.8 : 1, background: isSubmitted ? "var(--border-strong)" : "" }}
-                                                >
-                                                    {isSubmitted ? "MISSION SUBMITTED ✔️" : "SUBMIT MISSION →"}
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-
-                                    {/* Footer info */}
                                     <div className="flex items-center justify-center gap-3 mt-8">
                                         <div className="h-[1px] w-6" style={{ background: "var(--border)" }} />
                                         <span className="font-classified text-[8px] tracking-[0.2em] text-white/15 uppercase">
@@ -488,9 +384,9 @@ export default function RegistrationForm() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </section>
-                )}
+                        )}
+                    </div>
+                </section>
             </form>
         </FormProvider>
     );

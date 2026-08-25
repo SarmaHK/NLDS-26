@@ -2,6 +2,7 @@
 
 import { useFormContext, useWatch } from "react-hook-form";
 import { READINESS_OPTIONS } from "@/lib/register/constants";
+import SectionLabel from "@/components/register/SectionLabel";
 import type { MissionReadinessData } from "@/lib/register/types";
 import { motion } from "framer-motion";
 
@@ -17,10 +18,7 @@ export default function MissionReadiness() {
     return (
         <div className="flex flex-col gap-8">
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">MISSION READINESS PROTOCOL</span>
-                </legend>
+                <SectionLabel>MISSION READINESS PROTOCOL</SectionLabel>
 
                 <p className="font-classified text-[10px] tracking-[0.12em] text-white/50 uppercase mb-2">
                     On a scale of 1–5, how ready are you to accept the NLDS 2026 mission?

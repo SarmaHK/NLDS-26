@@ -2,6 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { FormTextarea } from "@/components/register/FormField";
+import SectionLabel from "@/components/register/SectionLabel";
 import { Globe } from "lucide-react";
 import type { MissionIntelData } from "@/lib/register/types";
 
@@ -16,10 +17,7 @@ export default function MissionIntel() {
     return (
         <div className="flex flex-col gap-8">
             <fieldset className="flex flex-col gap-8">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">MISSION OBJECTIVES</span>
-                </legend>
+                <SectionLabel>MISSION OBJECTIVES</SectionLabel>
 
                 <FormTextarea
                     label="What do you hope to accomplish by accepting the NLDS 2026 mission?"

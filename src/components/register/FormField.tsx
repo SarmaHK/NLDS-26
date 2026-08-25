@@ -1,7 +1,11 @@
 "use client";
 
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { type FieldError } from "react-hook-form";
+
+function fieldClass(error?: FieldError, filled?: boolean) {
+    return `reg-field ${!error && filled ? "reg-field--valid" : ""}`;
+}
 
 /* ─── Text / Email / Date / Tel Input ────────────────────── */
 
@@ -14,17 +18,18 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
-    ({ label, error, hint, extraLabel, required, id, ...props }, ref) => {
+    ({ label, error, hint, extraLabel, required, id, className, onChange, onFocus, onBlur, defaultValue, value, ...props }, ref) => {
         const inputId = id || label.toLowerCase().replace(/\s+/g, "-");
+        const [filled, setFilled] = useState(() => Boolean(value ?? defaultValue));
 
         return (
             <div className="flex flex-col gap-1.5">
                 <label
                     htmlFor={inputId}
                     className="font-classified text-[10px] tracking-[0.22em] uppercase"
-                    style={{ color: error ? "var(--red)" : "rgba(255,255,255,0.45)" }}
+                    style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
                 >
-                    <div className="flex justify-between items-center w-full">
+                    <div className="flex justify-between items-center w-full gap-3">
                         <span>
                             {label}
                             {required && (
@@ -32,7 +37,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                             )}
                         </span>
                         {extraLabel && (
-                            <span className="opacity-60 ml-2 normal-case" style={{ color: "inherit" }}>
+                            <span className="opacity-70 ml-2 normal-case tracking-normal font-sans text-[10px]" style={{ color: "inherit" }}>
                                 {extraLabel}
                             </span>
                         )}
@@ -42,39 +47,25 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                 <input
                     ref={ref}
                     id={inputId}
-                    className="form-field"
+                    className={`${fieldClass(error, filled)} ${className ?? ""}`}
                     aria-invalid={!!error}
                     aria-describedby={error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined}
+                    value={value}
+                    defaultValue={defaultValue}
                     {...props}
-                    style={{
-                        width: "100%",
-                        padding: "12px 16px",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "0.9rem",
-                        color: "var(--text)",
-                        background: "var(--surface-1)",
-                        border: `1px solid ${error ? "var(--red)" : "var(--border-strong)"}`,
-                        outline: "none",
-                        transition: "border-color 0.25s, box-shadow 0.25s",
-                        ...(props.style || {}),
+                    onChange={(e) => {
+                        setFilled(e.target.value.trim().length > 0);
+                        onChange?.(e);
                     }}
-                    onFocus={(e) => {
-                        e.target.style.borderColor = "var(--red)";
-                        e.target.style.boxShadow = "0 0 0 1px rgba(196,30,58,0.2)";
-                        props.onFocus?.(e);
-                    }}
-                    onBlur={(e) => {
-                        e.target.style.borderColor = error ? "var(--red)" : "var(--border-strong)";
-                        e.target.style.boxShadow = "none";
-                        props.onBlur?.(e);
-                    }}
+                    onFocus={onFocus}
+                    onBlur={onBlur}
                 />
 
                 {hint && !error && (
                     <span
                         id={`${inputId}-hint`}
-                        className="font-classified text-[9px] tracking-[0.12em]"
-                        style={{ color: "rgba(255,255,255,0.2)" }}
+                        className="font-sans text-[11px]"
+                        style={{ color: "rgba(255,255,255,0.28)" }}
                     >
                         {hint}
                     </span>
@@ -108,15 +99,16 @@ interface FormSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> 
 }
 
 export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
-    ({ label, options, error, placeholder = "Select...", required, id, ...props }, ref) => {
+    ({ label, options, error, placeholder = "Select...", required, id, onChange, defaultValue, value, ...props }, ref) => {
         const selectId = id || label.toLowerCase().replace(/\s+/g, "-");
+        const [filled, setFilled] = useState(() => Boolean(value ?? defaultValue));
 
         return (
             <div className="flex flex-col gap-1.5">
                 <label
                     htmlFor={selectId}
                     className="font-classified text-[10px] tracking-[0.22em] uppercase"
-                    style={{ color: error ? "var(--red)" : "rgba(255,255,255,0.45)" }}
+                    style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
                 >
                     {label}
                     {required && (
@@ -127,26 +119,23 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
                 <select
                     ref={ref}
                     id={selectId}
-                    className="form-field"
+                    className={fieldClass(error, filled)}
                     aria-invalid={!!error}
+                    value={value}
+                    defaultValue={defaultValue}
                     {...props}
                     style={{
-                        width: "100%",
-                        padding: "12px 16px",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "0.9rem",
-                        color: "var(--text)",
-                        background: "var(--surface-1)",
-                        border: `1px solid ${error ? "var(--red)" : "var(--border-strong)"}`,
-                        outline: "none",
                         appearance: "none",
                         cursor: "pointer",
-                        transition: "border-color 0.25s",
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.3)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "right 12px center",
                         paddingRight: "40px",
                         ...(props.style || {}),
+                    }}
+                    onChange={(e) => {
+                        setFilled(e.target.value.trim().length > 0);
+                        onChange?.(e);
                     }}
                 >
                     <option value="" disabled style={{ color: "rgba(255,255,255,0.25)" }}>
@@ -185,15 +174,16 @@ interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaEle
 }
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-    ({ label, error, hint, required, id, ...props }, ref) => {
+    ({ label, error, hint, required, id, onChange, defaultValue, value, ...props }, ref) => {
         const textareaId = id || label.toLowerCase().replace(/\s+/g, "-");
+        const [filled, setFilled] = useState(() => Boolean(value ?? defaultValue));
 
         return (
             <div className="flex flex-col gap-1.5">
                 <label
                     htmlFor={textareaId}
                     className="font-classified text-[10px] tracking-[0.22em] uppercase"
-                    style={{ color: error ? "var(--red)" : "rgba(255,255,255,0.45)" }}
+                    style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
                 >
                     {label}
                     {required && (
@@ -204,39 +194,27 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
                 <textarea
                     ref={ref}
                     id={textareaId}
+                    className={fieldClass(error, filled)}
                     aria-invalid={!!error}
                     rows={3}
-                    {...props}
+                    value={value}
+                    defaultValue={defaultValue}
                     style={{
-                        width: "100%",
-                        padding: "12px 16px",
-                        fontFamily: "var(--font-sans)",
-                        fontSize: "0.9rem",
-                        color: "var(--text)",
-                        background: "var(--surface-1)",
-                        border: `1px solid ${error ? "var(--red)" : "var(--border-strong)"}`,
-                        outline: "none",
                         resize: "vertical",
-                        minHeight: "80px",
-                        transition: "border-color 0.25s, box-shadow 0.25s",
+                        minHeight: "96px",
                         ...(props.style || {}),
                     }}
-                    onFocus={(e) => {
-                        e.target.style.borderColor = "var(--red)";
-                        e.target.style.boxShadow = "0 0 0 1px rgba(196,30,58,0.2)";
-                        props.onFocus?.(e);
-                    }}
-                    onBlur={(e) => {
-                        e.target.style.borderColor = error ? "var(--red)" : "var(--border-strong)";
-                        e.target.style.boxShadow = "none";
-                        props.onBlur?.(e);
+                    {...props}
+                    onChange={(e) => {
+                        setFilled(e.target.value.trim().length > 0);
+                        onChange?.(e);
                     }}
                 />
 
                 {hint && !error && (
                     <span
-                        className="font-classified text-[9px] tracking-[0.12em]"
-                        style={{ color: "rgba(255,255,255,0.2)" }}
+                        className="font-sans text-[11px]"
+                        style={{ color: "rgba(255,255,255,0.28)" }}
                     >
                         {hint}
                     </span>
@@ -283,7 +261,6 @@ export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
                         aria-invalid={!!error}
                         {...props}
                     />
-                    {/* Custom checkbox */}
                     <div
                         className="w-5 h-5 flex-shrink-0 mt-0.5 flex items-center justify-center
                        peer-checked:border-[var(--red)] peer-checked:bg-[var(--red)]

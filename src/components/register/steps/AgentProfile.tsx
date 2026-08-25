@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { FormInput, FormSelect, FormTextarea } from "@/components/register/FormField";
 import { FileUpload } from "@/components/register/FileUpload";
+import SectionLabel from "@/components/register/SectionLabel";
 import { FOOD_PREFERENCES, CONSENT_OPTIONS } from "@/lib/register/constants";
 import type { AgentProfileData } from "@/lib/register/types";
 
@@ -31,10 +32,7 @@ export default function AgentProfile() {
         <div className="flex flex-col gap-8">
             {/* Section: Guardian/Emergency */}
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">EMERGENCY PROTOCOL</span>
-                </legend>
+                <SectionLabel>EMERGENCY PROTOCOL</SectionLabel>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
@@ -57,10 +55,7 @@ export default function AgentProfile() {
 
             {/* Section: Medical & Dietary */}
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">AGENT WELLBEING</span>
-                </legend>
+                <SectionLabel>AGENT WELLBEING</SectionLabel>
 
                 <FormSelect
                     label="Food Preference"
@@ -81,13 +76,13 @@ export default function AgentProfile() {
 
             {/* Section: Experience / CV */}
             <fieldset className="flex flex-col gap-5">
-                <legend className="flex items-center gap-3 mb-2">
-                    <div className="h-[1px] w-4" style={{ background: "var(--red)" }} />
-                    <span className="label-classified">MISSION DOCUMENTS</span>
-                </legend>
+                <SectionLabel>MISSION DOCUMENTS</SectionLabel>
 
                 <FileUpload
                     label="CV (Optional)"
+                    classification="CLASSIFIED FILE"
+                    dropLabel="DROP YOUR CV HERE"
+                    successLabel="✓ CV UPLOADED"
                     accept="application/pdf"
                     maxSizeMB={10}
                     uploadUrl="/api/register/upload/cv"

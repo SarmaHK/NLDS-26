@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import PageHero from "@/components/ui/PageHero";
 import RegistrationForm from "@/components/register/RegistrationForm";
 
 export const metadata: Metadata = {
@@ -11,13 +10,6 @@ export const metadata: Metadata = {
 export default function RegisterPage() {
     return (
         <main>
-            <PageHero
-                label="DELEGATE REGISTRATION"
-                fileNo="NLDS-2026-REG"
-                title="ACCEPT THE"
-                subtitle="MISSION"
-                description="Complete your dossier to secure your place at NLDS 2026. Every field is a step closer to the mission."
-            />
             <RegistrationForm />
         </main>
     );

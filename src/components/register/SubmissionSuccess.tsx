@@ -1,9 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 interface Props {
     referenceCode: string | null;
@@ -12,126 +9,109 @@ interface Props {
 }
 
 export default function SubmissionSuccess({ referenceCode, error, onRetry }: Props) {
-    const [phase, setPhase] = useState<"initializing" | "verifying" | "securing" | "transmitting" | "secured" | "error">("initializing");
-    const [progress, setProgress] = useState(0);
-    const router = useRouter();
+    const succeeded = Boolean(referenceCode) && !error;
 
-    useEffect(() => {
-        if (error) {
-            setPhase("error");
-            return;
-        }
+    if (error) {
+        return (
+            <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col items-center gap-8 w-full max-w-md mx-auto text-center py-16"
+            >
+                <span className="font-classified text-[10px] tracking-[0.32em] text-[var(--red)]">
+                    TRANSMISSION FAILED
+                </span>
+                <p className="font-sans text-sm tracking-wide text-white/60">
+                    {error || "Unknown network sequence interrupted"}
+                </p>
+                <button type="button" onClick={onRetry} className="btn-ghost mt-2 px-6">
+                    RETRY TRANSMISSION
+                </button>
+            </motion.div>
+        );
+    }
 
-        if (referenceCode) {
-            setPhase("secured");
-            setProgress(100);
-            return;
-        }
-
-        const phases: Array<typeof phase> = ["initializing", "verifying", "securing", "transmitting"];
-        let currentPhaseIdx = phases.indexOf(phase);
-
-        if (currentPhaseIdx === -1 || currentPhaseIdx >= phases.length) return;
-
-        const interval = setInterval(() => {
-            setProgress((prev) => {
-                const next = prev + (Math.random() * 8 + 2);
-                if (next > 95) {
-                    return 95;
-                }
-
-                if (next > 25 && next < 50 && currentPhaseIdx === 0) setPhase("verifying");
-                if (next > 50 && next < 75 && currentPhaseIdx <= 1) setPhase("securing");
-                if (next > 75 && currentPhaseIdx <= 2) setPhase("transmitting");
-
-                return next;
-            });
-        }, 300);
-
-        return () => clearInterval(interval);
-    }, [phase, error, referenceCode]);
+    if (!succeeded) {
+        return (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex flex-col items-center gap-8 w-full max-w-md mx-auto text-center py-20"
+            >
+                <div className="relative flex items-center justify-center w-28 h-28">
+                    <span className="absolute inset-0 rounded-full border border-[var(--red)]/30" />
+                    <span className="absolute inset-3 rounded-full border border-[var(--red)]/20" />
+                    <span className="absolute inset-6 rounded-full border border-[var(--red)]/40 animate-blink" />
+                    <span className="w-2 h-2 rounded-full" style={{ background: "var(--red)" }} />
+                </div>
+                <h2 className="font-display text-3xl tracking-[0.12em] text-white">
+                    TRANSMITTING...
+                </h2>
+                <p className="font-classified text-[10px] tracking-[0.22em] text-white/40 uppercase">
+                    Please stand by.
+                </p>
+                <div className="reg-progress reg-progress--indet w-full max-w-[220px]">
+                    <div className="reg-progress__bar" />
+                </div>
+            </motion.div>
+        );
+    }
 
     return (
-        <fieldset className="flex flex-col items-center justify-center min-h-[400px] w-full dossier-card p-6 sm:p-12 text-center overflow-hidden relative">
-            {phase !== "secured" && phase !== "error" ? (
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex flex-col items-center gap-6 w-full max-w-sm"
-                >
-                    <div className="flex items-center gap-3">
-                        <div className="w-3 h-3 rounded-full bg-[var(--red)] animate-pulse" />
-                        <h2 className="font-bebas text-2xl tracking-[0.1em] text-white">
-                            {phase === "initializing" && "INITIALIZING MISSION FILE..."}
-                            {phase === "verifying" && "VERIFYING IDENTITY..."}
-                            {phase === "securing" && "SECURING DOSSIER..."}
-                            {phase === "transmitting" && "TRANSMITTING REGISTRATION..."}
-                        </h2>
-                    </div>
-                    <p className="font-sans text-sm tracking-wide text-white/60 uppercase">
-                        Please stand by.
-                    </p>
+        <div className="relative flex flex-col items-center text-center py-16 sm:py-24 overflow-hidden">
+            <motion.div
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 top-1/3 h-px"
+                initial={{ scaleX: 0, opacity: 0 }}
+                animate={{ scaleX: 1, opacity: [0, 0.7, 0] }}
+                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                style={{
+                    background: "linear-gradient(90deg, transparent, var(--red), transparent)",
+                }}
+            />
 
-                    <div className="w-full flex flex-col gap-2 mt-4">
-                        <div className="flex justify-between font-mono text-xs tracking-widest text-[var(--red)]">
-                            <span>PROCESSING</span>
-                            <span>{Math.floor(progress)}%</span>
-                        </div>
-                        <div className="h-4 w-full border border-[var(--border-strong)] p-[2px] bg-black/50">
-                            <motion.div
-                                className="h-full bg-[var(--red)]"
-                                initial={{ width: "0%" }}
-                                animate={{ width: `${progress}%` }}
-                                transition={{ ease: "linear" }}
-                            />
-                        </div>
-                    </div>
-                </motion.div>
-            ) : phase === "error" ? (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center gap-8 w-full max-w-md"
-                >
-                    <div className="flex flex-col items-center gap-2">
-                        <h2 className="font-bebas text-3xl tracking-[0.1em] text-[var(--red)]">
-                            TRANSMISSION FAILED
-                        </h2>
-                        <p className="font-sans text-sm tracking-wide text-white/60">
-                            {error || "Unknown network sequence interrupted"}
-                        </p>
-                    </div>
+            <motion.p
+                className="font-classified text-[10px] tracking-[0.4em] text-[var(--red)] mb-5"
+                initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.45 }}
+            >
+                TRANSMISSION COMPLETE
+            </motion.p>
 
-                    <button
-                        type="button"
-                        onClick={onRetry}
-                        className="btn-ghost mt-4 px-6 w-full sm:w-auto"
-                    >
-                        RETRY TRANSMISSION
-                    </button>
-                </motion.div>
-            ) : (
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="flex flex-col items-center gap-8 w-full max-w-md"
-                >
-                    <div className="flex flex-col items-center gap-2">
-                        <div className="flex items-center justify-center w-16 h-16 rounded-full border border-[var(--red)] bg-white/5 mb-4">
-                            <Check className="text-[var(--red)]" size={32} />
-                        </div>
-                        <h2 className="font-bebas text-4xl tracking-[0.1em] text-white">
-                            MISSION COMPLETE
-                        </h2>
-                        <p className="font-sans text-base tracking-wide text-white/60 mt-2 text-center leading-relaxed">
-                            Your registration has been successfully submitted.<br />
-                            Thank you for accepting the mission.<br /><br />
-                            <span className="text-xs text-white/40">Further communication will be sent to your registered email if required.</span>
-                        </p>
-                    </div>
-                </motion.div>
-            )}
-        </fieldset>
+            <motion.h2
+                className="font-display leading-[0.9] tracking-[0.06em] text-white mb-6"
+                style={{ fontSize: "clamp(2.4rem, 7vw, 5rem)" }}
+                initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.55, delay: 0.15 }}
+            >
+                MISSION ACCEPTED
+            </motion.h2>
+
+            <motion.p
+                className="font-sans text-base text-white/60 max-w-md leading-relaxed"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+            >
+                Your registration has been successfully submitted.
+                <br />
+                Your mission briefing has been received.
+                <br />
+                <span className="block mt-4 text-sm text-white/40">
+                    Further communication will be sent to your registered email if required.
+                </span>
+            </motion.p>
+
+            <motion.p
+                className="font-classified text-[9px] tracking-[0.38em] text-[var(--red)] mt-12"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7, duration: 0.6 }}
+            >
+                STAND BY FOR FURTHER INSTRUCTIONS
+            </motion.p>
+        </div>
     );
 }
