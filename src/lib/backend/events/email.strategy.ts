@@ -9,9 +9,15 @@ export class EmailStrategy implements SyncStrategy {
 
     async execute(event: ExternalEvent): Promise<void> {
         if (event.type === "REGISTRATION_SUBMITTED") {
-            const recipientEmail = event.payload?.aiesecEmail;
-            if (!recipientEmail || recipientEmail === "[N/A]") {
-                console.warn("[EmailStrategy] No valid AIESEC email mapped. Bypassing delivery.");
+            const preferredEmail = event.payload?.aiesecEmail;
+            const fallbackEmail = event.payload?.personalEmail;
+
+            const recipientEmail = (preferredEmail && preferredEmail !== "N/A" && preferredEmail !== "[N/A]")
+                ? preferredEmail
+                : fallbackEmail;
+
+            if (!recipientEmail) {
+                console.warn("[EmailStrategy] No valid email address (AIESEC or Personal) mapped. Bypassing delivery.");
                 return;
             }
 

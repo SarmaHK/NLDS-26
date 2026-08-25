@@ -7,155 +7,106 @@ interface RegistrationSuccessEmailProps {
     missionId: string;
 }
 
-export const RegistrationSuccessEmail = ({ missionId }: RegistrationSuccessEmailProps) => {
-    // Falls back seamlessly matching domain targets effectively
-    const baseUrl = env.NEXT_PUBLIC_APP_URL || "https://localhost:3000";
-
+export const RegistrationSuccessEmail = (props: RegistrationSuccessEmailProps) => {
     return (
-        <EmailShell previewText="Your NLDS 2026 application dossier has been received.">
+        <EmailShell previewText="Your NLDS 2026 application dossier has been successfully submitted.">
             <Text style={introText}>
-                <strong>MISSION FILE RECEIVED</strong>
+                <strong>MISSION ACCEPTED</strong>
             </Text>
 
             <Text style={paragraph}>
-                Agent,
-                <br /><br />
-                Your NLDS 2026 registration has been successfully submitted. Your dossier has natively entered the initial intelligence selection processing systems.
+                Your NLDS 2026 registration has been successfully submitted. Your dossier has entered the intelligence selection processing systems.
             </Text>
-
-            <Section style={idSection}>
-                <Text style={idLabel}>MISSION ID:</Text>
-                <Text style={idValue}>[{missionId}]</Text>
-            </Section>
 
             <Section style={statusContainer}>
                 <Text style={statusHeader}>CURRENT STATUS</Text>
                 <Text style={statusValue}>SUBMITTED</Text>
                 <hr style={statusDivider} />
-                <Text style={statusDesc}>Your application is now natively queued inside the internal review processes.</Text>
+                <Text style={statusDesc}>Your application is firmly secured and natively queued within the internal review loops.</Text>
             </Section>
 
             <Text style={importantAlert}>
-                <strong>IMPORTANT:</strong> This confirmation does NOT mean that you have been explicitly accepted. Your application dossier will undergo review by the OC Operations Command. Focus on monitoring the external portal channels.
+                <strong>IMPORTANT:</strong> This confirmation represents successful database entry; it does not confirm your final selection. The OC Operations Command will review your dossier and direct communication will follow.
             </Text>
 
-            <Section style={buttonContainer}>
-                <Button href={`${baseUrl}/register/status`} style={button}>
-                    CHECK MISSION STATUS →
-                </Button>
-            </Section>
-
             <Text style={closing}>
-                STAY READY.<br />
-                Your mission is no longer completely in your hands. The selection protocol has actively begun.
+                STAND BY.<br />
+                The selection protocol has commenced.
             </Text>
         </EmailShell>
     );
 };
 
 const introText = {
-    color: "#ffffff",
+    color: "#FFFFFF",
     fontSize: "18px",
-    letterSpacing: "0.05em",
+    letterSpacing: "0.2em",
     marginTop: "0",
-    marginBottom: "20px"
+    marginBottom: "20px",
+    textTransform: "uppercase" as const,
 };
 
 const paragraph = {
     fontSize: "15px",
-    color: "#d4d4d8",
+    color: "#E9DED1",
     lineHeight: "1.6",
-    margin: "0",
-};
-
-const idSection = {
-    marginTop: "30px",
-    backgroundColor: "#18181b",
-    borderLeft: "4px solid #eb5e28",
-    padding: "15px 20px",
-};
-
-const idLabel = {
-    color: "#a1a1aa",
-    fontSize: "12px",
-    fontWeight: "bold",
-    letterSpacing: "0.1em",
-    margin: "0 0 5px 0",
-};
-
-const idValue = {
-    color: "#ffffff",
-    fontSize: "20px",
-    fontFamily: "monospace",
-    fontWeight: "bold",
-    letterSpacing: "0.1em",
     margin: "0",
 };
 
 const statusContainer = {
     marginTop: "30px",
-    border: "1px solid #27272a",
+    backgroundColor: "#000000",
+    borderLeft: "2px solid #EA0000",
     padding: "20px",
+    borderTop: "1px solid #2A2A2A",
+    borderRight: "1px solid #2A2A2A",
+    borderBottom: "1px solid #2A2A2A",
 };
 
 const statusHeader = {
-    color: "#a1a1aa",
-    fontSize: "11px",
-    letterSpacing: "0.1em",
+    color: "#888888",
+    fontSize: "10px",
+    letterSpacing: "0.2em",
     margin: "0 0 10px 0",
+    textTransform: "uppercase" as const,
 };
 
 const statusValue = {
-    color: "#eb5e28",
-    fontSize: "18px",
+    color: "#EA0000",
+    fontSize: "16px",
     fontWeight: "bold",
-    letterSpacing: "0.1em",
+    letterSpacing: "0.15em",
     margin: "0 0 15px 0",
 };
 
 const statusDivider = {
     border: "0",
-    borderTop: "1px solid #27272a",
+    borderTop: "1px solid #2A2A2A",
     margin: "0 0 15px 0",
 };
 
 const statusDesc = {
-    color: "#a1a1aa",
+    color: "#E9DED1",
     fontSize: "14px",
     margin: "0",
+    lineHeight: "1.6",
 };
 
 const importantAlert = {
-    color: "#fb923c",
+    color: "#F9B62A",
     fontSize: "13px",
     lineHeight: "1.6",
     marginTop: "30px",
     padding: "15px",
-    border: "1px dashed #7c2d12",
-    backgroundColor: "#2a1510",
-};
-
-const buttonContainer = {
-    marginTop: "35px",
-    textAlign: "center" as const,
-};
-
-const button = {
-    backgroundColor: "#ffffff",
-    color: "#000000",
-    fontSize: "14px",
-    fontWeight: "bold",
-    textDecoration: "none",
-    textAlign: "center" as const,
-    padding: "14px 24px",
-    letterSpacing: "0.05em",
+    border: "1px dashed #F9B62A",
+    backgroundColor: "#1C1405",
 };
 
 const closing = {
     marginTop: "45px",
-    color: "#a1a1aa",
-    fontSize: "14px",
+    color: "#888888",
+    fontSize: "13px",
     fontStyle: "italic",
     lineHeight: "1.6",
-    margin: "45px 0 0 0",
+    letterSpacing: "0.05em",
 };

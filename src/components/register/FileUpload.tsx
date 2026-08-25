@@ -169,7 +169,7 @@ export function FileUpload({
                             <span className="font-classified text-[11px] tracking-[0.22em] text-white">
                                 {successLabel || "✓ FILE SECURED"}
                             </span>
-                            <span className="font-sans text-sm text-white/70 text-center break-all">
+                            <span className="font-sans text-[13px] text-white/70 text-center w-full max-w-[240px] truncate px-3">
                                 {fileName}
                                 {fileSize ? `  ·  ${fileSize}` : ""}
                             </span>
@@ -204,9 +204,9 @@ export function FileUpload({
             </div>
 
             {error && (
-                <div className="flex items-start gap-2 mt-1 text-[var(--red)] text-sm">
-                    <AlertCircle className="w-4 h-4 shrink-0 mt-[2px]" />
-                    <span>{error}</span>
+                <div className="flex items-start gap-2 mt-2 text-[var(--red)] bg-[rgba(196,30,58,0.06)] border border-[rgba(196,30,58,0.2)] p-2">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-[1px]" />
+                    <span className="font-sans text-[11px] sm:text-xs leading-relaxed break-words whitespace-pre-wrap">{error}</span>
                 </div>
             )}
             {!error && hint && !fileName && (

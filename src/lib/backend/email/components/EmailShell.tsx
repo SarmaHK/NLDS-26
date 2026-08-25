@@ -15,9 +15,11 @@ export const EmailShell = ({ previewText, children }: EmailShellProps) => {
             <Body style={main}>
                 <Container style={container}>
                     <Section style={header}>
-                        <Text style={classifiedText}>NLDS 2026 // CLASSIFIED TRANSMISSION</Text>
-                        <Hr style={divider} />
-                        <Text style={titleText}>MISSION STATUS</Text>
+                        <Text style={logoText}>
+                            NLDS<br />2026
+                        </Text>
+                        <Text style={classifiedText}>CLASSIFIED // OFFICIAL COMMUNICATION</Text>
+                        <Hr style={dividerBrand} />
                     </Section>
 
                     <Section style={contentSection}>
@@ -25,13 +27,17 @@ export const EmailShell = ({ previewText, children }: EmailShellProps) => {
                     </Section>
 
                     <Section style={footer}>
-                        <Hr style={divider} />
+                        <Hr style={dividerSubtle} />
                         <Text style={footerText}>
-                            NLDS 2026<br />
-                            CONFIDENTIAL — FOR INTENDED RECIPIENT ONLY
+                            NLDS 2026
+                            <br />
+                            AIESEC
+                        </Text>
+                        <Text style={footerWarning}>
+                            CLASSIFIED // OFFICIAL COMMUNICATION
                         </Text>
                         <Text style={footerSubtext}>
-                            If you did not request this communication, you can safely ignore this dossier.
+                            This communication was generated as part of the NLDS 2026 registration process.
                         </Text>
                     </Section>
                 </Container>
@@ -42,50 +48,57 @@ export const EmailShell = ({ previewText, children }: EmailShellProps) => {
 
 const main = {
     backgroundColor: "#000000",
-    color: "#E5E7EB",
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    color: "#E9DED1",
+    fontFamily: "Arial, Helvetica, sans-serif",
     padding: "20px 0",
 };
 
 const container = {
-    backgroundColor: "#09090b",
-    border: "1px solid #27272a",
+    backgroundColor: "#141414",
+    border: "1px solid #333333",
     margin: "0 auto",
     padding: "40px 30px",
     width: "100%",
-    maxWidth: "600px",
+    maxWidth: "640px",
 };
 
 const header = {
-    marginBottom: "30px",
+    marginBottom: "40px",
+};
+
+const logoText = {
+    color: "#FFFFFF",
+    fontSize: "24px",
+    fontWeight: "bold",
+    letterSpacing: "0.15em",
+    margin: "0 0 15px 0",
+    lineHeight: "1.1",
 };
 
 const classifiedText = {
-    color: "#eb5e28",
-    fontSize: "12px",
+    color: "#EA0000",
+    fontSize: "11px",
     fontWeight: "bold",
-    letterSpacing: "0.1em",
+    letterSpacing: "0.2em",
     textTransform: "uppercase" as const,
-    marginBottom: "10px",
+    margin: "0 0 15px 0",
 };
 
-const titleText = {
-    color: "#ffffff",
-    fontSize: "24px",
-    fontWeight: "bold",
-    letterSpacing: "0.05em",
-    marginTop: "20px",
-};
-
-const divider = {
-    borderColor: "#27272a",
+const dividerBrand = {
+    borderColor: "#EA0000",
     borderWidth: "1px",
-    margin: "15px 0",
+    margin: "0",
+};
+
+const dividerSubtle = {
+    borderColor: "#2A2A2A",
+    borderWidth: "1px",
+    margin: "0 0 20px 0",
 };
 
 const contentSection = {
-    color: "#a1a1aa",
-    fontSize: "16px",
+    color: "#E9DED1",
+    fontSize: "15px",
     lineHeight: "1.6",
 };
 
@@ -95,14 +108,24 @@ const footer = {
 };
 
 const footerText = {
-    color: "#71717a",
-    fontSize: "12px",
+    color: "#FFFFFF",
+    fontSize: "14px",
     fontWeight: "bold",
-    letterSpacing: "0.05em",
+    letterSpacing: "0.15em",
+    margin: "0 0 10px 0",
+    lineHeight: "1.4",
+};
+
+const footerWarning = {
+    color: "#EA0000",
+    fontSize: "10px",
+    letterSpacing: "0.2em",
+    margin: "0 0 15px 0",
 };
 
 const footerSubtext = {
-    color: "#52525b",
+    color: "#888888",
     fontSize: "11px",
-    marginTop: "10px",
+    margin: "0",
 };
+

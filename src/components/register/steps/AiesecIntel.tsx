@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useFormContext, useWatch } from "react-hook-form";
 import { FormSelect, FormInput } from "@/components/register/FormField";
 import SectionLabel from "@/components/register/SectionLabel";
@@ -41,6 +41,15 @@ export default function AiesecIntel() {
             setValue("aiesecIntel.customInitiativeGroup", "", { shouldValidate: true });
         }
     }, [initiativeGroup, setValue]);
+
+    const [newbieEmailChoice, setNewbieEmailChoice] = useState<"NA" | "YES">("NA");
+
+    // Important: if they switch from Newbie YES back to N/A, clear the aiesec email value so it doesn't fail validation.
+    useEffect(() => {
+        if (participantType === "NEWBIE" && newbieEmailChoice === "NA") {
+            setValue("aiesecIntel.aiesecEmail", "", { shouldValidate: true });
+        }
+    }, [newbieEmailChoice, participantType, setValue]);
 
     const selectType = (type: "NEWBIE" | "OLDBIE") => {
         setValue("aiesecIntel.participantType", type, { shouldValidate: true });
@@ -103,15 +112,40 @@ export default function AiesecIntel() {
                     )}
                 </div>
 
-                <FormInput
-                    label="AIESEC Email"
-                    type="email"
-                    placeholder="Enter your AIESEC email (name@aiesec.net)"
-                    required={participantType === "OLDBIE"}
-                    extraLabel={participantType === "NEWBIE" ? "Optional for Newbies" : participantType === "OLDBIE" ? "Required for Oldbies" : ""}
-                    error={e?.aiesecEmail}
-                    {...register("aiesecIntel.aiesecEmail")}
-                />
+                {participantType === "NEWBIE" ? (
+                    <div className="flex flex-col gap-5">
+                        <FormSelect
+                            label="Do you have an AIESEC Email?"
+                            options={[
+                                "N/A (I don't have one)",
+                                "Yes, I have an AIESEC Email"
+                            ]}
+                            placeholder="Select..."
+                            value={newbieEmailChoice === "NA" ? "N/A (I don't have one)" : "Yes, I have an AIESEC Email"}
+                            onChange={(e) => setNewbieEmailChoice(e.target.value.startsWith("Yes") ? "YES" : "NA")}
+                            required
+                        />
+                        {newbieEmailChoice === "YES" && (
+                            <FormInput
+                                label="AIESEC Email"
+                                type="email"
+                                placeholder="Enter your AIESEC email (name@aiesec.net)"
+                                error={e?.aiesecEmail}
+                                {...register("aiesecIntel.aiesecEmail")}
+                            />
+                        )}
+                    </div>
+                ) : (
+                    <FormInput
+                        label="AIESEC Email"
+                        type="email"
+                        placeholder="Enter your AIESEC email (name@aiesec.net)"
+                        required={true}
+                        extraLabel="Required for Oldbies"
+                        error={e?.aiesecEmail}
+                        {...register("aiesecIntel.aiesecEmail")}
+                    />
+                )}
 
                 <FormSelect
                     label="AIESEC Entity"

@@ -8,20 +8,7 @@ const driveClient = new GoogleDriveClient();
 
 export async function POST(request: Request) {
     try {
-        const cookieStore = await cookies();
-        const sessionId = cookieStore.get("NLDS_SECURE_SESSION")?.value;
-        if (!sessionId) {
-            return NextResponse.json({ error: "Unauthorized. Session missing." }, { status: 401 });
-        }
 
-        const activeSession: any = await prisma.participantSession.findFirst({
-            where: { id: sessionId, revokedAt: null, expiresAt: { gt: new Date() } },
-            include: { participant: true }
-        });
-
-        if (!activeSession || !activeSession.participant?.aiesecEmailVerifiedAt) {
-            return NextResponse.json({ error: "Access Denied. Identity non-verified." }, { status: 403 });
-        }
 
         const formData = await request.formData();
         const file = formData.get("file") as File | null;
@@ -42,10 +29,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Profile photo must be 5 MB or smaller." }, { status: 400 });
         }
 
-        const participantId = activeSession.participant.id.split("-")[0].toUpperCase();
-        const cleanName = activeSession.participant.fullName?.replace(/[^a-zA-Z0-9]/g, "_").substring(0, 20) || "UNKNOWN";
+        const uniqueSuffix = Math.random().toString(36).substring(2, 10).toUpperCase();
         const extension = file.name.split('.').pop() || "jpg";
-        const fileName = `NLDS26_${participantId}_${cleanName}_PROFILE.${extension}`;
+        const cleanName = file.name.replace(/\.[^/.]+$/, "").replace(/[^a-zA-Z0-9]/g, "_").substring(0, 20);
+        const fileName = `NLDS26_PHOTO_${uniqueSuffix}_${cleanName}.${extension}`;
 
         const buffer = Buffer.from(await file.arrayBuffer());
 
@@ -68,7 +55,7 @@ export async function POST(request: Request) {
         console.error("[Photo Upload Error]", error);
         require('fs').writeFileSync('upload_error.txt', error.stack || error.toString());
         return NextResponse.json({
-            error: error.message || "Upload failed. Please try again."
+            error: "An internal server error occurred while uploading. Please try again."
         }, { status: 500 });
     }
 }

@@ -80,6 +80,9 @@ export class RegistrationRepository {
             });
 
             return registration;
+        }, {
+            maxWait: 15000,
+            timeout: 25000,
         });
     }
 

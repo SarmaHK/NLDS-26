@@ -44,15 +44,16 @@ export const OTPEmail = ({ otp }: OTPEmailProps) => {
 };
 
 const introText = {
-    color: "#ffffff",
-    fontSize: "18px",
-    letterSpacing: "0.05em",
+    color: "#FFFFFF",
+    fontSize: "16px",
+    letterSpacing: "0.1em",
     marginTop: "0",
+    textTransform: "uppercase" as const,
 };
 
 const paragraph = {
     fontSize: "15px",
-    color: "#d4d4d8",
+    color: "#E9DED1",
     lineHeight: "1.6",
 };
 
@@ -61,33 +62,34 @@ const otpSection = {
 };
 
 const otpContainer = {
-    backgroundColor: "#18181b",
-    border: "1px dashed #eb5e28",
-    borderRadius: "4px",
-    padding: "20px",
+    backgroundColor: "#000000",
+    border: "1px solid #EA0000",
+    padding: "24px",
     textAlign: "center" as const,
 };
 
 const otpText = {
-    color: "#eb5e28",
-    fontSize: "32px",
+    color: "#EA0000",
+    fontSize: "36px",
     fontWeight: "bold",
-    letterSpacing: "0.2em",
+    letterSpacing: "0.3em",
     margin: "0",
 };
 
 const heading = {
-    color: "#ffffff",
+    color: "#F9B62A",
     fontWeight: "bold",
-    fontSize: "15px",
+    fontSize: "13px",
     marginTop: "30px",
     marginBottom: "15px",
+    letterSpacing: "0.1em",
+    textTransform: "uppercase" as const,
 };
 
 const list = {
     paddingLeft: "20px",
     margin: "0",
-    color: "#a1a1aa",
+    color: "#E9DED1",
 };
 
 const listItem = {
@@ -97,17 +99,17 @@ const listItem = {
 
 const statusSection = {
     marginTop: "40px",
-    borderTop: "1px solid #27272a",
+    borderTop: "1px solid #2A2A2A",
     paddingTop: "20px",
 };
 
 const statusText = {
-    fontSize: "12px",
-    color: "#71717a",
-    letterSpacing: "0.05em",
+    fontSize: "11px",
+    color: "#888888",
+    letterSpacing: "0.15em",
 };
 
 const statusHighlight = {
-    color: "#eb5e28",
+    color: "#EA0000",
     fontWeight: "bold",
 };

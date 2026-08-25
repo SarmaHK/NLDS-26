@@ -58,57 +58,57 @@ export default function SubmissionSuccess({ referenceCode, error, onRetry }: Pro
     }
 
     return (
-        <div className="relative flex flex-col items-center text-center py-16 sm:py-24 overflow-hidden">
+        <div className="relative flex flex-col items-center justify-center text-center min-h-[70vh] py-16 sm:py-24 overflow-hidden w-full">
             <motion.div
                 aria-hidden
-                className="pointer-events-none absolute inset-x-0 top-1/3 h-px"
+                className="pointer-events-none absolute inset-x-0 top-1/2 h-px -translate-y-1/2"
                 initial={{ scaleX: 0, opacity: 0 }}
-                animate={{ scaleX: 1, opacity: [0, 0.7, 0] }}
-                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+                animate={{ scaleX: 1, opacity: [0, 0.8, 0.25] }}
+                transition={{ duration: 2.2, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                     background: "linear-gradient(90deg, transparent, var(--red), transparent)",
                 }}
             />
 
             <motion.p
-                className="font-classified text-[10px] tracking-[0.4em] text-[var(--red)] mb-5"
+                className="font-classified text-[10px] tracking-[0.4em] text-[var(--red)] mb-4 sm:mb-6"
                 initial={{ opacity: 0, y: 8, filter: "blur(6px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.45 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
                 TRANSMISSION COMPLETE
             </motion.p>
 
             <motion.h2
-                className="font-display leading-[0.9] tracking-[0.06em] text-white mb-6"
-                style={{ fontSize: "clamp(2.4rem, 7vw, 5rem)" }}
+                className="font-display leading-[0.9] tracking-[0.06em] text-white mb-6 sm:mb-8"
+                style={{ fontSize: "clamp(2.5rem, 6vw, 4.5rem)" }}
                 initial={{ opacity: 0, y: 12, filter: "blur(8px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.55, delay: 0.15 }}
+                transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
                 MISSION ACCEPTED
             </motion.h2>
 
             <motion.p
-                className="font-sans text-base text-white/60 max-w-md leading-relaxed"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
+                className="font-sans text-[15px] sm:text-base text-white/60 max-w-md leading-[1.8] relative z-10"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
                 Your registration has been successfully submitted.
                 <br />
                 Your mission briefing has been received.
                 <br />
-                <span className="block mt-4 text-sm text-white/40">
+                <span className="block mt-6 text-xs tracking-wide text-white/40 uppercase">
                     Further communication will be sent to your registered email if required.
                 </span>
             </motion.p>
 
             <motion.p
-                className="font-classified text-[9px] tracking-[0.38em] text-[var(--red)] mt-12"
+                className="font-classified text-[9px] tracking-[0.4em] text-[var(--red)] mt-12 sm:mt-16"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.7, duration: 0.6 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
             >
                 STAND BY FOR FURTHER INSTRUCTIONS
             </motion.p>

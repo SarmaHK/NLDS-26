@@ -39,7 +39,7 @@ export async function GET(request: Request) {
         return NextResponse.json({ success: true, data: registrations });
     } catch (error: any) {
         if (error.name === "AuthorizationError") {
-            return NextResponse.json({ error: error.message }, { status: 403 });
+            return NextResponse.json({ error: "Action Denied or Database Connection Failed" }, { status: 403 });
         }
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }

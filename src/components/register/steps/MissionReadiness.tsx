@@ -38,7 +38,7 @@ export default function MissionReadiness() {
                                 }
                                 whileHover={{ scale: 1.01 }}
                                 whileTap={{ scale: 0.99 }}
-                                className={`dossier-card text-left transition-all ${isSelected ? "ring-2 ring-[var(--red)] bg-white/5" : ""
+                                className={`dossier-card text-left transition-all w-full p-4 sm:p-5 ${isSelected ? "ring-2 ring-[var(--red)] bg-white/5" : ""
                                     }`}
                                 style={{
                                     border: isSelected ? "1px solid var(--red)" : "1px solid var(--border-strong)",

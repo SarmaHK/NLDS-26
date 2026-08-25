@@ -104,16 +104,18 @@ export default function AgentProfile() {
                     {cvLink && cvLink.trim() !== "" && (
                         <motion.div
                             initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                            animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+                            animate={{ opacity: 1, height: "auto", marginTop: 20 }}
                             exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                            transition={{ duration: 0.3 }}
+                            transition={{ duration: 0.35, ease: "easeInOut" }}
                             className="overflow-hidden"
                         >
-                            <div className="p-4" style={{ background: "rgba(196, 30, 58, 0.05)", borderLeft: "2px solid var(--red)" }}>
+                            <div className="p-5 border border-white/10 bg-[#0c0c0e] relative group transition-colors hover:border-white/20">
+                                <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--red)] opacity-70 group-hover:opacity-100 transition-opacity" />
                                 <FormSelect
-                                    label="Do you consent to sharing your CV with the NLDS 2026 partners?"
+                                    label="CV Privacy Consent"
+                                    extraLabel="Do you consent to sharing your CV with our partners?"
                                     options={CONSENT_OPTIONS}
-                                    placeholder="Select Yes or No"
+                                    placeholder="Select Yes or No..."
                                     required
                                     error={e?.cvConsent}
                                     {...register("agentProfile.cvConsent")}

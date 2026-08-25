@@ -243,6 +243,9 @@ export default function RegistrationForm() {
                 throw new Error(responseData.error || "Failed to transmit file.");
             }
 
+            // Enforce realistic minimum cinematic processing time for the "Transmitting..." screen
+            await new Promise((resolve) => setTimeout(resolve, 2500));
+
             setSubmitReferenceCode(responseData.referenceCode);
             setIsSuccess(true);
         } catch (error: unknown) {
@@ -292,32 +295,8 @@ export default function RegistrationForm() {
                 >
                     <div className="reg-shell__radar" />
 
-                    <div
-                        className="relative z-10 mx-auto"
-                        style={{
-                            maxWidth: "1400px",
-                            paddingLeft: "clamp(1.5rem, 4vw, 2.5rem)",
-                            paddingRight: "clamp(1.5rem, 4vw, 2.5rem)",
-                        }}
-                    >
-                        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 pt-4">
-                            <div>
-                                <p className="font-classified text-[9px] tracking-[0.28em] text-white/35 mb-2">
-                                    NLDS 2026
-                                </p>
-                                <h1
-                                    className="font-display leading-[0.85] tracking-[0.04em]"
-                                    style={{ fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "var(--text)" }}
-                                >
-                                    REGISTRATION
-                                </h1>
-                            </div>
-                            <p className="font-classified text-[9px] tracking-[0.28em] uppercase text-[var(--red)] sm:text-right">
-                                CLASSIFIED // REGISTRATION PROTOCOL
-                            </p>
-                        </header>
-
-                        {showOutcome ? (
+                    {showOutcome ? (
+                        <div className="relative z-20 w-full h-full flex flex-col items-center justify-center">
                             <SubmissionSuccess
                                 referenceCode={submitReferenceCode}
                                 error={submitError}
@@ -327,7 +306,33 @@ export default function RegistrationForm() {
                                     setSubmitReferenceCode(null);
                                 }}
                             />
-                        ) : (
+                        </div>
+                    ) : (
+                        <div
+                            className="relative z-10 mx-auto w-full"
+                            style={{
+                                maxWidth: "1200px",
+                                paddingLeft: "clamp(1.5rem, 4vw, 2.5rem)",
+                                paddingRight: "clamp(1.5rem, 4vw, 2.5rem)",
+                            }}
+                        >
+                            <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 pt-4">
+                                <div>
+                                    <p className="font-classified text-[9px] tracking-[0.28em] text-white/35 mb-2">
+                                        NLDS 2026
+                                    </p>
+                                    <h1
+                                        className="font-display leading-[0.85] tracking-[0.04em]"
+                                        style={{ fontSize: "clamp(2.4rem, 6vw, 4.2rem)", color: "var(--text)" }}
+                                    >
+                                        REGISTRATION
+                                    </h1>
+                                </div>
+                                <p className="font-classified text-[9px] tracking-[0.28em] uppercase text-[var(--red)] sm:text-right">
+                                    CLASSIFIED // REGISTRATION PROTOCOL
+                                </p>
+                            </header>
+
                             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
                                 <div className="lg:w-[280px] xl:w-[300px] flex-shrink-0">
                                     <div className="lg:sticky lg:top-[100px]">
@@ -384,8 +389,8 @@ export default function RegistrationForm() {
                                     </div>
                                 </div>
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </section>
             </form>
         </FormProvider>

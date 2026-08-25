@@ -17,7 +17,7 @@ export default function StepNavigation({
 
     return (
         <div
-            className="flex flex-col items-stretch justify-between mt-8 sm:flex-row sm:items-center gap-4"
+            className="flex flex-col-reverse items-stretch justify-between mt-8 sm:flex-row sm:items-center gap-4 w-full"
             style={{ borderTop: "1px solid var(--border)", paddingTop: "1.5rem" }}
         >
             {currentStep > 0 ? (

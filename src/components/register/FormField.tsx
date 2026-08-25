@@ -61,26 +61,26 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                     onBlur={onBlur}
                 />
 
-                {hint && !error && (
-                    <span
-                        id={`${inputId}-hint`}
-                        className="font-sans text-[11px]"
-                        style={{ color: "rgba(255,255,255,0.28)" }}
-                    >
-                        {hint}
-                    </span>
-                )}
-
-                {error && (
-                    <span
-                        id={`${inputId}-error`}
-                        className="font-classified text-[9px] tracking-[0.12em]"
-                        style={{ color: "var(--red)" }}
-                        role="alert"
-                    >
-                        ⚠ {error.message}
-                    </span>
-                )}
+                <div className="min-h-[18px] flex items-start">
+                    {error ? (
+                        <span
+                            id={`${inputId}-error`}
+                            className="font-classified text-[9px] tracking-[0.12em]"
+                            style={{ color: "var(--red)" }}
+                            role="alert"
+                        >
+                            ⚠ {error.message}
+                        </span>
+                    ) : hint ? (
+                        <span
+                            id={`${inputId}-hint`}
+                            className="font-sans text-[11px]"
+                            style={{ color: "rgba(255,255,255,0.28)" }}
+                        >
+                            {hint}
+                        </span>
+                    ) : null}
+                </div>
             </div>
         );
     }
@@ -148,15 +148,17 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
                     ))}
                 </select>
 
-                {error && (
-                    <span
-                        className="font-classified text-[9px] tracking-[0.12em]"
-                        style={{ color: "var(--red)" }}
-                        role="alert"
-                    >
-                        ⚠ {error.message}
-                    </span>
-                )}
+                <div className="min-h-[18px] flex items-start">
+                    {error && (
+                        <span
+                            className="font-classified text-[9px] tracking-[0.12em]"
+                            style={{ color: "var(--red)" }}
+                            role="alert"
+                        >
+                            ⚠ {error.message}
+                        </span>
+                    )}
+                </div>
             </div>
         );
     }
@@ -211,24 +213,24 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
                     }}
                 />
 
-                {hint && !error && (
-                    <span
-                        className="font-sans text-[11px]"
-                        style={{ color: "rgba(255,255,255,0.28)" }}
-                    >
-                        {hint}
-                    </span>
-                )}
-
-                {error && (
-                    <span
-                        className="font-classified text-[9px] tracking-[0.12em]"
-                        style={{ color: "var(--red)" }}
-                        role="alert"
-                    >
-                        ⚠ {error.message}
-                    </span>
-                )}
+                <div className="min-h-[18px] flex items-start">
+                    {error ? (
+                        <span
+                            className="font-classified text-[9px] tracking-[0.12em]"
+                            style={{ color: "var(--red)" }}
+                            role="alert"
+                        >
+                            ⚠ {error.message}
+                        </span>
+                    ) : hint ? (
+                        <span
+                            className="font-sans text-[11px]"
+                            style={{ color: "rgba(255,255,255,0.28)" }}
+                        >
+                            {hint}
+                        </span>
+                    ) : null}
+                </div>
             </div>
         );
     }

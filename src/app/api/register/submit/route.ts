@@ -135,9 +135,25 @@ export async function POST(request: Request) {
     } catch (error: any) {
         console.error("[Submit Registration]", error);
 
-        // Hide internal DB throws, route mapped business rule throws securely
+        // Hide internal DB throws securely
+        const isTechnicalError = error?.message && (
+            error.message.toLowerCase().includes("prisma") ||
+            error.message.toLowerCase().includes("database") ||
+            error.message.toLowerCase().includes("turbopack") ||
+            error.message.toLowerCase().includes("db") ||
+            error.message.toLowerCase().includes("aws") ||
+            error.message.toLowerCase().includes("transaction") ||
+            error.message.toLowerCase().includes("invocation") ||
+            error.message.toLowerCase().includes("timeout") ||
+            error.message.toLowerCase().includes("connection")
+        );
+
+        const safeMessage = isTechnicalError
+            ? "An internal server error occurred. Please try again later."
+            : (error.message || "An unexpected error occurred during submission.");
+
         return NextResponse.json({
-            error: error.message || "An unexpected error occurred during submission."
+            error: safeMessage
         }, { status: 500 });
     }
 }
