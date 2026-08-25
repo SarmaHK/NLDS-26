@@ -153,127 +153,101 @@ export default function Navbar() {
             {menuOpen ? <X size={30} /> : <Menu size={30} />}
           </button>
         </div>
-      </motion.header>
 
-      {/* ── Mobile Fullscreen Menu ───────────────────── */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22 }}
-            className="fixed inset-0 z-[99] flex flex-col lg:hidden"
-            style={{
-              background: "rgba(6,6,8,0.97)",
-              backdropFilter: "blur(24px)",
-            }}
-          >
-            {/* Corner marks */}
-            {["top-6 left-6 corner-tl", "top-6 right-6 corner-tr",
-              "bottom-6 left-6 corner-bl", "bottom-6 right-6 corner-br"].map((cls, i) => (
-                <div key={i} className={`absolute z-10 w-5 h-5 border-white/10 ${cls}`} />
-              ))}
-
-            {/* Header row */}
-            <div
-              className="flex items-center justify-between px-5 sm:px-6 h-[76px] sm:h-[82px] md:h-[88px] flex-shrink-0"
-              style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+        {/* ── Mobile Modern Dropdown Menu ───────────────── */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-full left-0 right-0 z-[90] lg:hidden overflow-hidden"
+              style={{
+                background: "rgba(6,6,8,0.97)",
+                backdropFilter: "blur(24px)",
+                borderBottom: "1px solid rgba(255,255,255,0.06)",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.5)",
+              }}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/Logos/NLDS 2026.png"
-                alt="NLDS 2026"
-                className="h-14 sm:h-16 w-auto max-w-[190px] sm:max-w-[220px] object-contain"
-              />
-              <button
-                onClick={() => setMenuOpen(false)}
-                className="text-white/80 hover:text-white transition-colors w-12 h-12 flex items-center justify-center -mr-1.5 cursor-pointer"
-                aria-label="Close menu"
-              >
-                <X size={30} />
-              </button>
-            </div>
+              <div className="px-5 sm:px-6 py-6 flex flex-col gap-2">
+                {/* Classification strip */}
+                <div className="pb-4 mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                  <p className="font-classified text-[8px] tracking-[0.3em] text-white/18">
+                    CLASSIFICATION: TOP SECRET // AIESEC IN SRI LANKA
+                  </p>
+                </div>
 
-            {/* Classification strip */}
-            <div className="px-6 py-3 flex-shrink-0">
-              <p className="font-classified text-[8px] tracking-[0.3em] text-white/18">
-                CLASSIFICATION: TOP SECRET // AIESEC IN SRI LANKA
-              </p>
-            </div>
-
-            {/* Nav links */}
-            <nav className="flex-1 flex flex-col justify-center px-6 gap-1 overflow-y-auto">
-              {NAV_LINKS.map((link, i) => (
-                <motion.div
-                  key={link.label}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.06 }}
-                >
-                  {link.locked ? (
-                    <div
-                      className="flex items-center justify-between py-4 select-none"
-                      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+                {/* Nav links */}
+                <nav className="flex flex-col gap-1">
+                  {NAV_LINKS.map((link, i) => (
+                    <motion.div
+                      key={link.label}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: i * 0.05 }}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="font-classified text-[8px] text-white/15 w-5">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                        <span
-                          className="font-display tracking-[0.05em]"
-                          style={{ fontSize: "clamp(1.8rem, 5vw, 2.8rem)", color: "rgba(255,255,255,0.2)" }}
+                      {link.locked ? (
+                        <div className="flex items-center justify-between py-3 select-none">
+                          <div className="flex items-center gap-3">
+                            <span className="font-classified text-[8px] text-white/15 w-4 hidden sm:block">
+                              {String(i + 1).padStart(2, "0")}
+                            </span>
+                            <span
+                              className="font-display tracking-[0.06em]"
+                              style={{ fontSize: "1.4rem", color: "rgba(255,255,255,0.2)" }}
+                            >
+                              {link.label}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5 opacity-60">
+                            <Lock size={10} style={{ color: "rgba(255,255,255,0.5)" }} />
+                            <span className="font-classified text-[7px] text-white/50 tracking-[0.15em]">
+                              EVENT DAY
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <Link
+                          href={link.href}
+                          onClick={(e) => handleNavClick(e, link, () => setMenuOpen(false))}
+                          className="flex items-center gap-3 py-3 group no-underline"
                         >
-                          {link.label}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-1.5">
-                        <Lock size={10} style={{ color: "rgba(255,255,255,0.18)" }} />
-                        <span className="font-classified text-[8px] text-white/18 tracking-[0.15em]">
-                          EVENT DAY
-                        </span>
-                      </div>
-                    </div>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      onClick={(e) => handleNavClick(e, link, () => setMenuOpen(false))}
-                      className="flex items-center gap-3 py-4 group no-underline"
-                      style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
-                    >
-                      <span className="font-classified text-[8px] text-white/15 w-5">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span
-                        className="font-display tracking-[0.05em] transition-colors group-hover:text-[var(--red)]"
-                        style={{
-                          fontSize: "clamp(1.8rem, 5vw, 2.8rem)",
-                          color: "rgba(255,255,255,0.8)",
-                        }}
-                      >
-                        {link.label}
-                      </span>
-                    </Link>
-                  )}
-                </motion.div>
-              ))}
-            </nav>
+                          <span className="font-classified text-[8px] text-white/15 w-4 hidden sm:block">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <span
+                            className="font-display tracking-[0.06em] transition-colors group-hover:text-[var(--red)]"
+                            style={{
+                              fontSize: "1.4rem",
+                              color: "rgba(255,255,255,0.8)",
+                            }}
+                          >
+                            {link.label}
+                          </span>
+                        </Link>
+                      )}
+                    </motion.div>
+                  ))}
+                </nav>
 
-            {/* Mobile CTA */}
-            <div className="px-6 pb-10 flex-shrink-0">
-              <Link
-                href="/register"
-                onClick={() => setMenuOpen(false)}
-                className="btn-mission w-full justify-center"
-                style={{ display: "flex", fontSize: "10px" }}
-                id="mobile-cta"
-              >
-                ACCEPT THE MISSION →
-              </Link>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+                {/* Mobile CTA */}
+                <div className="pt-6 pb-2 mt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                  <Link
+                    href="/register"
+                    onClick={() => setMenuOpen(false)}
+                    className="btn-mission w-full justify-center"
+                    style={{ display: "flex", fontSize: "10px" }}
+                    id="mobile-cta"
+                  >
+                    ACCEPT THE MISSION →
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
     </>
   );
 }
