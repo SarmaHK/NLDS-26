@@ -96,10 +96,11 @@ interface FormSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> 
     error?: FieldError;
     placeholder?: string;
     required?: boolean;
+    extraLabel?: string;
 }
 
 export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
-    ({ label, options, error, placeholder = "Select...", required, id, onChange, defaultValue, value, ...props }, ref) => {
+    ({ label, options, error, placeholder = "Select...", required, extraLabel, id, onChange, defaultValue, value, ...props }, ref) => {
         const selectId = id || label.toLowerCase().replace(/\s+/g, "-");
         const [filled, setFilled] = useState(() => Boolean(value ?? defaultValue));
 
@@ -110,10 +111,19 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
                     className="font-classified text-[10px] tracking-[0.22em] uppercase"
                     style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
                 >
-                    {label}
-                    {required && (
-                        <span style={{ color: "var(--red)", marginLeft: "4px" }}>*</span>
-                    )}
+                    <div className="flex justify-between items-center w-full gap-3">
+                        <span>
+                            {label}
+                            {required && (
+                                <span style={{ color: "var(--red)", marginLeft: "4px" }}>*</span>
+                            )}
+                        </span>
+                        {extraLabel && (
+                            <span className="opacity-70 ml-2 normal-case tracking-normal font-sans text-[10px]" style={{ color: "inherit" }}>
+                                {extraLabel}
+                            </span>
+                        )}
+                    </div>
                 </label>
 
                 <select

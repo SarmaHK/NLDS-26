@@ -289,7 +289,7 @@ export default function RegistrationForm() {
                     className="reg-shell w-full"
                     style={{
                         minHeight: "70vh",
-                        paddingTop: "5.5rem",
+                        paddingTop: "8.5rem",
                         paddingBottom: "6rem",
                     }}
                 >
