@@ -3,12 +3,19 @@ import fs from 'fs';
 import path from 'path';
 import dotenv from 'dotenv';
 
-// Explicitly bypass OS-level environment variable pollution (which caused Next.js to preserve a system-level 'DATABASE_URL' localhost string)
-const secureEnvFile = dotenv.parse(fs.readFileSync(path.resolve(process.cwd(), '.env')));
-
-// HARD OVERWRITE: Prisma's internal C++ Rust Query Engine spawns inheriting Node's `process.env`.
-// If your Windows machine has a global System Env Var for DATABASE_URL, Prisma's engine natively prioritizes it over JS constructs!
-process.env.DATABASE_URL = secureEnvFile.DATABASE_URL;
+// Vercel Serverless Hardening: Vercel injects natively into process.env, so it lacks a physical .env file on disk.
+// We gracefully fallback to memory if the file does not exist, keeping your Windows path override intact locally.
+try {
+    const envPath = path.resolve(process.cwd(), '.env');
+    if (fs.existsSync(envPath)) {
+        const secureEnvFile = dotenv.parse(fs.readFileSync(envPath));
+        if (secureEnvFile.DATABASE_URL) {
+            process.env.DATABASE_URL = secureEnvFile.DATABASE_URL;
+        }
+    }
+} catch (e) {
+    console.warn("No physical .env file found; assuming native serverless injection (Vercel).");
+}
 
 const globalForPrisma = global as unknown as { prismaEngineCore: PrismaClient };
 
