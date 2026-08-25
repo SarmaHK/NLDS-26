@@ -24,15 +24,17 @@ export class ExternalSyncService {
     }
 
     /**
-     * Dispatches an event to all configured strategies natively without blocking node loops.
+     * Dispatches an event to all configured strategies.
+     * VERCEL PATCH: We must formally await the execution using Promise.allSettled,
+     * otherwise AWS Lambda environments instantly freeze the container and kill the connections!
      */
     async dispatch(event: ExternalEvent) {
-        for (const strategy of this.strategies) {
-            // Native Fire and Forget handling wrapping around Database tracking implicitly
+        const promises = this.strategies.map(strategy =>
             this.handleDispatch(strategy, event).catch(err => {
                 console.error(`[ExternalSync Error] - ${strategy.providerName}: `, err);
-            });
-        }
+            })
+        );
+        await Promise.allSettled(promises);
     }
 
     private async handleDispatch(strategy: SyncStrategy, event: ExternalEvent) {

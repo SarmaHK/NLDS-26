@@ -89,11 +89,12 @@ export async function POST(request: Request) {
         // 3. Delegate to business layer
         const registration = await service.submitRegistration(participantData, registrationData, documents);
 
-        // 4. Native Fire-and-Forget async trigger pushing external webhooks implicitly off-main-thread!
+        // 4. Trigger Webhooks and Integrations. 
+        // VERCEL PATCH: Must be explicitly awaited, or Vercel deletes the memory context instantly.
         const entityName = resolvedEntity;
         const igName = resolvedIg;
 
-        syncService.dispatch({
+        await syncService.dispatch({
             registrationId: registration.id,
             referenceCode: registration.referenceCode,
             type: "REGISTRATION_SUBMITTED",
