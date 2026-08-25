@@ -27,7 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NLDS'26 — Mission Impossible | AIESEC in Sri Lanka",
+  title: "NLDS'26 | AIESEC in Sri Lanka",
   description:
     "National Leadership Development Seminar 2026. Your next mission begins here. 09–11 October 2026, Sri Lanka.",
   openGraph: {
@@ -41,6 +41,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "NLDS'26 — Mission Impossible",
     description: "Your next mission begins here. NLDS 2026 by AIESEC in Sri Lanka.",
+  },
+  icons: {
+    icon: "/images/Logos/NLDS LOGO.png",
+    shortcut: "/images/Logos/NLDS LOGO.png",
+    apple: "/images/Logos/NLDS LOGO.png",
   },
   robots: { index: true, follow: true },
 };

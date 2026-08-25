@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const STATS = [
-  { value: "250+", label: "OPERATIVES", sub: "Future leaders" },
+  { value: "270+", label: "OPERATIVES", sub: "Future leaders" },
   { value: "11+", label: "UNIVERSITIES", sub: "Across Sri Lanka" },
   { value: "03", label: "DAYS", sub: "Of transformation" },
   { value: "01", label: "MISSION", sub: "Impossible" },

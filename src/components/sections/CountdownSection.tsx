@@ -154,7 +154,7 @@ export default function CountdownSection() {
           className="font-classified text-[10px] tracking-[0.3em] text-white/25"
           style={{ marginBottom: "4rem" }}
         >
-          09 OCTOBER 2026 // Venue: TO BE ANNOUNCED!
+          09 OCTOBER 2026 // VENUE: TO BE ANNOUNCED
         </motion.p>
 
         {/* Countdown cells */}
