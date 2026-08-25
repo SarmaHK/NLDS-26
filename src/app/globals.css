@@ -5,6 +5,7 @@
   --color-mission: #C41E3A;
   --color-mission-dark: #8B0000;
   --color-mission-light: #E53E3E;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
   --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
   --font-classified: var(--font-jetbrains), "Courier New", monospace;
 }
@@ -34,7 +35,7 @@
   --border-red: rgba(196, 30, 58, 0.35);
 
   /* Fonts */
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-poppins), system-ui, sans-serif;
   --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
 }
@@ -626,14 +627,22 @@ img {
 
 .reg-field {
   width: 100%;
-  padding: 12px 16px;
+  padding: 10px 16px 14px 16px;
+  /* Optimized padding for Poppins baseline */
   font-family: var(--font-sans);
   font-size: 0.92rem;
+  line-height: 1.5;
   color: var(--text);
   background: #111113;
   border: 1px solid rgba(255, 255, 255, 0.16);
   outline: none;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reg-field::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+  font-family: inherit;
+  opacity: 1;
 }
 
 .reg-field:hover {
