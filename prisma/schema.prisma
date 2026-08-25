@@ -1,0 +1,274 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Participant {
+  id                    String               @id @default(uuid()) @db.Uuid
+  fullName              String?
+  preferredName         String?
+  personalEmail         String?
+  phone                 String
+  profilePicture        String
+  gender                String?
+  dateOfBirth           String?
+  nationalIdOrPassport  String?              @unique
+  aiesecEmail           String?              @unique
+  aiesecEmailVerifiedAt DateTime?
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  sessions              ParticipantSession[]
+  registrations         Registration[]
+}
+
+model Entity {
+  id               String            @id @default(uuid()) @db.Uuid
+  name             String            @unique
+  code             String?           @unique
+  isActive         Boolean           @default(true)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  initiativeGroups InitiativeGroup[]
+  registrations    Registration[]
+}
+
+model InitiativeGroup {
+  id            String         @id @default(uuid()) @db.Uuid
+  name          String
+  entityId      String         @db.Uuid
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  entity        Entity         @relation(fields: [entityId], references: [id])
+  registrations Registration[]
+
+  @@unique([name, entityId])
+}
+
+model Registration {
+  id                    String               @id @default(uuid()) @db.Uuid
+  referenceCode         String               @unique
+  participantId         String               @db.Uuid
+  entityId              String               @db.Uuid
+  initiativeGroupId     String?              @db.Uuid
+  customInitiativeGroup String?
+  currentPosition       String
+  foodPreference        String
+  medicalConditions     String?
+  guardianName          String
+  guardianContact       String
+  missionGoal           String
+  additionalInformation String?
+  readinessLevel        String
+  status                RegistrationStatus   @default(DRAFT)
+  submittedAt           DateTime?
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime             @updatedAt
+  participantType       String               @default("OLDBIE")
+  documents             Document[]
+  externalSyncs         ExternalSync[]
+  entity                Entity               @relation(fields: [entityId], references: [id])
+  initiativeGroup       InitiativeGroup?     @relation(fields: [initiativeGroupId], references: [id])
+  participant           Participant          @relation(fields: [participantId], references: [id])
+  reviews               RegistrationReview[]
+
+  @@index([status])
+  @@index([participantId])
+  @@index([entityId])
+}
+
+model ExternalSync {
+  id             String       @id @default(uuid()) @db.Uuid
+  registrationId String       @db.Uuid
+  provider       String
+  eventType      String
+  status         String
+  attempts       Int          @default(0)
+  lastAttemptAt  DateTime?
+  syncedAt       DateTime?
+  errorMessage   String?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  registration   Registration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@index([registrationId])
+  @@index([status])
+  @@index([provider])
+}
+
+model Document {
+  id             String       @id @default(uuid()) @db.Uuid
+  registrationId String       @db.Uuid
+  type           DocumentType @default(CV)
+  urlReference   String
+  consentGiven   Boolean?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  registration   Registration @relation(fields: [registrationId], references: [id])
+}
+
+model Admin {
+  id               String               @id @default(uuid()) @db.Uuid
+  email            String               @unique
+  role             AdminRole            @default(OC_ADMIN)
+  isActive         Boolean              @default(true)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+  lastLoginAt      DateTime?
+  requestsReviewed AdminAccessRequest[]
+  invitationsSent  AdminInvitation[]
+  permissions      AdminPermission[]
+  sessions         AdminSession[]
+  reviews          RegistrationReview[]
+
+  @@index([email])
+}
+
+model AdminPermission {
+  id         String     @id @default(uuid()) @db.Uuid
+  adminId    String     @db.Uuid
+  permission Permission
+  admin      Admin      @relation(fields: [adminId], references: [id])
+
+  @@index([adminId])
+}
+
+model AdminInvitation {
+  id                  String           @id @default(uuid()) @db.Uuid
+  email               String           @unique
+  token               String           @unique
+  status              InvitationStatus @default(PENDING)
+  assignedPermissions String
+  expiresAt           DateTime
+  createdBy           String           @db.Uuid
+  acceptedAt          DateTime?
+  createdAt           DateTime         @default(now())
+  creator             Admin            @relation(fields: [createdBy], references: [id])
+}
+
+model AdminAccessRequest {
+  id          String        @id @default(uuid()) @db.Uuid
+  email       String
+  status      RequestStatus @default(PENDING)
+  requestedAt DateTime      @default(now())
+  reviewedBy  String?       @db.Uuid
+  reviewedAt  DateTime?
+  reviewer    Admin?        @relation(fields: [reviewedBy], references: [id])
+}
+
+model RegistrationReview {
+  id             String         @id @default(uuid()) @db.Uuid
+  registrationId String         @db.Uuid
+  reviewerId     String         @db.Uuid
+  decision       ReviewDecision
+  internalReason String
+  createdAt      DateTime       @default(now())
+  registration   Registration   @relation(fields: [registrationId], references: [id])
+  reviewer       Admin          @relation(fields: [reviewerId], references: [id])
+
+  @@index([registrationId])
+  @@index([reviewerId])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid()) @db.Uuid
+  actorId    String?  @db.Uuid
+  actorType  String
+  action     String
+  targetId   String?  @db.Uuid
+  targetType String
+  metadata   String?
+  createdAt  DateTime @default(now())
+
+  @@index([targetId])
+  @@index([createdAt])
+}
+
+model OTPChallenge {
+  id          String    @id @default(uuid()) @db.Uuid
+  email       String
+  otpHash     String
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(5)
+  expiresAt   DateTime
+  consumedAt  DateTime?
+  createdAt   DateTime  @default(now())
+
+  @@index([email])
+}
+
+model ParticipantSession {
+  id            String      @id @default(uuid()) @db.Uuid
+  participantId String      @db.Uuid
+  expiresAt     DateTime
+  revokedAt     DateTime?
+  createdAt     DateTime    @default(now())
+  participant   Participant @relation(fields: [participantId], references: [id], onDelete: Cascade)
+
+  @@index([participantId])
+  @@index([expiresAt])
+}
+
+model AdminSession {
+  id        String    @id @default(uuid()) @db.Uuid
+  adminId   String    @db.Uuid
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+  admin     Admin     @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([expiresAt])
+}
+
+enum RegistrationStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  ACCEPTED
+  REJECTED
+  CANCELLED
+}
+
+enum DocumentType {
+  CV
+  MEDICAL_CERT
+  OTHER
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  OC_ADMIN
+}
+
+enum Permission {
+  VIEW_REGISTRATION
+  REVIEW_REGISTRATION
+  ACCEPT_REGISTRATION
+  REJECT_REGISTRATION
+  DOCUMENT_VIEW
+  VIEW_SENSITIVE_PROFILE
+  MANAGE_ADMINS
+  VIEW_AUDIT_LOGS
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  EXPIRED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ReviewDecision {
+  ACCEPTED
+  REJECTED
+}
