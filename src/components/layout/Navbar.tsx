@@ -15,12 +15,12 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: "HOME",             href: "/" },
-  { label: "ABOUT",            href: "/",        scrollTo: "mission" },
-  { label: "CONFERENCE TEAM",  href: "/team" },
-  { label: "PARTNERS",         href: "/partners" },
-  { label: "STORE",            href: "/store" },
-  { label: "ROOM ALLOCATION",  href: "/delegates", locked: true },
+  { label: "HOME", href: "/" },
+  { label: "ABOUT", href: "/", scrollTo: "mission" },
+  { label: "CONFERENCE TEAM", href: "/team" },
+  { label: "PARTNERS", href: "/partners" },
+  { label: "STORE", href: "/store" },
+  { label: "ROOM ALLOCATION", href: "/delegates", locked: true },
 ];
 
 function smoothScrollTo(id: string) {
@@ -33,7 +33,7 @@ function smoothScrollTo(id: string) {
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const router   = useRouter();
+  const router = useRouter();
 
   // Close mobile menu on Escape
   useEffect(() => {

@@ -3,44 +3,119 @@ export type TeamRole = "OC" | "MC";
 export interface TeamMember {
     id: string;
     name: string;
-    role: string;           // e.g. "Project Manager", "Treasurer"
+    role: string;
     committee: TeamRole;
-    department?: string;    // e.g. "Finance", "Delegate Experience"
+    department?: string;
     university?: string;
-    image: string;          // Public URL or path under /images/team/
-    phone?: string;         // Contact number (optional)
-    email?: string;         // Email address (optional)
+    image: string;
+    phone?: string;
+    email?: string;
 }
 
-/** MC — Main Committee */
+
 export const mainCommittee: TeamMember[] = [
-    // {
-    //   id: "mc-01",
-    //   name: "Name Here",
-    //   role: "Local Committee President",
-    //   committee: "MC",
-    //   university: "University of Moratuwa",
-    //   image: "/images/team/mc-01.jpg",
-    // },
+    {
+        id: "mc-president",
+        name: "Dinuka Avinash",
+        role: "Member Committee President & Organizational Development",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652683/MC_DPs_-_1_r3fowe.png",
+    },
+
+    {
+        id: "mc-vp-1",
+        name: "Shymal De Silva",
+        role: "MCVP — Business to Customer",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652687/MC_DPs_-_2_hh84dw.png",
+    },
+    {
+        id: "mc-vp-2",
+        name: "Ijas Ahamed",
+        role: "MCVP — Business Development & Public Relations",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652705/MC_DPs_-_3_ygnqyz.png",
+    },
+    {
+        id: "mc-vp-3",
+        name: "Matheen Mohammed",
+        role: "MCVP — Brand & Marketing",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652713/MC_DPs_-_4_gmftd8.png",
+    },
+    {
+        id: "mc-vp-4",
+        name: "Akesh Chandrasiri",
+        role: "MCVP — Customer Experience and Operations & Information Management",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652704/MC_DPs_-_5_xjgnbv.png",
+    },
+    {
+        id: "mc-vp-5",
+        name: "Avishka Chanuka",
+        role: "MCVP — Expansion Development & Organizational Development Management",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652704/MC_DPs_-_6_kgo3dx.png",
+    },
+    {
+        id: "mc-vp-6",
+        name: "Sajana Kankanige",
+        role: "MCVP — Finance & Legal",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652701/MC_DPs_-_7_xkfgdi.png",
+    },
+    {
+        id: "mc-vp-7",
+        name: "Sandaru Gangul",
+        role: "MCVP — Incoming Global Talent & Teacher",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652708/MC_DPs_-_8_pyo6es.png",
+    },
+    {
+        id: "mc-vp-8",
+        name: "Dinan Jayasuriya",
+        role: "MCVP — Incoming Global Volunteer",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652719/MC_DPs_-_9_klpp8c.png",
+    },
+    {
+        id: "mc-vp-9",
+        name: "Malini Kumburage",
+        role: "MCVP — Outgoing Global Talent & Teacher",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652725/MC_DPs_-_10_mwcaga.png",
+    },
+    {
+        id: "mc-vp-10",
+        name: "Geethma Ramawickrama",
+        role: "MCVP — Outgoing Global Volunteer",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652722/MC_DPs_-_11_y0bbty.png",
+    },
+    {
+        id: "mc-vp-11",
+        name: "Madupa Jayarathna",
+        role: "MCVP — Talent Management",
+        committee: "MC",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652720/MC_DPs_-_12_h4yidg.png",
+    },
 ];
 
-/** OC — organizing Committee */
-export const organizingCommittee: TeamMember[] = [
 
-    // ── Conference Managers ───────────────────────────────────────────────────
+export const organizingCommittee: TeamMember[] = [
     {
         id: "oc-cm-1",
         name: "Ijas Ahamed",
         role: "Conference Manager",
         committee: "OC",
-        image: "",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652705/MC_DPs_-_3_ygnqyz.png",
     },
     {
         id: "oc-cm-2",
         name: "Shymal De Silva",
         role: "Conference Manager",
         committee: "OC",
-        image: "",
+        image: "https://res.cloudinary.com/daamlqcer/image/upload/v1787652687/MC_DPs_-_2_hh84dw.png",
     },
 
     // ── President ────────────────────────────────────────────────────────────
