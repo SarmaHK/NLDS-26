@@ -1,0 +1,74 @@
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { prisma } from "@/lib/backend/db/prisma";
+import { GoogleDriveClient } from "@/lib/backend/integrations/google-drive";
+import { env } from "@/lib/config/env";
+
+const driveClient = new GoogleDriveClient();
+
+export async function POST(request: Request) {
+    try {
+        const cookieStore = await cookies();
+        const sessionId = cookieStore.get("NLDS_SECURE_SESSION")?.value;
+        if (!sessionId) {
+            return NextResponse.json({ error: "Unauthorized. Session missing." }, { status: 401 });
+        }
+
+        const activeSession: any = await prisma.participantSession.findFirst({
+            where: { id: sessionId, revokedAt: null, expiresAt: { gt: new Date() } },
+            include: { participant: true }
+        });
+
+        if (!activeSession || !activeSession.participant?.aiesecEmailVerifiedAt) {
+            return NextResponse.json({ error: "Access Denied. Identity non-verified." }, { status: 403 });
+        }
+
+        const formData = await request.formData();
+        const file = formData.get("file") as File | null;
+
+        if (!file) {
+            return NextResponse.json({ error: "No file provided." }, { status: 400 });
+        }
+
+        // Validate MIME type
+        const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+        if (!allowedTypes.includes(file.type)) {
+            return NextResponse.json({ error: "Only JPG, JPEG, PNG, or WEBP images are accepted." }, { status: 400 });
+        }
+
+        // Validate Size (5 MB max)
+        const MAX_SIZE = 5 * 1024 * 1024;
+        if (file.size > MAX_SIZE) {
+            return NextResponse.json({ error: "Profile photo must be 5 MB or smaller." }, { status: 400 });
+        }
+
+        const participantId = activeSession.participant.id.split("-")[0].toUpperCase();
+        const cleanName = activeSession.participant.fullName?.replace(/[^a-zA-Z0-9]/g, "_").substring(0, 20) || "UNKNOWN";
+        const extension = file.name.split('.').pop() || "jpg";
+        const fileName = `NLDS26_${participantId}_${cleanName}_PROFILE.${extension}`;
+
+        const buffer = Buffer.from(await file.arrayBuffer());
+
+        if (!env.GOOGLE_DRIVE_PHOTO_FOLDER_ID) {
+            console.error("[Upload] Photo Folder ID not configured in .env");
+            return NextResponse.json({ error: "Server Configuration Error: Missing Drive Folder ID" }, { status: 500 });
+        }
+
+        const fileId = await driveClient.uploadFile(buffer, fileName, file.type, env.GOOGLE_DRIVE_PHOTO_FOLDER_ID);
+        const fileLink = `https://drive.google.com/file/d/${fileId}/view`;
+
+        return NextResponse.json({
+            success: true,
+            message: "Profile photo uploaded successfully",
+            fileId: fileLink,
+            fileName: file.name
+        }, { status: 201 });
+
+    } catch (error: any) {
+        console.error("[Photo Upload Error]", error);
+        require('fs').writeFileSync('upload_error.txt', error.stack || error.toString());
+        return NextResponse.json({
+            error: error.message || "Upload failed. Please try again."
+        }, { status: 500 });
+    }
+}
