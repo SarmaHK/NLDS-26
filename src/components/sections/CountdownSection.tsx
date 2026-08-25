@@ -93,7 +93,7 @@ export default function CountdownSection() {
     <section
       ref={ref}
       id="countdown"
-      className="w-full py-24 md:py-32"
+      className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background: "var(--surface-1)",
         marginTop: "clamp(4rem, 10vw, 8rem)",

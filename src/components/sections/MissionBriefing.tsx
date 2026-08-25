@@ -28,7 +28,7 @@ export default function MissionBriefing() {
     <section
       ref={ref}
       id="mission"
-      className="w-full py-24 md:py-32"
+      className="relative w-full overflow-hidden py-24 md:py-32"
       style={{
         background: "var(--bg)",
         marginTop: "clamp(4rem, 10vw, 8rem)",

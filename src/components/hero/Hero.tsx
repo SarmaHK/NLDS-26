@@ -242,13 +242,13 @@ export default function Hero() {
               initial={{ opacity: 0, y: -16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.6 }}
-              className="flex items-center gap-4 mb-3 sm:mb-8"
+              className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-8"
             >
-              <div className="h-[1px] w-12" style={{ background: "var(--red)" }} />
-              <span className="font-classified text-[9px] tracking-[0.35em] text-white/30 uppercase">
+              <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
+              <span className="font-classified text-[7px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.35em] text-white/30 uppercase whitespace-nowrap">
                 TOP SECRET // AIESEC IN SRI LANKA
               </span>
-              <div className="h-[1px] w-12" style={{ background: "var(--red)" }} />
+              <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
             </motion.div>
 
             {/* ── NLDS 2026 LOGO ── */}

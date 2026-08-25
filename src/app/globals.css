@@ -56,11 +56,14 @@ html {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  max-width: 100%;
   /* scroll-behavior handled by Lenis */
 }
 
 body {
   overflow-x: hidden;
+  max-width: 100%;
+  position: relative;
 }
 
 /* Offset anchor links below fixed navbar */

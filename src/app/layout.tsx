@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins, Bebas_Neue, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar        from "@/components/layout/Navbar";
-import Footer        from "@/components/layout/Footer";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 import LenisProvider from "@/components/providers/LenisProvider";
 
 const poppins = Poppins({
@@ -49,6 +49,7 @@ export const viewport: Viewport = {
   themeColor: "#060608",
   width: "device-width",
   initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -58,7 +59,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-scroll-behavior="smooth"
       className={`${poppins.variable} ${bebasNeue.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="antialiased">
+      <body className="antialiased" style={{ overflowX: "hidden", maxWidth: "100vw" }}>
         <LenisProvider>
           <Navbar />
           {children}
