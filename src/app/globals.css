@@ -6,7 +6,6 @@
   --color-mission-dark: #8B0000;
   --color-mission-light: #E53E3E;
   --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
   --font-classified: var(--font-jetbrains), "Courier New", monospace;
 }
 
@@ -35,7 +34,7 @@
   --border-red: rgba(196, 30, 58, 0.35);
 
   /* Fonts */
-  --font-sans: var(--font-poppins), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
   --font-mono: var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
 }
@@ -506,7 +505,7 @@ img {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 14px 32px;
+  padding: 16px 32px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.22em;
@@ -536,7 +535,7 @@ img {
 .btn-ghost {
   display: inline-flex;
   align-items: center;
-  padding: 13px 32px;
+  padding: 16px 32px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.22em;
@@ -579,6 +578,219 @@ img {
 /* Tabular numbers for countdown */
 .tabular {
   font-variant-numeric: tabular-nums;
+}
+
+.font-bebas {
+  font-family: var(--font-display);
+}
+
+/* ─── Registration protocol (scoped) ─────────────────────────── */
+
+.reg-shell {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.reg-shell__radar {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(196, 30, 58, 0.08) 0%, transparent 42%),
+    radial-gradient(circle at 82% 8%, rgba(240, 237, 232, 0.03) 0%, transparent 36%);
+}
+
+.reg-shell__radar::before {
+  content: "";
+  position: absolute;
+  width: min(70vw, 720px);
+  height: min(70vw, 720px);
+  top: -18%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow:
+    0 0 0 80px rgba(255, 255, 255, 0.015),
+    0 0 0 160px rgba(196, 30, 58, 0.02),
+    0 0 0 240px rgba(255, 255, 255, 0.012);
+}
+
+.reg-panel {
+  position: relative;
+  border: 1px solid var(--border-strong);
+  background: #0a0a0c;
+}
+
+.reg-field {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--text);
+  background: #111113;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reg-field:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.reg-field:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.28), 0 0 18px rgba(196, 30, 58, 0.08);
+}
+
+.reg-field[aria-invalid="true"] {
+  border-color: var(--red);
+  box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.2);
+}
+
+.reg-field--valid:not(:focus) {
+  border-color: rgba(233, 222, 209, 0.35);
+}
+
+.reg-choice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 148px;
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.reg-choice:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--text);
+}
+
+.reg-choice--active {
+  border-color: var(--red);
+  color: var(--text);
+  background: rgba(196, 30, 58, 0.06);
+  box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.35), 0 0 28px rgba(196, 30, 58, 0.12);
+}
+
+.reg-choice--active::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#0a0a0c, #0a0a0c) padding-box,
+    linear-gradient(120deg, transparent 20%, var(--red) 50%, transparent 80%) border-box;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: reg-border-sweep 2.4s linear infinite;
+  opacity: 0.55;
+}
+
+@keyframes reg-border-sweep {
+  from {
+    filter: hue-rotate(0deg);
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  to {
+    filter: hue-rotate(0deg);
+    opacity: 0.35;
+  }
+}
+
+.reg-upload {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 220px;
+  padding: 2rem 1.5rem;
+  border: 1px dashed rgba(255, 255, 255, 0.22);
+  background: #0c0c0e;
+  cursor: pointer;
+  text-align: center;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reg-upload:hover,
+.reg-upload:focus-visible {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.reg-upload--active {
+  border-color: var(--red);
+  background: rgba(196, 30, 58, 0.05);
+  box-shadow: 0 0 24px rgba(196, 30, 58, 0.08);
+}
+
+.reg-upload--secured {
+  border-style: solid;
+  border-color: rgba(233, 222, 209, 0.28);
+}
+
+.reg-progress {
+  width: 100%;
+  max-width: 220px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.reg-progress__bar {
+  height: 100%;
+  background: var(--red);
+  transition: width 0.2s ease;
+}
+
+.reg-progress--indet .reg-progress__bar {
+  width: 36%;
+  animation: reg-indet 1.1s ease-in-out infinite;
+}
+
+@keyframes reg-indet {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+.reg-shell .btn-mission {
+  box-shadow: 0 0 0 rgba(196, 30, 58, 0);
+  transition: background 0.3s, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.reg-shell .btn-mission:hover {
+  transform: translateX(3px);
+  box-shadow: 0 0 22px rgba(196, 30, 58, 0.28);
+}
+
+.reg-shell .btn-mission:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 /* ─── Reduced Motion ─────────────────────────────────────────── */
