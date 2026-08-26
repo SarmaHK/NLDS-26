@@ -31,7 +31,7 @@ export default function PersonalIntel() {
                         {...register("personalIntel.fullName")}
                     />
                     <FormInput
-                        label="Now, reveal your preferred name."
+                        label="reveal your preferred name."
                         placeholder="What should we call you?"
                         required
                         error={e?.preferredName}
