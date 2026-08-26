@@ -22,9 +22,9 @@ export default function PageHero({
       className="relative overflow-hidden flex flex-col justify-center items-center"
       style={{
         background: "var(--bg)",
-        minHeight: "clamp(280px, 38vh, 420px)",
-        paddingTop: "100px",
-        paddingBottom: "4rem",
+        minHeight: "clamp(380px, 50vh, 560px)",
+        paddingTop: "9rem",      /* generous top — clears navbar + breathes */
+        paddingBottom: "4rem",   /* clear gap before the section below */
         borderBottom: "1px solid var(--border)",
         textAlign: "center",
       }}
@@ -65,31 +65,61 @@ export default function PageHero({
       <div className="absolute bottom-6 right-6 z-10 w-4 h-4 corner-br border-white/10" />
       <div className="absolute bottom-6 left-6 z-10 w-4 h-4 corner-bl border-white/10" />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 md:px-10 w-full flex flex-col items-center">
-        {/* File metadata row */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          maxWidth: "1400px",
+          margin: "0 auto",
+          padding: "0 1.5rem",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* Label row */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
-          className="flex items-center justify-center gap-4 mb-6"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1rem",
+            marginBottom: "2rem",   /* space between label and title */
+          }}
         >
-          <div className="h-[1px] w-6" style={{ background: "var(--red)" }} />
+          <div style={{ height: "1px", width: "1.5rem", background: "var(--red)" }} />
           <span className="label-classified">{label}</span>
-          <span className="font-classified text-[8px] text-white/15 tracking-[0.15em]">
+          <span className="font-classified" style={{ fontSize: "8px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.15em" }}>
             // {fileNo}
           </span>
+          <div style={{ height: "1px", width: "1.5rem", background: "var(--red)" }} />
         </motion.div>
 
-        {/* Page title */}
+        {/* Title + Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center gap-1 text-center"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+          }}
         >
           <h1
-            className="font-display leading-[0.85] tracking-[0.04em]"
-            style={{ fontSize: "clamp(3.5rem, 10vw, 8.5rem)", color: "var(--text)" }}
+            className="font-display"
+            style={{
+              fontSize: "clamp(3.5rem, 10vw, 8.5rem)",
+              color: "var(--text)",
+              letterSpacing: "0.04em",
+              lineHeight: 0.88,
+              marginBottom: description ? "2.5rem" : "0",  /* space between title and description */
+            }}
           >
             {title}
             {subtitle && (
@@ -102,12 +132,13 @@ export default function PageHero({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
-              className="mt-6 max-w-xl text-center"
               style={{
-                fontSize: "0.9rem",
+                maxWidth: "36rem",
+                textAlign: "center",
+                fontSize: "0.95rem",
                 color: "var(--text-muted)",
                 fontWeight: 300,
-                lineHeight: 1.7,
+                lineHeight: 1.8,
               }}
             >
               {description}

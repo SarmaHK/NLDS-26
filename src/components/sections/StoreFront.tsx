@@ -12,8 +12,8 @@ export default function StoreFront() {
     <section
       ref={ref}
       id="store"
-      className="relative overflow-hidden w-full flex flex-col items-center justify-center py-28 md:py-48 lg:py-56"
-      style={{ background: "var(--bg)" }}
+      className="relative overflow-hidden w-full flex flex-col items-center justify-center"
+      style={{ background: "var(--bg)", paddingTop: "8rem", paddingBottom: "10rem" }}
     >
       {/* Subtle grid background */}
       <div
@@ -48,59 +48,59 @@ export default function StoreFront() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col items-center"
+          style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
         >
-          {/* Glowing Icon Badge */}
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center mb-8"
-            style={{
-              background: "rgba(196,30,58,0.08)",
-              border: "1px solid rgba(196,30,58,0.3)",
-              boxShadow: "0 0 30px rgba(196,30,58,0.15)",
-            }}
-          >
-            <ShoppingBag size={24} className="text-[var(--red)]" />
-          </div>
 
-          {/* Classification Strip */}
-          <div className="flex items-center gap-3 mb-5">
-            <span className="animate-blink w-1.5 h-1.5 rounded-full" style={{ background: "var(--red)" }} />
-            <span className="label-classified text-[9px] tracking-[0.28em]">
-              PROCUREMENT CELL // GEAR DEPLOYMENT
-            </span>
-            <span className="animate-blink w-1.5 h-1.5 rounded-full" style={{ background: "var(--red)" }} />
-          </div>
 
           {/* Main Headline */}
           <h2
-            className="font-display tracking-[0.04em] leading-[0.88] mb-6 text-white"
-            style={{ fontSize: "clamp(3rem, 9vw, 6.5rem)" }}
+            className="font-display"
+            style={{
+              fontSize: "clamp(3rem, 9vw, 6.5rem)",
+              letterSpacing: "0.04em",
+              lineHeight: 0.88,
+              color: "white",
+              marginBottom: "2rem",
+            }}
           >
             LAUNCHING SOON!
           </h2>
 
           {/* Subtext */}
           <p
-            className="text-white/45 max-w-lg font-sans text-base md:text-lg font-light leading-relaxed mb-10"
+            style={{
+              color: "rgba(255,255,255,0.45)",
+              maxWidth: "32rem",
+              width: "100%",
+              fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)",
+              fontWeight: 300,
+              lineHeight: 1.8,
+              marginBottom: "2.5rem",
+              padding: "0 1.5rem",
+            }}
           >
             Official NLDS&apos;26 merchandise and operative gear are currently being prepared.
             Stay tuned for the deployment date.
           </p>
 
-          {/* Minimal status tag */}
+          {/* Status Tag */}
           <div
-            className="flex items-center gap-3 px-5 py-2.5"
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              padding: "0.75rem 1.5rem",
               background: "rgba(255,255,255,0.02)",
               border: "1px solid rgba(255,255,255,0.06)",
             }}
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-[var(--red)] opacity-60" />
-            <span className="font-classified text-[8.5px] tracking-[0.22em] text-white/30 uppercase">
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.6 }} />
+            <span className="font-classified" style={{ fontSize: "8.5px", letterSpacing: "0.22em", color: "rgba(255,255,255,0.3)" }}>
               STATUS: ACCESS LOCKED UNTIL RELEASE
             </span>
-            <div className="w-1.5 h-1.5 rounded-full bg-[var(--red)] opacity-60" />
+            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.6 }} />
           </div>
+
         </motion.div>
       </div>
     </section>

@@ -186,8 +186,8 @@ export default function ConferenceTeamSection() {
     <section
       ref={ref}
       id="team"
-      className="relative overflow-hidden py-24 md:py-36"
-      style={{ background: "var(--bg)" }}
+      className="relative overflow-hidden"
+      style={{ background: "var(--bg)", paddingTop: "8rem", paddingBottom: "10rem" }}
     >
       {/* Grid bg */}
       <div
