@@ -36,14 +36,14 @@ export default function AgentProfile() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
-                        label="Guardian Name"
+                        label="Provide the name of your guardian, someone we can reach if needed."
                         placeholder="Name of your guardian"
                         required
                         error={e?.guardianName}
                         {...register("agentProfile.guardianName")}
                     />
                     <FormInput
-                        label="Guardian Contact Number"
+                        label="Provide your guardian's contact number."
                         type="tel"
                         placeholder="+94 7X XXX XXXX"
                         required
@@ -79,7 +79,7 @@ export default function AgentProfile() {
                 <SectionLabel>MISSION DOCUMENTS</SectionLabel>
 
                 <FileUpload
-                    label="CV (Optional)"
+                    label="Upload your CV, a file that gives us a glimpse into your experience."
                     classification="CLASSIFIED FILE"
                     dropLabel="DROP YOUR CV HERE"
                     successLabel="✓ CV UPLOADED"
@@ -112,8 +112,8 @@ export default function AgentProfile() {
                             <div className="p-5 border border-white/10 bg-[#0c0c0e] relative group transition-colors hover:border-white/20">
                                 <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--red)] opacity-70 group-hover:opacity-100 transition-opacity" />
                                 <FormSelect
-                                    label="CV Privacy Consent"
-                                    extraLabel="Do you consent to sharing your CV with our partners?"
+                                    label="Do you consent to sharing your CV with the NLDS 2026 partners?"
+                                    extraLabel=""
                                     options={CONSENT_OPTIONS}
                                     placeholder="Select Yes or No..."
                                     required

@@ -127,7 +127,7 @@ export default function AiesecIntel() {
                         />
                         {newbieEmailChoice === "YES" && (
                             <FormInput
-                                label="AIESEC Email"
+                                label="Agent, provide your secure channel of communication with the mission team. (AIESEC email)"
                                 type="email"
                                 placeholder="Enter your AIESEC email (name@aiesec.net)"
                                 error={e?.aiesecEmail}
@@ -137,7 +137,7 @@ export default function AiesecIntel() {
                     </div>
                 ) : (
                     <FormInput
-                        label="AIESEC Email"
+                        label="Agent, provide your secure channel of communication with the mission team. (AIESEC email)"
                         type="email"
                         placeholder="Enter your AIESEC email (name@aiesec.net)"
                         required={true}
@@ -148,7 +148,7 @@ export default function AiesecIntel() {
                 )}
 
                 <FormSelect
-                    label="AIESEC Entity"
+                    label="Identify your AIESEC entity, the team you represent on this mission."
                     options={AIESEC_ENTITIES}
                     placeholder="Identify your AIESEC entity"
                     required
@@ -182,7 +182,7 @@ export default function AiesecIntel() {
                 )}
 
                 <FormSelect
-                    label="Current AIESEC Position"
+                    label="Declare your current position within AIESEC."
                     options={AIESEC_POSITIONS}
                     placeholder="Declare your current position"
                     required

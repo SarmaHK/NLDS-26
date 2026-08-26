@@ -21,7 +21,7 @@ export default function MissionReadiness() {
                 <SectionLabel>MISSION READINESS PROTOCOL</SectionLabel>
 
                 <p className="font-classified text-[10px] tracking-[0.12em] text-white/50 uppercase mb-2">
-                    On a scale of 1–5, how ready are you to accept the NLDS 2026 mission?
+                    On a scale of 1-5, how ready are you to accept the mission?
                 </p>
 
                 <div className="flex flex-col gap-4">

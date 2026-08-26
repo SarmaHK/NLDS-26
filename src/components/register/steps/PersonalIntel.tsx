@@ -23,7 +23,7 @@ export default function PersonalIntel() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
-                        label="Full Name"
+                        label="Agent, state your full name. We need to know who is accepting the mission."
                         placeholder="Enter your full name"
                         hint="Enter your legal name as it appears on official documents."
                         required
@@ -31,7 +31,7 @@ export default function PersonalIntel() {
                         {...register("personalIntel.fullName")}
                     />
                     <FormInput
-                        label="Preferred Name"
+                        label="Now, reveal your preferred name."
                         placeholder="What should we call you?"
                         required
                         error={e?.preferredName}
@@ -60,14 +60,14 @@ export default function PersonalIntel() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
-                        label="National ID or Passport Number"
+                        label="Enter your National ID or Passport number for mission identification."
                         placeholder="Enter your ID number"
                         required
                         error={e?.nationalIdOrPassport}
                         {...register("personalIntel.nationalIdOrPassport")}
                     />
                     <FormInput
-                        label="Date of Birth"
+                        label="Enter your date of birth, the beginning of your story."
                         type="date"
                         required
                         error={e?.dateOfBirth}
@@ -76,7 +76,7 @@ export default function PersonalIntel() {
                 </div>
 
                 <FormSelect
-                    label="Gender"
+                    label="Identify your gender."
                     options={GENDERS}
                     required
                     error={e?.gender}

@@ -28,7 +28,7 @@ export default function MissionIntel() {
                 />
 
                 <FormTextarea
-                    label="Is there anything you would like the Conference Team to know or clarify before the mission begins? (Optional)"
+                    label="Is there anything you would like the Conference Team to know or clarify before the mission begins?"
                     placeholder="List any clarifications or extra info here..."
                     error={e?.additionalInformation}
                     {...register("missionIntel.additionalInformation")}
