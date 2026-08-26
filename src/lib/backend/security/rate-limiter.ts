@@ -38,5 +38,8 @@ export class RateLimiter {
 
 // Cleanup interval (runs dynamically if server stays up)
 if (typeof setInterval !== 'undefined') {
-    setInterval(() => RateLimiter.cleanup(), 60000).unref();
+    const timer = setInterval(() => RateLimiter.cleanup(), 60000);
+    if (timer && typeof timer.unref === 'function') {
+        timer.unref();
+    }
 }
