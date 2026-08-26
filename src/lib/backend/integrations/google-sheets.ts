@@ -7,9 +7,9 @@ export class GoogleSheetsClient {
     private spreadsheetId: string;
 
     constructor() {
-        const clientEmail = env.GOOGLE_CLIENT_EMAIL;
-        const privateKeyRaw = env.GOOGLE_PRIVATE_KEY;
-        this.spreadsheetId = env.GOOGLE_SHEETS_SPREADSHEET_ID || "";
+        const clientEmail = env.GOOGLE_CLIENT_EMAIL?.trim();
+        const privateKeyRaw = env.GOOGLE_PRIVATE_KEY; // Kept intact, handled below
+        this.spreadsheetId = env.GOOGLE_SHEETS_SPREADSHEET_ID?.trim() || "";
 
         if (!clientEmail || !privateKeyRaw || !this.spreadsheetId) {
             console.warn("[GoogleSheetsClient] Missing required credentials. Sheet execution disabled.");
@@ -33,6 +33,10 @@ export class GoogleSheetsClient {
      * Idempotently updates or appends a row mapping against the explicit Reference Code (Mission ID).
      */
     async upsertRow(referenceCode: string, values: (string | number | boolean)[]) {
+        console.log(`GOOGLE_CLIENT_EMAIL: ${env.GOOGLE_CLIENT_EMAIL ? 'configured' : 'missing'}`);
+        console.log(`GOOGLE_PRIVATE_KEY: ${env.GOOGLE_PRIVATE_KEY ? 'configured' : 'missing'}`);
+        console.log(`GOOGLE_SHEETS_SPREADSHEET_ID: ${this.spreadsheetId ? 'configured' : 'missing'}`);
+
         if (!this.spreadsheetId) {
             throw new Error("Google Sheets Integration is not configured. Missing Spreadsheet ID.");
         }
@@ -43,6 +47,7 @@ export class GoogleSheetsClient {
                 spreadsheetId: this.spreadsheetId,
                 range: "Sheet1!A:A"
             });
+            console.log(`Google Sheets API status: ${currentStructure.status}`);
 
             const rows = currentStructure.data.values || [];
             let targetRowIndex = -1;
@@ -75,6 +80,7 @@ export class GoogleSheetsClient {
 
             return { targetRowIndex: targetRowIndex === -1 ? "APPENDED" : `UPDATED_ROW_${targetRowIndex}` };
         } catch (error: any) {
+            console.log(`Google Sheets API error: ${error?.message || error?.code || 'UNKNOWN'}`);
             console.error(`[GoogleSheetsClient] Failed to upsert row natively. Error code: ${error?.code || 'UNKNOWN'}`);
             throw new Error("A fatal error occurred synchronizing parameters via Google Sheets API internal protocols.");
         }

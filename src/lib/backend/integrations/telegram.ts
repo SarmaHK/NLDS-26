@@ -5,8 +5,8 @@ export class TelegramClient {
     private chatId: string | undefined;
 
     constructor() {
-        this.botToken = env.TELEGRAM_BOT_TOKEN;
-        this.chatId = env.TELEGRAM_CHAT_ID;
+        this.botToken = env.TELEGRAM_BOT_TOKEN?.trim();
+        this.chatId = env.TELEGRAM_CHAT_ID?.trim();
 
         if (!this.botToken || !this.chatId) {
             console.warn("[TelegramClient] Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID. Telegram dispatch logically disabled.");
@@ -17,6 +17,9 @@ export class TelegramClient {
      * Sends an HTML-formatted message to the configured Telegram chat via the Bot API.
      */
     async sendMessage(text: string): Promise<{ ok: boolean; messageId?: number }> {
+        console.log(`TELEGRAM_BOT_TOKEN: ${this.botToken ? 'configured' : 'missing'}`);
+        console.log(`TELEGRAM_CHAT_ID: ${this.chatId ? 'configured' : 'missing'}`);
+
         if (!this.botToken || !this.chatId) {
             console.warn("[TelegramClient] Missing credentials. Executing mocked console-dispatch sequence internally:");
             console.warn(`[TelegramClient] MOCKED TELEGRAM DISPATCH: CHAT[${this.chatId}] MSG_LENGTH[${text.length}]`);
@@ -36,9 +39,11 @@ export class TelegramClient {
                 }),
             });
 
+            console.log(`Telegram API response status: ${response.status}`);
             const data = await response.json();
 
             if (!data.ok) {
+                console.log(`Telegram API safe response description: ${data.description}`);
                 console.error(`[TelegramClient] API rejected dispatch: ${data.description}`);
                 throw new Error(data.description || "Telegram API returned a non-OK response.");
             }
