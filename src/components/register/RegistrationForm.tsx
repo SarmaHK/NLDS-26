@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -93,6 +93,7 @@ export default function RegistrationForm() {
     const [isSuccess, setIsSuccess] = useState(false);
     const [submitReferenceCode, setSubmitReferenceCode] = useState<string | null>(null);
     const [submitError, setSubmitError] = useState<string | null>(null);
+    const formTopRef = useRef<HTMLElement>(null);
 
     const methods = useForm<RegistrationFormData>({
         defaultValues,
@@ -178,6 +179,15 @@ export default function RegistrationForm() {
 
             setDirection(targetStep > currentStep ? 1 : -1);
             setCurrentStep(targetStep);
+            // Blur any focused input first — prevents the browser auto-scrolling
+            // to the newly focused field in the next step (the main cause on mobile)
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
+            // Immediate scroll to top (instant = can't be overridden by pending focus)
+            window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+            // Safety net: scroll again after animation settles
+            setTimeout(() => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }), 350);
         },
         [currentStep, trigger, markComplete]
     );
@@ -192,6 +202,11 @@ export default function RegistrationForm() {
         if (currentStep > 0) {
             setDirection(-1);
             setCurrentStep(currentStep - 1);
+            if (document.activeElement instanceof HTMLElement) {
+                document.activeElement.blur();
+            }
+            window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+            setTimeout(() => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }), 350);
         }
     }, [currentStep]);
 
@@ -248,11 +263,19 @@ export default function RegistrationForm() {
 
             setSubmitReferenceCode(responseData.referenceCode);
             setIsSuccess(true);
+            // Scroll to top so success screen appears at the top on mobile
+            if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+            window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+            setTimeout(() => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }), 350);
         } catch (error: unknown) {
             const message = error instanceof Error ? error.message : "Failed to transmit file.";
             console.error("[Submission Error]", error);
             setSubmitError(message);
             setIsSuccess(true);
+            // Scroll to top so error screen appears at the top on mobile
+            if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+            window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
+            setTimeout(() => window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior }), 350);
         } finally {
             setIsSubmitting(false);
         }
@@ -286,6 +309,7 @@ export default function RegistrationForm() {
         <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <section
+                    ref={formTopRef}
                     className="reg-shell w-full"
                     style={{
                         minHeight: "70vh",
