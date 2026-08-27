@@ -41,7 +41,7 @@ export default function PersonalIntel() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
-                        label="Personal Email"
+                        label="Agent, provide your secure channel of communication with the mission team. (Personal email )"
                         type="email"
                         placeholder="your.name@gmail.com"
                         required
@@ -49,7 +49,7 @@ export default function PersonalIntel() {
                         {...register("personalIntel.personalEmail")}
                     />
                     <FormInput
-                        label="Phone Number"
+                        label="Enter a phone number through which the mission team can reach you?"
                         type="tel"
                         placeholder="+94 7X XXX XXXX"
                         required
