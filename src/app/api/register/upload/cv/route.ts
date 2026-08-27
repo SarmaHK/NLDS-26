@@ -22,10 +22,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Only PDF files are accepted." }, { status: 400 });
         }
 
-        // Validate Size (10 MB max)
-        const MAX_SIZE = 10 * 1024 * 1024;
+        // Validate Size (4 MB max)
+        const MAX_SIZE = 4 * 1024 * 1024;
         if (file.size > MAX_SIZE) {
-            return NextResponse.json({ error: "CV must be 10 MB or smaller." }, { status: 400 });
+            return NextResponse.json({ error: "CV must be 4 MB or smaller." }, { status: 400 });
         }
 
         const uniqueSuffix = Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -50,8 +50,8 @@ export async function POST(request: Request) {
         }, { status: 201 });
 
     } catch (error: any) {
-        console.error("[CV Upload Error]", error);
-        require('fs').writeFileSync('upload_error.txt', error.stack || error.toString());
+        console.error("[CV Upload Error]", error?.message || error);
+        console.error("[CV Upload Stack]", error?.stack || "No stack trace available");
         return NextResponse.json({
             error: "An internal server error occurred while uploading. Please try again."
         }, { status: 500 });

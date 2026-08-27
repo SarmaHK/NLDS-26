@@ -6,6 +6,9 @@ import { RegistrationRepository } from "@/lib/backend/repositories/registration.
 import { ServerRegistrationSchema } from "@/lib/backend/validation/registration.schema";
 import { syncService } from "@/lib/backend/events/sync.service";
 
+
+export const maxDuration = 60;
+
 const repo = new RegistrationRepository();
 const service = new RegistrationService(repo);
 

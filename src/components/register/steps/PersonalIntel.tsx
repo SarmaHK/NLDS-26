@@ -93,7 +93,7 @@ export default function PersonalIntel() {
                     dropLabel="DROP YOUR PROFILE PHOTO HERE"
                     successLabel="✓ PROFILE PHOTO SECURED"
                     accept="image/jpeg, image/png, image/webp, image/jpg"
-                    maxSizeMB={5}
+                    maxSizeMB={4}
                     uploadUrl="/api/register/upload/photo"
                     icon="image"
                     hint="Please upload a clear professional headshot mapping your face securely."

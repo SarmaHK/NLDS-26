@@ -23,10 +23,10 @@ export async function POST(request: Request) {
             return NextResponse.json({ error: "Only JPG, JPEG, PNG, or WEBP images are accepted." }, { status: 400 });
         }
 
-        // Validate Size (5 MB max)
-        const MAX_SIZE = 5 * 1024 * 1024;
+        // Validate Size (4 MB max)
+        const MAX_SIZE = 4 * 1024 * 1024;
         if (file.size > MAX_SIZE) {
-            return NextResponse.json({ error: "Profile photo must be 5 MB or smaller." }, { status: 400 });
+            return NextResponse.json({ error: "Profile photo must be 4 MB or smaller." }, { status: 400 });
         }
 
         const uniqueSuffix = Math.random().toString(36).substring(2, 10).toUpperCase();
@@ -52,8 +52,8 @@ export async function POST(request: Request) {
         }, { status: 201 });
 
     } catch (error: any) {
-        console.error("[Photo Upload Error]", error);
-        require('fs').writeFileSync('upload_error.txt', error.stack || error.toString());
+        console.error("[Photo Upload Error]", error?.message || error);
+        console.error("[Photo Upload Stack]", error?.stack || "No stack trace available");
         return NextResponse.json({
             error: "An internal server error occurred while uploading. Please try again."
         }, { status: 500 });

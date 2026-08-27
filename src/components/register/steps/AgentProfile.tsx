@@ -84,7 +84,7 @@ export default function AgentProfile() {
                     dropLabel="DROP YOUR CV HERE"
                     successLabel="✓ CV UPLOADED"
                     accept="application/pdf"
-                    maxSizeMB={10}
+                    maxSizeMB={4}
                     uploadUrl="/api/register/upload/cv"
                     icon="document"
                     hint="Please upload your CV mapping your background for OC selection (PDF only)."
