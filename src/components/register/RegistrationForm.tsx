@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -101,7 +101,38 @@ export default function RegistrationForm() {
         mode: "onBlur",
     });
 
-    const { handleSubmit, trigger } = methods;
+    const { handleSubmit, trigger, watch, reset } = methods;
+
+    // Smart Caching: Saves inputs when the OS suspends the tab (e.g. going to WhatsApp),
+    // but explicitly wipes them if the user performs a manual refresh.
+    useEffect(() => {
+        if (typeof window === "undefined") return;
+        const navEntries = performance.getEntriesByType("navigation");
+        const isReload = navEntries.length > 0 && (navEntries[0] as PerformanceNavigationTiming).type === "reload";
+
+        if (isReload) {
+            // User manually refreshed -> wipe cache
+            sessionStorage.removeItem("nlds_reg_backup");
+        } else {
+            // Tab restored by OS -> recover data
+            const backup = sessionStorage.getItem("nlds_reg_backup");
+            if (backup) {
+                try {
+                    const parsed = JSON.parse(backup);
+                    reset(parsed.data);
+                    if (parsed.step) setCurrentStep(parsed.step);
+                } catch (e) { }
+            }
+        }
+    }, [reset]);
+
+    // Continuously backup form data
+    const formSnapshot = watch();
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            sessionStorage.setItem("nlds_reg_backup", JSON.stringify({ data: formSnapshot, step: currentStep }));
+        }
+    }, [formSnapshot, currentStep]);
 
     const markComplete = useCallback((step: number) => {
         setCompletedSteps((prev) => (prev.includes(step) ? prev : [...prev, step]));
@@ -260,6 +291,9 @@ export default function RegistrationForm() {
 
             // Enforce realistic minimum cinematic processing time for the "Transmitting..." screen
             await new Promise((resolve) => setTimeout(resolve, 2500));
+
+            // Wipe session backup on successful submit
+            sessionStorage.removeItem("nlds_reg_backup");
 
             setSubmitReferenceCode(responseData.referenceCode);
             setIsSuccess(true);
