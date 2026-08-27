@@ -45,7 +45,7 @@ export default function AgentProfile() {
                     <FormInput
                         label="Provide your guardian's contact number."
                         type="tel"
-                        placeholder="+94 7X XXX XXXX"
+                        placeholder="0771234567 or +94771234567"
                         required
                         error={e?.guardianContact}
                         {...register("agentProfile.guardianContact")}

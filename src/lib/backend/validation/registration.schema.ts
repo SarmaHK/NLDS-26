@@ -4,11 +4,11 @@ export const ServerRegistrationSchema = z.object({
     fullName: z.string().min(2).max(100),
     preferredName: z.string().min(2).max(50),
     personalEmail: z.string().email().max(150).refine((val) => !val.toLowerCase().endsWith("@aiesec.net"), "Cannot use an AIESEC email as personal email."),
-    phone: z.string().min(9).max(25),
+    phone: z.string().regex(/^(?:0[0-9]{9}|\+94[0-9]{9})$/, "Invalid phone format"),
     profilePicture: z.string().max(1000),
     gender: z.string().max(20),
     dateOfBirth: z.string().max(20),
-    nationalIdOrPassport: z.string().min(5).max(30),
+    nationalIdOrPassport: z.string().regex(/^(?:[0-9]{9}[vVxX]|[0-9]{12}|[a-zA-Z0-9]{7,12})$/, "Invalid NIC/Passport format"),
     participantType: z.enum(["NEWBIE", "OLDBIE"]),
     aiesecEmail: z.string().max(150).optional().nullable(),
 
@@ -20,7 +20,7 @@ export const ServerRegistrationSchema = z.object({
     foodPreference: z.string().max(100),
     medicalConditions: z.string().max(500).optional().nullable(),
     guardianName: z.string().min(2).max(100),
-    guardianContact: z.string().min(9).max(25),
+    guardianContact: z.string().regex(/^(?:0[0-9]{9}|\+94[0-9]{9})$/, "Invalid phone format"),
 
     missionGoal: z.string().max(1000),
     additionalInformation: z.string().max(1500).optional().nullable(),

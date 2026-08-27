@@ -51,7 +51,7 @@ export default function PersonalIntel() {
                     <FormInput
                         label="Enter a phone number through which the mission team can reach you?"
                         type="tel"
-                        placeholder="+94 7X XXX XXXX"
+                        placeholder="0771234567 or +94771234567"
                         required
                         error={e?.phone}
                         {...register("personalIntel.phone")}
@@ -61,7 +61,7 @@ export default function PersonalIntel() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <FormInput
                         label="Enter your National ID or Passport number for mission identification."
-                        placeholder="Enter your ID number"
+                        placeholder="981234567V or 199812345678"
                         required
                         error={e?.nationalIdOrPassport}
                         {...register("personalIntel.nationalIdOrPassport")}

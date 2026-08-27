@@ -28,8 +28,7 @@ export const personalIntelSchema = z.object({
         }),
     phone: z
         .string()
-        .min(9, "Phone number must be at least 9 digits")
-        .max(15, "Phone number must be at most 15 digits"),
+        .regex(/^(?:0[0-9]{9}|\+94[0-9]{9})$/, "Phone must be exactly 10 digits (e.g., 0771234567) or +94 format"),
     profilePicture: z
         .string()
         .min(1, "Profile picture is required")
@@ -42,8 +41,7 @@ export const personalIntelSchema = z.object({
         .min(1, "Please enter your date of birth"),
     nationalIdOrPassport: z
         .string()
-        .min(5, "Please enter a valid NIC or Passport Number")
-        .max(20, "Input is too long"),
+        .regex(/^(?:[0-9]{9}[vVxX]|[0-9]{12}|[a-zA-Z0-9]{7,12})$/, "Please enter a valid SL NIC (e.g., 981234567V or 199812345678) or Passport"),
 });
 
 /* ─── Mission 2 — AIESEC Intel ───────────────────────────── */
@@ -130,9 +128,7 @@ export const agentProfileSchema = z.object({
         .max(100, "Name must be at most 100 characters"),
     guardianContact: z
         .string()
-        .min(9, "Phone number must be at least 9 digits")
-        .max(15, "Phone number must be at most 15 digits")
-        .regex(/^[+]?[\d\s-]+$/, "Please enter a valid phone number"),
+        .regex(/^(?:0[0-9]{9}|\+94[0-9]{9})$/, "Phone must be exactly 10 digits (e.g., 0771234567) or +94 format"),
     cvLink: z
         .string()
         .max(1000, "File reference is too long")
