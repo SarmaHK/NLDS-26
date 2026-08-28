@@ -53,6 +53,7 @@ describe("Phase 9 - Telegram Notification Synchronization", () => {
 
         await expect(strategy.execute({
             registrationId: "test-reg",
+            referenceCode: "test-ref",
             type: "REGISTRATION_SUBMITTED",
             payload: {}
         })).rejects.toThrow("Network Error");
