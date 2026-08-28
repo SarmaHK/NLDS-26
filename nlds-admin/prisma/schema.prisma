@@ -115,7 +115,7 @@ model Admin {
   id               String               @id @default(uuid()) @db.Uuid
   email            String               @unique
   passwordHash     String?
-  role             AdminRole            @default(OC_VIEWER)
+  role             AdminRole            @default(OC_ADMIN)
   isActive         Boolean              @default(true)
   createdAt        DateTime             @default(now())
   updatedAt        DateTime             @updatedAt
@@ -243,18 +243,17 @@ enum DocumentType {
 
 enum AdminRole {
   SUPER_ADMIN
-  OC_VIEWER
+  OC_ADMIN
 }
 
 enum Permission {
-  VIEW_REGISTRATIONS
-  VIEW_PERSONAL_INFO
-  VIEW_AIESEC_INFO
-  VIEW_CV
-  VIEW_PROFILE_PHOTO
-  UPDATE_STATUS
-  VIEW_ANALYTICS
-  EXPORT_DATA
+  VIEW_REGISTRATION
+  REVIEW_REGISTRATION
+  ACCEPT_REGISTRATION
+  REJECT_REGISTRATION
+  DOCUMENT_VIEW
+  VIEW_SENSITIVE_PROFILE
+  MANAGE_ADMINS
   VIEW_AUDIT_LOGS
 }
 
