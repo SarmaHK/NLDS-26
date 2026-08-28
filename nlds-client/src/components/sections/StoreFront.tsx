@@ -81,7 +81,7 @@ export default function StoreFront() {
             >
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", display: "inline-block" }} />
               <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.26em", color: "rgba(255,255,255,0.85)" }}>
-                OFFICIAL INVENTORY // LIMITED RUN
+                OFFICIAL INVENTORY // LIMITED EDITION
               </span>
             </div>
 
@@ -125,7 +125,6 @@ export default function StoreFront() {
               {[
                 ["OPERATION", "NLDS'26"],
                 ["CLASSIFICATION", "OFFICIAL ISSUE"],
-                ["FULFILLMENT", "ON-SITE VENUE PICKUP"],
                 ["STATUS", "INVENTORY ACTIVE"],
               ].map(([key, val], idx) => (
                 <div key={key} className="flex items-center gap-2">
@@ -173,41 +172,6 @@ export default function StoreFront() {
             }}
           >
             <ProductGrid />
-          </motion.div>
-
-          {/* ── Reassurance Info Strip ─────────── */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.35 }}
-            className="mt-20 w-full max-w-[1080px]"
-          >
-            <div
-              className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 p-6 sm:p-8"
-              style={{
-                background: "rgba(255,255,255,0.015)",
-                border: "1px solid rgba(255,255,255,0.06)",
-              }}
-            >
-              <div className="flex flex-col items-center text-center gap-2">
-                <span className="font-classified text-[10px] tracking-[0.24em] text-[var(--red)]">01 // VERIFIED QUALITY</span>
-                <p className="text-[12px] text-white/60 font-light max-w-[280px] leading-relaxed">
-                  Premium materials, heavy-weight cotton, and durable vinyl designed for NLDS&apos;26 operatives.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center gap-2">
-                <span className="font-classified text-[10px] tracking-[0.24em] text-[var(--red)]">02 // VENUE COLLECTION</span>
-                <p className="text-[12px] text-white/60 font-light max-w-[280px] leading-relaxed">
-                  Collect your merchandise pack at delegate registration on Day 1 of the conference.
-                </p>
-              </div>
-              <div className="flex flex-col items-center text-center gap-2">
-                <span className="font-classified text-[10px] tracking-[0.24em] text-[var(--red)]">03 // DIRECT SUPPORT</span>
-                <p className="text-[12px] text-white/60 font-light max-w-[280px] leading-relaxed">
-                  Need help with your order? Our conference finance and logistics cell is standing by.
-                </p>
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
