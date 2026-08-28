@@ -2,108 +2,145 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ShoppingBag } from "lucide-react";
+import ProductGrid from "@/components/store/ProductGrid";
+import CartDrawer from "@/components/store/CartDrawer";
 
 export default function StoreFront() {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section
-      ref={ref}
-      id="store"
-      className="relative overflow-hidden w-full flex flex-col items-center justify-center"
-      style={{ background: "var(--bg)", paddingTop: "8rem", paddingBottom: "10rem" }}
-    >
-      {/* Subtle grid background */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.025]"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-        }}
-      />
+    <>
+      <section
+        ref={ref}
+        id="store"
+        className="relative overflow-hidden w-full"
+        style={{ background: "var(--bg)", paddingTop: "5rem", paddingBottom: "8rem" }}
+      >
+        {/* Subtle grid background */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px",
+          }}
+        />
 
-      {/* Red ambient glow centered */}
-      <div
-        className="pointer-events-none absolute"
-        style={{
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "700px",
-          height: "400px",
-          background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
-          filter: "blur(140px)",
-          opacity: 0.07,
-        }}
-      />
+        {/* Red ambient glow */}
+        <div
+          className="pointer-events-none absolute"
+          style={{
+            right: "-10%",
+            top: "10%",
+            width: "600px",
+            height: "400px",
+            background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
+            filter: "blur(130px)",
+            opacity: 0.05,
+          }}
+        />
 
-      {/* Content — completely frameless, spacious & centered */}
-      <div className="relative z-10 max-w-[800px] mx-auto px-6 md:px-10 flex flex-col items-center text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}
-        >
-
-
-          {/* Main Headline */}
-          <h2
-            className="font-display"
-            style={{
-              fontSize: "clamp(3rem, 9vw, 6.5rem)",
-              letterSpacing: "0.04em",
-              lineHeight: 0.88,
-              color: "white",
-              marginBottom: "2rem",
-            }}
+        <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-6 md:px-10">
+          {/* ── Section Header ───────────────────── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-14"
           >
-            LAUNCHING SOON!
-          </h2>
+            {/* Label row */}
+            <div className="flex items-center gap-4 mb-6">
+              <div style={{ height: "1px", width: "1.5rem", background: "var(--red)" }} />
+              <span className="label-classified">MISSION SUPPLY</span>
+              <div style={{ height: "1px", width: "1.5rem", background: "var(--red)" }} />
+            </div>
 
-          {/* Subtext */}
-          <p
-            style={{
-              color: "var(--text-dim)",
-              maxWidth: "32rem",
-              width: "100%",
-              fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)",
-              fontWeight: 300,
-              lineHeight: 1.8,
-              marginBottom: "2.5rem",
-              padding: "0 1.5rem",
-            }}
+            {/* Heading + supporting */}
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+              <div>
+                <h2
+                  className="font-display"
+                  style={{
+                    fontSize: "clamp(2.5rem, 7vw, 5.5rem)",
+                    letterSpacing: "0.04em",
+                    lineHeight: 0.88,
+                    color: "var(--text)",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  OFFICIAL EQUIPMENT
+                  <br />
+                  <span style={{ color: "var(--red)" }}>FOR THE MISSION.</span>
+                </h2>
+                <p
+                  style={{
+                    fontSize: "0.9rem",
+                    color: "var(--text-muted)",
+                    fontWeight: 300,
+                    lineHeight: 1.7,
+                    maxWidth: "32rem",
+                  }}
+                >
+                  Official NLDS&apos;26 merchandise. Limited edition gear for NLDS&apos;26 delegates. Available while supplies last.
+                </p>
+              </div>
+
+              {/* Technical metadata block */}
+              <div
+                className="flex flex-col gap-2 flex-shrink-0"
+                style={{
+                  padding: "1rem 1.5rem",
+                  border: "1px solid rgba(255,255,255,0.06)",
+                  background: "rgba(255,255,255,0.01)",
+                }}
+              >
+                {[
+                  ["OPERATION", "NLDS'26"],
+                  ["CLASSIFICATION", "OFFICIAL ISSUE"],
+                  ["STATUS", "AVAILABLE"],
+                ].map(([key, val]) => (
+                  <div key={key} className="flex items-center gap-3">
+                    <span
+                      className="font-classified"
+                      style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--text-ghost)", minWidth: 90 }}
+                    >
+                      {key}
+                    </span>
+                    <span style={{ width: "1px", height: 10, background: "rgba(255,255,255,0.1)" }} />
+                    <span
+                      className="font-classified"
+                      style={{ fontSize: "9px", letterSpacing: "0.18em", color: val === "AVAILABLE" ? "var(--red)" : "var(--text-muted)" }}
+                    >
+                      {val === "AVAILABLE" ? `● ${val}` : val}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Divider line */}
+            <div
+              className="mt-8"
+              style={{ height: "1px", background: "linear-gradient(90deg, var(--red) 0%, rgba(196,30,58,0.3) 30%, transparent 70%)", opacity: 0.4 }}
+            />
+          </motion.div>
+
+          {/* ── Product Grid ───────────────────── */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Official NLDS&apos;26 merchandise and operative gear are currently being prepared.
-            Stay tuned for the deployment date.
-          </p>
+            <ProductGrid />
+          </motion.div>
+        </div>
+      </section>
 
-          {/* Status Tag */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              padding: "0.75rem 1.5rem",
-              background: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(255,255,255,0.06)",
-            }}
-          >
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.6 }} />
-            <span className="font-classified" style={{ fontSize: "11px", letterSpacing: "0.22em", color: "var(--text-muted)" }}>
-              STATUS: ACCESS LOCKED UNTIL RELEASE
-            </span>
-            <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.6 }} />
-          </div>
-
-        </motion.div>
-      </div>
-    </section>
+      {/* Cart Drawer (portal-level) */}
+      <CartDrawer />
+    </>
   );
 }
-

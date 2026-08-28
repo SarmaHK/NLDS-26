@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Menu, Lock } from "lucide-react";
+import CartBadge from "@/components/store/CartBadge";
 
 interface NavLink {
   label: string;
@@ -131,6 +132,9 @@ export default function Navbar() {
             )}
           </nav>
 
+          {/* ── Desktop Cart ─── */}
+          <CartBadge />
+
           {/* ── Desktop CTA ──── */}
           <div className="hidden lg:block flex-shrink-0">
             <Link
@@ -230,6 +234,11 @@ export default function Navbar() {
                     </motion.div>
                   ))}
                 </nav>
+
+                {/* Mobile Cart */}
+                <div className="py-2">
+                  <CartBadge />
+                </div>
 
                 {/* Mobile CTA */}
                 <div className="pt-6 pb-2 mt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
