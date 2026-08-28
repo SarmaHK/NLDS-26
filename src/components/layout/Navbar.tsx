@@ -35,6 +35,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const isStorePage = pathname?.startsWith("/store");
 
   // Close mobile menu on Escape
   useEffect(() => {
@@ -133,7 +134,7 @@ export default function Navbar() {
           </nav>
 
           {/* ── Desktop Cart ─── */}
-          <CartBadge />
+          {isStorePage && <CartBadge />}
 
           {/* ── Desktop CTA ──── */}
           <div className="hidden lg:block flex-shrink-0">
@@ -236,9 +237,11 @@ export default function Navbar() {
                 </nav>
 
                 {/* Mobile Cart */}
-                <div className="py-2">
-                  <CartBadge />
-                </div>
+                {isStorePage && (
+                  <div className="py-2">
+                    <CartBadge />
+                  </div>
+                )}
 
                 {/* Mobile CTA */}
                 <div className="pt-6 pb-2 mt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
