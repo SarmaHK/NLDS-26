@@ -46,9 +46,9 @@ export default function QuantitySelector({
           aria-label="Decrease quantity"
           className="flex items-center justify-center transition-colors"
           style={{
-            width: 44,
-            height: 44,
-            fontSize: "1.1rem",
+            width: 38,
+            height: 38,
+            fontSize: "1rem",
             color: value <= min ? "rgba(255,255,255,0.2)" : "var(--text)",
             background: "transparent",
             border: "none",
@@ -61,17 +61,17 @@ export default function QuantitySelector({
 
         <div
           className="flex items-center justify-center"
-          style={{ width: 52, height: 44 }}
+          style={{ width: 44, height: 38 }}
         >
           <AnimatePresence mode="wait">
             <motion.span
               key={value}
-              initial={{ opacity: 0, y: 6 }}
+              initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
+              exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.15 }}
               className="font-classified tabular"
-              style={{ fontSize: "14px", letterSpacing: "0.1em", color: "var(--text)" }}
+              style={{ fontSize: "13px", letterSpacing: "0.1em", color: "var(--text)" }}
             >
               {String(value).padStart(2, "0")}
             </motion.span>
@@ -84,9 +84,9 @@ export default function QuantitySelector({
           aria-label="Increase quantity"
           className="flex items-center justify-center transition-colors"
           style={{
-            width: 44,
-            height: 44,
-            fontSize: "1.1rem",
+            width: 38,
+            height: 38,
+            fontSize: "1rem",
             color: value >= max ? "rgba(255,255,255,0.2)" : "var(--text)",
             background: "transparent",
             border: "none",

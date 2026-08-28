@@ -83,11 +83,11 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             className="fixed z-[201] inset-0 flex items-center justify-center p-4 md:p-6 pointer-events-none"
           >
             <div
-              className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto pointer-events-auto"
+              className="relative w-full max-w-[780px] max-h-[88vh] overflow-y-auto pointer-events-auto"
               style={{
                 background: "#0a0a0c",
                 border: "1px solid rgba(255,255,255,0.08)",
-                boxShadow: "0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(196,30,58,0.08)",
+                boxShadow: "0 30px 70px rgba(0,0,0,0.85), 0 0 0 1px rgba(196,30,58,0.1)",
               }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -99,148 +99,160 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
 
               {/* Header bar */}
               <div
-                className="flex items-center justify-between px-6 py-4 sticky top-0 z-10"
+                className="flex items-center justify-between px-5 py-3.5 sticky top-0 z-10"
                 style={{
-                  background: "rgba(10,10,12,0.97)",
+                  background: "rgba(10,10,12,0.98)",
                   backdropFilter: "blur(12px)",
-                  borderBottom: "1px solid rgba(255,255,255,0.04)",
+                  borderBottom: "1px solid rgba(255,255,255,0.05)",
                 }}
               >
-                <div className="flex items-center gap-3">
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--red)", opacity: 0.7 }} />
-                  <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.3em", color: "var(--text-muted)" }}>
+                <div className="flex items-center gap-2.5">
+                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.8 }} />
+                  <span className="font-classified" style={{ fontSize: "9.5px", letterSpacing: "0.28em", color: "var(--text-muted)" }}>
                     ITEM FILE
                   </span>
-                  <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.2)" }}>
+                  <span className="font-classified" style={{ fontSize: "9.5px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.3)" }}>
                     // {product.itemCode}
                   </span>
                 </div>
                 <button
                   onClick={handleClose}
                   aria-label="Close product file"
-                  className="flex items-center justify-center w-9 h-9 transition-colors hover:text-white"
+                  className="flex items-center justify-center w-8 h-8 transition-colors hover:text-white"
                   style={{ color: "rgba(255,255,255,0.4)", background: "transparent", border: "none", cursor: "pointer" }}
                 >
-                  <X size={18} />
+                  <X size={16} />
                 </button>
               </div>
 
-              {/* Content */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+              {/* Content Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-[310px_1fr] gap-0">
                 {/* Left — Gallery */}
                 <div
-                  className="p-6"
+                  className="p-5 sm:p-6 flex flex-col justify-center"
                   style={{ borderRight: "1px solid rgba(255,255,255,0.04)" }}
                 >
                   <ProductGallery images={product.images} productName={product.name} />
                 </div>
 
                 {/* Right — Details */}
-                <div className="p-6 flex flex-col gap-6">
-                  {/* Classification tags */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.28em", color: "var(--text-ghost)" }}>
-                      ITEM // {product.itemCode}
-                    </span>
-                    <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                    <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.28em", color: product.available ? "var(--red)" : "rgba(255,255,255,0.3)" }}>
-                      {product.available ? "● AVAILABLE" : "● OUT OF STOCK"}
-                    </span>
-                    {product.badge && (
-                      <>
-                        <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                        <span
-                          className="font-classified"
-                          style={{
-                            fontSize: "8px",
-                            letterSpacing: "0.22em",
-                            color: "#fff",
-                            background: "var(--red)",
-                            padding: "2px 8px",
-                          }}
-                        >
-                          {product.badge}
-                        </span>
-                      </>
-                    )}
-                  </div>
+                <div className="p-5 sm:p-6 flex flex-col gap-4 justify-between">
+                  {/* Top Block: Badges & Title */}
+                  <div className="flex flex-col gap-2.5">
+                    {/* Classification tags */}
+                    <div className="flex flex-wrap items-center gap-2.5">
+                      <span className="font-classified" style={{ fontSize: "8.5px", letterSpacing: "0.24em", color: "var(--text-ghost)" }}>
+                        ITEM // {product.itemCode}
+                      </span>
+                      <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
+                      <span className="font-classified" style={{ fontSize: "8.5px", letterSpacing: "0.22em", color: product.available ? "var(--red)" : "rgba(255,255,255,0.3)" }}>
+                        {product.available ? "● AVAILABLE" : "● OUT OF STOCK"}
+                      </span>
+                      {product.badge && (
+                        <>
+                          <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
+                          <span
+                            className="font-classified font-medium"
+                            style={{
+                              fontSize: "8px",
+                              letterSpacing: "0.18em",
+                              color: "#fff",
+                              background: "var(--red)",
+                              padding: "2px 7px",
+                            }}
+                          >
+                            {product.badge}
+                          </span>
+                        </>
+                      )}
+                    </div>
 
-                  {/* Product name */}
-                  <div>
-                    <h2
-                      className="font-display"
-                      style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", letterSpacing: "0.04em", lineHeight: 0.9, color: "var(--text)" }}
-                    >
-                      {product.name}
-                    </h2>
-                    <p
-                      className="font-classified"
-                      style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--text-muted)", marginTop: "0.5rem" }}
-                    >
-                      OFFICIAL ISSUE
+                    {/* Product name & subtitle */}
+                    <div>
+                      <h2
+                        className="font-display"
+                        style={{ fontSize: "clamp(1.5rem, 2.5vw, 2.1rem)", letterSpacing: "0.04em", lineHeight: 1.05, color: "var(--text)" }}
+                      >
+                        {product.name}
+                      </h2>
+                      <p
+                        className="font-classified"
+                        style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--text-muted)", marginTop: "0.35rem" }}
+                      >
+                        OFFICIAL ISSUE
+                      </p>
+                    </div>
+
+                    {/* Description */}
+                    <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.6, fontWeight: 300 }}>
+                      {product.description}
                     </p>
-                  </div>
 
-                  {/* Description */}
-                  <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.7, fontWeight: 300 }}>
-                    {product.description}
-                  </p>
-
-                  {/* Price */}
-                  <div className="flex items-end gap-3">
-                    <span
-                      className="font-display"
-                      style={{ fontSize: "2rem", letterSpacing: "0.04em", color: "var(--text)" }}
-                    >
-                      LKR {product.price.toLocaleString()}
-                    </span>
+                    {/* Price */}
+                    <div className="flex items-baseline gap-2 pt-1">
+                      <span
+                        className="font-classified"
+                        style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--text-ghost)" }}
+                      >
+                        PRICE:
+                      </span>
+                      <span
+                        className="font-display"
+                        style={{ fontSize: "1.65rem", letterSpacing: "0.04em", color: "var(--text)" }}
+                      >
+                        LKR {product.price.toLocaleString()}
+                      </span>
+                    </div>
                   </div>
 
                   {/* Divider */}
-                  <div className="mission-line" />
+                  <div className="mission-line my-1 opacity-50" />
 
-                  {/* Size selector */}
-                  {requiresSize && (
-                    <div>
-                      <SizeSelector
-                        sizes={product.sizes}
-                        selected={selectedSize}
-                        onChange={(s) => { setSelectedSize(s); setSizeError(false); }}
-                      />
-                      {sizeError && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="font-classified mt-2"
-                          style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--red)" }}
-                        >
-                          ⚠ PLEASE SELECT A SIZE
-                        </motion.p>
-                      )}
-                    </div>
-                  )}
+                  {/* Middle Block: Size & Quantity */}
+                  <div className="flex flex-col gap-3.5">
+                    {/* Size selector */}
+                    {requiresSize && (
+                      <div>
+                        <SizeSelector
+                          sizes={product.sizes}
+                          selected={selectedSize}
+                          onChange={(s) => { setSelectedSize(s); setSizeError(false); }}
+                        />
+                        {sizeError && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -3 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="font-classified mt-1.5"
+                            style={{ fontSize: "8.5px", letterSpacing: "0.18em", color: "var(--red)" }}
+                          >
+                            ⚠ PLEASE SELECT A SIZE
+                          </motion.p>
+                        )}
+                      </div>
+                    )}
 
-                  {/* Quantity */}
-                  <QuantitySelector value={quantity} onChange={setQuantity} />
+                    {/* Quantity */}
+                    <QuantitySelector value={quantity} onChange={setQuantity} />
+                  </div>
 
-                  {/* Actions */}
-                  <div className="flex flex-col gap-3 mt-auto">
+                  {/* Bottom Actions */}
+                  <div className="flex flex-col gap-2.5 pt-2">
                     <button
                       onClick={handleBuyNow}
                       className="btn-mission w-full flex items-center justify-center gap-2"
-                      style={{ padding: "16px 24px", fontSize: "13px" }}
+                      style={{ padding: "13px 20px", fontSize: "12px" }}
                       id={`buynow-${product.id}`}
                     >
                       BUY NOW
-                      <ArrowRight size={16} />
+                      <ArrowRight size={14} />
                     </button>
                     <button
                       onClick={handleAddToCart}
                       className="btn-ghost w-full flex items-center justify-center gap-2"
-                      style={{ padding: "14px 24px", fontSize: "13px" }}
+                      style={{ padding: "11px 20px", fontSize: "12px" }}
                       id={`addtocart-${product.id}`}
                     >
-                      <ShoppingBag size={15} />
+                      <ShoppingBag size={14} />
                       ADD TO CART
                     </button>
                   </div>
@@ -249,17 +261,17 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   <AnimatePresence>
                     {toast === "added" && (
                       <motion.div
-                        initial={{ opacity: 0, y: 6 }}
+                        initial={{ opacity: 0, y: 4 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        className="flex items-center gap-2 px-4 py-3"
+                        exit={{ opacity: 0, y: -4 }}
+                        className="flex items-center gap-2 px-3.5 py-2.5"
                         style={{
-                          background: "rgba(196,30,58,0.06)",
-                          border: "1px solid rgba(196,30,58,0.2)",
+                          background: "rgba(196,30,58,0.08)",
+                          border: "1px solid rgba(196,30,58,0.25)",
                         }}
                       >
-                        <Check size={14} style={{ color: "var(--red)" }} />
-                        <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--text-muted)" }}>
+                        <Check size={13} style={{ color: "var(--red)" }} />
+                        <span className="font-classified" style={{ fontSize: "8.5px", letterSpacing: "0.2em", color: "var(--text)" }}>
                           ITEM ADDED TO MISSION INVENTORY ✓
                         </span>
                       </motion.div>

@@ -26,9 +26,9 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
       <div
         className="relative overflow-hidden w-full"
         style={{
-          aspectRatio: "3/4",
-          background: "#0a0a0c",
-          border: "1px solid rgba(255,255,255,0.06)",
+          aspectRatio: "1/1",
+          background: "#08080a",
+          border: "1px solid rgba(255,255,255,0.07)",
         }}
       >
         {/* Scan-line overlay */}

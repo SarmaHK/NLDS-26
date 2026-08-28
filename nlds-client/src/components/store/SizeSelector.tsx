@@ -41,21 +41,21 @@ export default function SizeSelector({
               onClick={() => onChange(size)}
               className="transition-all duration-200"
               style={{
-                minWidth: 48,
-                height: 44,
-                padding: "0 12px",
+                minWidth: 42,
+                height: 38,
+                padding: "0 10px",
                 fontFamily: "var(--font-mono)",
-                fontSize: "11px",
-                letterSpacing: "0.14em",
+                fontSize: "10.5px",
+                letterSpacing: "0.12em",
                 fontWeight: 500,
-                color: isActive ? "#fff" : "rgba(255,255,255,0.55)",
-                background: isActive ? "rgba(196,30,58,0.12)" : "rgba(255,255,255,0.02)",
+                color: isActive ? "#fff" : "rgba(255,255,255,0.6)",
+                background: isActive ? "rgba(196,30,58,0.15)" : "rgba(255,255,255,0.03)",
                 border: isActive
                   ? "1px solid var(--red)"
-                  : "1px solid rgba(255,255,255,0.12)",
+                  : "1px solid rgba(255,255,255,0.1)",
                 cursor: "pointer",
                 boxShadow: isActive
-                  ? "0 0 12px rgba(196,30,58,0.15), inset 0 0 8px rgba(196,30,58,0.04)"
+                  ? "0 0 10px rgba(196,30,58,0.25), inset 0 0 6px rgba(196,30,58,0.1)"
                   : "none",
               }}
               aria-pressed={isActive}

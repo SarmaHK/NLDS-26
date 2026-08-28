@@ -151,7 +151,7 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
         </div>
 
         {/* Card body */}
-        <div className="flex flex-col flex-1 p-6 sm:p-7 gap-4 justify-between">
+        <div className="flex flex-col flex-1 p-5 gap-3.5 justify-between">
           {/* Top section: Status & Title & Description */}
           <div className="flex flex-col gap-3">
             {/* Status row */}

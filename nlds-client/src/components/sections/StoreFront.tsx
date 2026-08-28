@@ -64,7 +64,8 @@ export default function StoreFront() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center text-center mb-20 sm:mb-28 lg:mb-32 w-full max-w-[800px]"
+            className="flex flex-col items-center text-center w-full max-w-[800px]"
+            style={{ marginBottom: "1rem" }}
           >
             {/* Pill / status indicator */}
             <div
@@ -149,12 +150,13 @@ export default function StoreFront() {
 
             {/* Subtle centered accent divider */}
             <div
-              className="mt-10 mx-auto"
               style={{
                 width: "140px",
                 height: "1px",
                 background: "linear-gradient(90deg, transparent, var(--red), transparent)",
                 opacity: 0.6,
+                marginTop: "2.5rem",
+                marginBottom: "1rem",
               }}
             />
           </motion.div>
@@ -165,6 +167,10 @@ export default function StoreFront() {
             animate={inView ? { opacity: 1 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="w-full flex justify-center"
+            style={{
+              marginTop: "clamp(3rem, 6vw, 5rem)",
+              marginBottom: "clamp(4rem, 8vw, 6rem)",
+            }}
           >
             <ProductGrid />
           </motion.div>
