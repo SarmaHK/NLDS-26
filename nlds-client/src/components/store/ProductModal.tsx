@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/lib/store/cartStore";
 import ProductGallery from "@/components/store/ProductGallery";
@@ -22,6 +23,33 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
   const [quantity, setQuantity] = useState(1);
   const [toast, setToast] = useState<"added" | null>(null);
   const [sizeError, setSizeError] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll and listen for Escape key when modal is open
+  useEffect(() => {
+    if (!product) return;
+
+    // Lock background scrolling on mobile & desktop
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [product]);
 
   // Reset state when product changes
   const handleClose = () => {
@@ -57,190 +85,215 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
     router.push("/store/checkout?mode=buynow");
   }
 
-  return (
+  if (!mounted) return null;
+
+  const modalContent = (
     <AnimatePresence>
       {product && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop with z-[300] directly in document.body to cover all elements completely */}
           <motion.div
             key="backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[200]"
-            style={{ background: "rgba(0,0,0,0.88)", backdropFilter: "blur(4px)" }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[300]"
+            style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(8px)" }}
             onClick={handleClose}
           />
 
-          {/* Modal */}
+          {/* Modal Overlay with z-[301] */}
           <motion.div
             key="modal"
-            initial={{ opacity: 0, scale: 0.96, y: 20 }}
+            initial={{ opacity: 0, scale: 0.96, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: 10 }}
-            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed z-[201] inset-0 flex items-center justify-center p-4 md:p-6 pointer-events-none"
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed z-[301] inset-0 flex items-center justify-center p-3 sm:p-5 md:p-8 pointer-events-none"
           >
             <div
-              className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto pointer-events-auto"
+              data-lenis-prevent
+              data-lenis-prevent-touch
+              className="relative w-[88vw] max-w-[340px] sm:max-w-[420px] md:max-w-[700px] max-h-[76vh] sm:max-h-[82vh] overflow-y-auto pointer-events-auto flex flex-col"
               style={{
                 background: "#0a0a0c",
-                border: "1px solid rgba(255,255,255,0.08)",
-                boxShadow: "0 40px 80px rgba(0,0,0,0.8), 0 0 0 1px rgba(196,30,58,0.08)",
+                border: "1px solid rgba(255,255,255,0.1)",
+                boxShadow: "0 30px 80px rgba(0,0,0,0.95), 0 0 0 1px rgba(196,30,58,0.18)",
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Subtle top red accent line */}
               <div
                 className="absolute top-0 left-0 right-0 h-[1px]"
-                style={{ background: "linear-gradient(90deg, var(--red), transparent 60%)", opacity: 0.5 }}
+                style={{ background: "linear-gradient(90deg, var(--red), transparent 60%)", opacity: 0.6 }}
               />
 
-              {/* Header bar */}
+              {/* Compact Header bar */}
               <div
-                className="flex items-center justify-between px-6 py-4 sticky top-0 z-10"
+                className="flex items-center justify-between px-3 py-2 sm:px-4 sm:py-3 sticky top-0 z-20"
                 style={{
-                  background: "rgba(10,10,12,0.97)",
+                  background: "rgba(10,10,12,0.98)",
                   backdropFilter: "blur(12px)",
-                  borderBottom: "1px solid rgba(255,255,255,0.04)",
+                  borderBottom: "1px solid rgba(255,255,255,0.06)",
                 }}
               >
-                <div className="flex items-center gap-3">
-                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--red)", opacity: 0.7 }} />
-                  <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.3em", color: "var(--text-muted)" }}>
+                <div className="flex items-center gap-1.5">
+                  <div style={{ width: 4.5, height: 4.5, borderRadius: "50%", background: "var(--red)", opacity: 0.8 }} />
+                  <span className="font-classified" style={{ fontSize: "8px", letterSpacing: "0.24em", color: "var(--text-muted)" }}>
                     ITEM FILE
                   </span>
-                  <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.2)" }}>
+                  <span className="font-classified" style={{ fontSize: "8px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.3)" }}>
                     // {product.itemCode}
                   </span>
                 </div>
                 <button
                   onClick={handleClose}
                   aria-label="Close product file"
-                  className="flex items-center justify-center w-9 h-9 transition-colors hover:text-white"
-                  style={{ color: "rgba(255,255,255,0.4)", background: "transparent", border: "none", cursor: "pointer" }}
+                  className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 transition-colors hover:text-white"
+                  style={{ color: "rgba(255,255,255,0.5)", background: "transparent", border: "none", cursor: "pointer" }}
                 >
-                  <X size={18} />
+                  <X size={14} />
                 </button>
               </div>
 
-              {/* Content */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                {/* Left — Gallery */}
+              {/* Content Grid — Ultra Compact Mobile Stack & Desktop Split */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch flex-1">
+                {/* Left — Small Image Banner on mobile, Full Height on desktop */}
                 <div
-                  className="p-6"
-                  style={{ borderRight: "1px solid rgba(255,255,255,0.04)" }}
+                  className="relative w-full h-[130px] sm:h-[180px] md:h-full md:min-h-full flex flex-col flex-shrink-0"
+                  style={{
+                    borderRight: "1px solid rgba(255,255,255,0.06)",
+                    borderBottom: "1px solid rgba(255,255,255,0.06)",
+                    background: "#08080a",
+                  }}
                 >
                   <ProductGallery images={product.images} productName={product.name} />
                 </div>
 
-                {/* Right — Details */}
-                <div className="p-6 flex flex-col gap-6">
-                  {/* Classification tags */}
-                  <div className="flex flex-wrap items-center gap-3">
-                    <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.28em", color: "var(--text-ghost)" }}>
-                      ITEM // {product.itemCode}
-                    </span>
-                    <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                    <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.28em", color: product.available ? "var(--red)" : "rgba(255,255,255,0.3)" }}>
-                      {product.available ? "● AVAILABLE" : "● OUT OF STOCK"}
-                    </span>
-                    {product.badge && (
-                      <>
-                        <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                        <span
-                          className="font-classified"
-                          style={{
-                            fontSize: "8px",
-                            letterSpacing: "0.22em",
-                            color: "#fff",
-                            background: "var(--red)",
-                            padding: "2px 8px",
-                          }}
-                        >
-                          {product.badge}
-                        </span>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Product name */}
-                  <div>
-                    <h2
-                      className="font-display"
-                      style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)", letterSpacing: "0.04em", lineHeight: 0.9, color: "var(--text)" }}
-                    >
-                      {product.name}
-                    </h2>
-                    <p
-                      className="font-classified"
-                      style={{ fontSize: "10px", letterSpacing: "0.22em", color: "var(--text-muted)", marginTop: "0.5rem" }}
-                    >
-                      OFFICIAL ISSUE
-                    </p>
-                  </div>
-
-                  {/* Description */}
-                  <p style={{ fontSize: "0.875rem", color: "var(--text-muted)", lineHeight: 1.7, fontWeight: 300 }}>
-                    {product.description}
-                  </p>
-
-                  {/* Price */}
-                  <div className="flex items-end gap-3">
-                    <span
-                      className="font-display"
-                      style={{ fontSize: "2rem", letterSpacing: "0.04em", color: "var(--text)" }}
-                    >
-                      LKR {product.price.toLocaleString()}
-                    </span>
-                  </div>
-
-                  {/* Divider */}
-                  <div className="mission-line" />
-
-                  {/* Size selector */}
-                  {requiresSize && (
-                    <div>
-                      <SizeSelector
-                        sizes={product.sizes}
-                        selected={selectedSize}
-                        onChange={(s) => { setSelectedSize(s); setSizeError(false); }}
-                      />
-                      {sizeError && (
-                        <motion.p
-                          initial={{ opacity: 0, y: -4 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          className="font-classified mt-2"
-                          style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--red)" }}
-                        >
-                          ⚠ PLEASE SELECT A SIZE
-                        </motion.p>
+                {/* Right — Details with ultra compact mobile padding & spacing */}
+                <div
+                  className="p-3 sm:p-4 md:p-5 flex flex-col justify-between flex-1"
+                  style={{
+                    textAlign: "left",
+                    alignItems: "flex-start",
+                  }}
+                >
+                  {/* Top Block */}
+                  <div className="flex flex-col w-full text-left" style={{ textAlign: "left", marginBottom: "0.5rem" }}>
+                    {/* Classification tags */}
+                    <div className="flex flex-wrap items-center gap-1.5" style={{ marginBottom: "0.3rem" }}>
+                      <span className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.18em", color: "var(--text-ghost)" }}>
+                        ITEM // {product.itemCode}
+                      </span>
+                      <div style={{ width: 2, height: 2, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
+                      <span className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: product.available ? "var(--red)" : "rgba(255,255,255,0.3)" }}>
+                        {product.available ? "● AVAILABLE" : "● OUT OF STOCK"}
+                      </span>
+                      {product.badge && (
+                        <>
+                          <div style={{ width: 2, height: 2, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
+                          <span
+                            className="font-classified font-medium"
+                            style={{
+                              fontSize: "7px",
+                              letterSpacing: "0.14em",
+                              color: "#fff",
+                              background: "var(--red)",
+                              padding: "1px 5px",
+                            }}
+                          >
+                            {product.badge}
+                          </span>
+                        </>
                       )}
                     </div>
-                  )}
 
-                  {/* Quantity */}
-                  <QuantitySelector value={quantity} onChange={setQuantity} />
+                    {/* Product name & subtitle */}
+                    <div style={{ marginBottom: "0.3rem" }}>
+                      <h2
+                        className="font-display"
+                        style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.04em", lineHeight: 1.05, color: "var(--text)" }}
+                      >
+                        {product.name}
+                      </h2>
+                      <p
+                        className="font-classified"
+                        style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "var(--text-muted)", marginTop: "0.15rem" }}
+                      >
+                        OFFICIAL ISSUE
+                      </p>
+                    </div>
 
-                  {/* Actions */}
-                  <div className="flex flex-col gap-3 mt-auto">
+                    {/* Description */}
+                    <p className="line-clamp-2 sm:line-clamp-none text-[11px] sm:text-[12px] text-white/65 font-light leading-relaxed mb-1.5">
+                      {product.description}
+                    </p>
+
+                    {/* Price */}
+                    <div className="flex items-baseline gap-1.5" style={{ marginBottom: "0.3rem" }}>
+                      <span
+                        className="font-classified"
+                        style={{ fontSize: "8px", letterSpacing: "0.16em", color: "var(--text-ghost)" }}
+                      >
+                        PRICE:
+                      </span>
+                      <span
+                        className="font-display"
+                        style={{ fontSize: "1.35rem", letterSpacing: "0.04em", color: "var(--text)" }}
+                      >
+                        LKR {product.price.toLocaleString()}
+                      </span>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="mission-line w-full" style={{ opacity: 0.35, margin: "0.2rem 0 0.5rem 0" }} />
+
+                    {/* Size selector */}
+                    {requiresSize && (
+                      <div style={{ marginBottom: "0.5rem" }} className="w-full text-left">
+                        <SizeSelector
+                          sizes={product.sizes}
+                          selected={selectedSize}
+                          onChange={(s) => { setSelectedSize(s); setSizeError(false); }}
+                        />
+                        {sizeError && (
+                          <motion.p
+                            initial={{ opacity: 0, y: -2 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="font-classified mt-1"
+                            style={{ fontSize: "7.5px", letterSpacing: "0.14em", color: "var(--red)" }}
+                          >
+                            ⚠ PLEASE SELECT A SIZE
+                          </motion.p>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Quantity selector */}
+                    <div style={{ marginBottom: "0.6rem" }} className="w-full text-left">
+                      <QuantitySelector value={quantity} onChange={setQuantity} />
+                    </div>
+                  </div>
+
+                  {/* Bottom Actions with ultra compact padding */}
+                  <div className="flex flex-col gap-1.5 w-full" style={{ marginTop: "0.2rem" }}>
                     <button
                       onClick={handleBuyNow}
-                      className="btn-mission w-full flex items-center justify-center gap-2"
-                      style={{ padding: "16px 24px", fontSize: "13px" }}
+                      className="btn-mission w-full flex items-center justify-center gap-1.5"
+                      style={{ padding: "9px 14px", fontSize: "11px" }}
                       id={`buynow-${product.id}`}
                     >
                       BUY NOW
-                      <ArrowRight size={16} />
+                      <ArrowRight size={12} />
                     </button>
                     <button
                       onClick={handleAddToCart}
-                      className="btn-ghost w-full flex items-center justify-center gap-2"
-                      style={{ padding: "14px 24px", fontSize: "13px" }}
+                      className="btn-ghost w-full flex items-center justify-center gap-1.5"
+                      style={{ padding: "7.5px 14px", fontSize: "10.5px" }}
                       id={`addtocart-${product.id}`}
                     >
-                      <ShoppingBag size={15} />
+                      <ShoppingBag size={12} />
                       ADD TO CART
                     </button>
                   </div>
@@ -249,22 +302,33 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   <AnimatePresence>
                     {toast === "added" && (
                       <motion.div
-                        initial={{ opacity: 0, y: 6 }}
+                        initial={{ opacity: 0, y: 3 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        className="flex items-center gap-2 px-4 py-3"
+                        exit={{ opacity: 0, y: -3 }}
+                        className="flex items-center gap-2 px-2.5 py-1.5 mt-1.5 w-full"
                         style={{
-                          background: "rgba(196,30,58,0.06)",
-                          border: "1px solid rgba(196,30,58,0.2)",
+                          background: "rgba(196,30,58,0.08)",
+                          border: "1px solid rgba(196,30,58,0.25)",
                         }}
                       >
-                        <Check size={14} style={{ color: "var(--red)" }} />
-                        <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--text-muted)" }}>
+                        <Check size={11} style={{ color: "var(--red)" }} />
+                        <span className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "var(--text)" }}>
                           ITEM ADDED TO MISSION INVENTORY ✓
                         </span>
                       </motion.div>
                     )}
                   </AnimatePresence>
+
+                  {/* Bottom dismiss for mobile convenience */}
+                  <div className="w-full flex justify-center mt-1.5">
+                    <button
+                      onClick={handleClose}
+                      className="font-classified text-[8px] tracking-[0.18em] text-white/30 hover:text-white transition-colors cursor-pointer py-0.5"
+                      style={{ background: "transparent", border: "none" }}
+                    >
+                      [ CLOSE FILE ]
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -273,4 +337,6 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
       )}
     </AnimatePresence>
   );
+
+  return createPortal(modalContent, document.body);
 }

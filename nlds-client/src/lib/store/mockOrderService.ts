@@ -1,63 +1,54 @@
 /**
- * NLDS'26 Store — Mock Order Service
+ * NLDS'26 Store — Order Service
  *
- * This service layer handles order submission.
- * Currently uses a mock implementation (simulates a network request).
- *
- * TO CONNECT TO A REAL BACKEND:
- *   Replace the body of `submitOrder` with an actual fetch() / axios call.
- *   The function signature and types remain the same — the UI will work unchanged.
- *
- * Example real implementation:
- *   const res = await fetch("/api/store/orders", {
- *     method: "POST",
- *     body: formData,   // include receipt file + JSON fields
- *   });
- *   const data = await res.json();
- *   return { success: true, orderId: data.orderId, message: "Order received." };
+ * Handles order submission to Next.js API route (/api/store/order)
+ * which uploads payment receipt to Google Drive (GOOGLE_DRIVE_MERCH_FOLDER_ID)
+ * and appends order records to Google Sheets (GOOGLE_SHEETS_MERCH_SPREADSHEET_ID).
  */
 
 import type { OrderPayload, OrderResult } from "@/lib/store/types";
 
-/** Generate a mock order ID in the format NLDS26-XXXXXX */
-function generateOrderId(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let result = "NLDS26-";
-  for (let i = 0; i < 6; i++) {
-    result += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return result;
-}
-
 /**
- * Submit an order.
+ * Submit an order to the backend API.
  *
  * @param payload - The complete order payload including customer details,
  *                  items, totals, and receipt file.
  * @returns OrderResult with success flag, order ID, and message.
  */
 export async function submitOrder(payload: OrderPayload): Promise<OrderResult> {
-  // ── MOCK IMPLEMENTATION ───────────────────────────────────────────────────
-  // Simulates a 1.5-second network request and always succeeds.
-  // In production, replace this with a real API call.
+  const formData = new FormData();
 
-  console.log("[MockOrderService] Submitting order:", {
-    customer: payload.customer,
-    itemCount: payload.items.length,
-    total: payload.total,
-    receiptFileName: payload.receiptFile?.name,
-  });
+  formData.append("fullName", payload.customer.fullName);
+  formData.append("email", payload.customer.email);
+  formData.append("mobileNumber", payload.customer.mobileNumber);
+  formData.append("entity", payload.customer.entity);
+  formData.append("items", JSON.stringify(payload.items));
+  formData.append("total", String(payload.total));
 
-  await new Promise<void>((resolve) => setTimeout(resolve, 1500));
+  if (payload.receiptFile) {
+    formData.append("receipt", payload.receiptFile, payload.receiptFile.name);
+  }
 
-  const orderId = generateOrderId();
+  try {
+    const res = await fetch("/api/store/order", {
+      method: "POST",
+      body: formData,
+    });
 
-  console.log("[MockOrderService] Order accepted:", orderId);
+    const data = await res.json();
 
-  return {
-    success: true,
-    orderId,
-    message: "MISSION REQUEST RECEIVED. YOUR ORDER HAS BEEN SUCCESSFULLY TRANSMITTED.",
-  };
-  // ── END MOCK ──────────────────────────────────────────────────────────────
+    if (!res.ok || !data.success) {
+      throw new Error(data.error || "Failed to submit order.");
+    }
+
+    return {
+      success: true,
+      orderId: data.orderId,
+      message: data.message || "MISSION REQUEST RECEIVED. YOUR ORDER HAS BEEN RECORDED.",
+    };
+  } catch (error: any) {
+    console.error("[OrderService] Order submission failed:", error);
+    throw error;
+  }
 }
+

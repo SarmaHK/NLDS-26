@@ -21,14 +21,12 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
   }
 
   return (
-    <div className="flex flex-col gap-3 w-full">
-      {/* Primary Image */}
+    <div className="flex flex-col w-full h-full relative overflow-hidden">
+      {/* Primary Image fills full container */}
       <div
-        className="relative overflow-hidden w-full"
+        className="relative overflow-hidden w-full h-full flex-1 min-h-[130px] sm:min-h-[180px] md:min-h-full"
         style={{
-          aspectRatio: "3/4",
-          background: "#0a0a0c",
-          border: "1px solid rgba(255,255,255,0.06)",
+          background: "#08080a",
         }}
       >
         {/* Scan-line overlay */}
@@ -52,7 +50,7 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               src={validImages[activeIndex]}
               alt={`${productName} — image ${activeIndex + 1}`}
               className="w-full h-full object-cover"
-              style={{ display: "block" }}
+              style={{ display: "block", minHeight: "100%", width: "100%", height: "100%" }}
             />
           ) : (
             /* Placeholder when no image is available */
@@ -60,7 +58,7 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               key="placeholder"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="w-full h-full flex flex-col items-center justify-center gap-4"
+              className="w-full h-full flex flex-col items-center justify-center gap-4 py-16"
             >
               <div
                 style={{
@@ -94,18 +92,21 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
 
         {/* Corner marks */}
         <div
-          className="absolute top-3 left-3 w-4 h-4 corner-tl pointer-events-none"
-          style={{ borderColor: "rgba(196,30,58,0.3)" }}
+          className="absolute top-4 left-4 w-4 h-4 corner-tl pointer-events-none z-10"
+          style={{ borderColor: "rgba(196,30,58,0.45)" }}
         />
         <div
-          className="absolute bottom-3 right-3 w-4 h-4 corner-br pointer-events-none"
-          style={{ borderColor: "rgba(196,30,58,0.3)" }}
+          className="absolute bottom-4 right-4 w-4 h-4 corner-br pointer-events-none z-10"
+          style={{ borderColor: "rgba(196,30,58,0.45)" }}
         />
       </div>
 
       {/* Thumbnails */}
       {hasMultiple && (
-        <div className="flex gap-2 flex-wrap">
+        <div
+          className="flex gap-2 flex-wrap p-3 z-10"
+          style={{ background: "rgba(6,6,8,0.85)", backdropFilter: "blur(6px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+        >
           {validImages.map((img, idx) => (
             <button
               key={idx}
@@ -113,12 +114,12 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               aria-label={`View image ${idx + 1}`}
               className="relative overflow-hidden transition-all duration-200"
               style={{
-                width: 60,
-                height: 72,
+                width: 52,
+                height: 52,
                 background: "#0a0a0c",
                 border: idx === activeIndex
                   ? "1px solid var(--red)"
-                  : "1px solid rgba(255,255,255,0.08)",
+                  : "1px solid rgba(255,255,255,0.1)",
                 opacity: idx === activeIndex ? 1 : 0.5,
                 cursor: "pointer",
                 padding: 0,

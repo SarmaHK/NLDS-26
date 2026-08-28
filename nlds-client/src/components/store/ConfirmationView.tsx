@@ -15,10 +15,11 @@ export default function ConfirmationView() {
   return (
     <>
       <PageHero
-        label="TRANSMISSION COMPLETE"
+        label="TRANSMISSION CONFIRMED"
         fileNo="NLDS-2026-CONFIRM"
-        title="MISSION REQUEST"
-        subtitle="RECEIVED"
+        title="ORDER"
+        subtitle="CONFIRMED"
+        description="Your mission request has been successfully transmitted. Your gear is pending verification."
       />
       <OrderConfirmation
         orderId={orderId}

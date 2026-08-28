@@ -39,7 +39,6 @@ export const PRODUCTS: Product[] = [
     price: 5500,
     images: [
       "/images/merch/combo-1.jpg",
-      "/images/merch/combo-2.jpg",
     ],
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     available: true,
@@ -56,7 +55,6 @@ export const PRODUCTS: Product[] = [
     price: 3500,
     images: [
       "/images/merch/tshirt-1.jpg",
-      "/images/merch/tshirt-2.jpg",
     ],
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     available: true,

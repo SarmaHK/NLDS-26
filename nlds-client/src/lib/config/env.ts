@@ -21,10 +21,12 @@ const envSchema = z.object({
     GOOGLE_CLIENT_EMAIL: z.string().email().optional().or(z.literal('')),
     GOOGLE_PRIVATE_KEY: z.string().optional(),
     GOOGLE_SHEETS_SPREADSHEET_ID: z.string().optional(),
+    GOOGLE_SHEETS_MERCH_SPREADSHEET_ID: z.string().optional(),
 
     // Drive Integ
     GOOGLE_DRIVE_CV_FOLDER_ID: z.string().optional(),
     GOOGLE_DRIVE_PHOTO_FOLDER_ID: z.string().optional(),
+    GOOGLE_DRIVE_MERCH_FOLDER_ID: z.string().optional(),
     GOOGLE_DRIVE_CLIENT_EMAIL: z.string().email().optional().or(z.literal('')),
     GOOGLE_DRIVE_PRIVATE_KEY: z.string().optional(),
 
