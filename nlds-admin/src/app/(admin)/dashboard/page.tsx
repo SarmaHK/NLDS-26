@@ -1,112 +1,89 @@
 import React from 'react';
-
-const stats = [
-    { label: "Total Registrations", value: "842", color: "var(--text)" },
-    { label: "Submitted", value: "128", color: "var(--status-submitted)" },
-    { label: "Under Review", value: "45", color: "var(--status-review)" },
-    { label: "Accepted", value: "620", color: "var(--status-accepted)" },
-    { label: "Rejected", value: "24", color: "var(--status-rejected)" },
-    { label: "Cancelled", value: "25", color: "var(--status-cancelled)" },
-];
-
-const recentRows = [
-    { id: "NLDS26-0842", name: "Nethmi Jayawardena", entity: "UoM", status: "SUBMITTED", date: "28 Aug 2026" },
-    { id: "NLDS26-0841", name: "Kavindu Dissanayake", entity: "USJ", status: "UNDER_REVIEW", date: "28 Aug 2026" },
-    { id: "NLDS26-0840", name: "Dinuka Samarasekara", entity: "SLIIT", status: "ACCEPTED", date: "27 Aug 2026" },
-    { id: "NLDS26-0839", name: "Isuri Wickramasinghe", entity: "UoK", status: "ACCEPTED", date: "27 Aug 2026" },
-    { id: "NLDS26-0838", name: "Ravindu Perera", entity: "NSBM", status: "REJECTED", date: "26 Aug 2026" },
-];
-
-function StatusBadge({ status }: { status: string }) {
-    const map: Record<string, string> = {
-        SUBMITTED: "badge-submitted",
-        UNDER_REVIEW: "badge-review",
-        ACCEPTED: "badge-accepted",
-        REJECTED: "badge-rejected",
-        CANCELLED: "badge-cancelled",
-    };
-    return (
-        <span className={`badge ${map[status] || ''}`}>
-            {status.replace('_', ' ')}
-        </span>
-    );
-}
+import Link from 'next/link';
+import { mockDashboardStats, mockRegistrations, mockDailyRegistrations } from '@/data/mock';
+import { PageHeader, SectionHeader, StatusBadge } from '@/components/ui';
 
 export default function DashboardPage() {
+    const stats = [
+        { label: 'Total', value: mockDashboardStats.total, color: 'var(--text)' },
+        { label: 'Submitted', value: mockDashboardStats.submitted, color: 'var(--status-submitted)' },
+        { label: 'Under Review', value: mockDashboardStats.underReview, color: 'var(--status-review)' },
+        { label: 'Accepted', value: mockDashboardStats.accepted, color: 'var(--status-accepted)' },
+        { label: 'Rejected', value: mockDashboardStats.rejected, color: 'var(--status-rejected)' },
+        { label: 'Cancelled', value: mockDashboardStats.cancelled, color: 'var(--status-cancelled)' },
+    ];
+
+    const recent = mockRegistrations.slice(0, 8);
+    const maxBar = Math.max(...mockDailyRegistrations.map(d => d.count));
+
     return (
         <div className="space-y-[var(--section-gap)] animate-fade-in-up max-w-[1200px]">
+            <PageHeader title="DASHBOARD" description="NLDS 2026 operational overview." />
 
-            {/* Page Header */}
-            <div className="pb-6 border-b border-[var(--border)]">
-                <h1 className="text-page-title">DASHBOARD</h1>
-                <p className="text-meta mt-2">Operations overview — mock data for UI development.</p>
-            </div>
-
-            {/* Stats Grid */}
+            {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[var(--card-gap)]">
                 {stats.map((s, i) => (
                     <div key={i} className="card-stat">
                         <p className="text-system">{s.label}</p>
-                        <p className="font-display text-[36px] leading-none tabular" style={{ color: s.color, fontVariantNumeric: 'tabular-nums' }}>
+                        <p className="font-display text-[36px] leading-none" style={{ color: s.color, fontVariantNumeric: 'tabular-nums' }}>
                             {s.value}
                         </p>
                     </div>
                 ))}
             </div>
 
+            {/* Activity Chart */}
+            <div>
+                <SectionHeader title="Registration Activity (14 Days)" />
+                <div className="card" style={{ padding: '24px' }}>
+                    <div className="flex items-end gap-[6px]" style={{ height: 140 }}>
+                        {mockDailyRegistrations.map((d, i) => (
+                            <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                                <span className="text-[9px] font-mono text-[var(--text-ghost)]">{d.count}</span>
+                                <div
+                                    className="w-full bg-[var(--red)] transition-all"
+                                    style={{ height: `${(d.count / maxBar) * 100}px`, opacity: 0.7 + (d.count / maxBar) * 0.3 }}
+                                />
+                                <span className="text-[8px] font-mono text-[var(--text-ghost)] whitespace-nowrap">{d.date}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             {/* Recent Registrations */}
             <div>
-                <div className="flex items-center justify-between mb-4">
-                    <h2 className="text-section-title">Recent Registrations</h2>
-                    <button className="btn-ghost">View All</button>
-                </div>
-
+                <SectionHeader title="Recent Registrations" action={
+                    <Link href="/registrations" className="btn-ghost">View All</Link>
+                } />
                 <div className="border border-[var(--border)] overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="admin-table">
                             <thead>
                                 <tr>
                                     <th>Reference</th>
-                                    <th>Name</th>
+                                    <th>Participant</th>
                                     <th>Entity</th>
+                                    <th>Type</th>
                                     <th>Status</th>
-                                    <th>Date</th>
+                                    <th>Submitted</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {recentRows.map((row, i) => (
-                                    <tr key={i}>
-                                        <td className="font-mono text-[12px] text-[var(--text-muted)]">{row.id}</td>
-                                        <td className="text-[var(--text)]">{row.name}</td>
-                                        <td className="text-[var(--text-muted)]">{row.entity}</td>
-                                        <td><StatusBadge status={row.status} /></td>
-                                        <td className="font-mono text-[12px] text-[var(--text-ghost)]">{row.date}</td>
+                                {recent.map(r => (
+                                    <tr key={r.id}>
+                                        <td><Link href={`/registrations/${r.id}`} className="font-mono text-[12px] text-[var(--text-muted)] hover:text-[var(--red)] transition-colors">{r.referenceCode}</Link></td>
+                                        <td className="text-[var(--text)]">{r.participantName}</td>
+                                        <td className="text-[var(--text-muted)]">{r.entity}</td>
+                                        <td><span className="text-meta">{r.participantType}</span></td>
+                                        <td><StatusBadge status={r.status} /></td>
+                                        <td className="font-mono text-[12px] text-[var(--text-ghost)]">{new Date(r.submittedAt).toLocaleDateString()}</td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-
-            {/* Quick Actions & Activity */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-[var(--card-gap)]">
-
-                <div className="card">
-                    <h3 className="text-section-title mb-5">Quick Protocols</h3>
-                    <div className="flex flex-col gap-3">
-                        <button className="btn-secondary w-full">Start Review Batch</button>
-                        <button className="btn-secondary w-full">Export Registrations</button>
-                    </div>
-                </div>
-
-                <div className="card">
-                    <h3 className="text-section-title mb-5">Recent Activity</h3>
-                    <div className="empty-state" style={{ padding: '32px 16px' }}>
-                        <p className="text-meta">No recent activity to display.</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     );
