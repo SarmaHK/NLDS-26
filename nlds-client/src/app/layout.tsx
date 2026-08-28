@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import LenisProvider from "@/components/providers/LenisProvider";
+import { CartProvider } from "@/lib/store/cartStore";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -65,11 +66,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${poppins.variable} ${bebasNeue.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased" style={{ overflowX: "hidden", maxWidth: "100vw" }}>
-        <LenisProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </LenisProvider>
+        <CartProvider>
+          <LenisProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </LenisProvider>
+        </CartProvider>
       </body>
     </html>
   );
