@@ -20,7 +20,7 @@ export default function MissionReadiness() {
             <fieldset className="flex flex-col gap-5">
                 <SectionLabel>MISSION READINESS PROTOCOL</SectionLabel>
 
-                <p className="font-classified text-[10px] tracking-[0.12em] text-white/50 uppercase mb-2">
+                <p className="font-sans text-[14px] tracking-wide text-[var(--text-dim)] uppercase mb-2 font-medium">
                     On a scale of 1-5, how ready are you to accept the mission?
                 </p>
 
@@ -61,7 +61,7 @@ export default function MissionReadiness() {
                                         <span className="font-bebas text-xl tracking-wider" style={{ color: isSelected ? "var(--text)" : "var(--text-muted)" }}>
                                             {option.title}
                                         </span>
-                                        <span className="font-sans text-sm text-white/60">
+                                        <span className="font-sans text-[14px] text-[var(--text-dim)] pt-1">
                                             {option.description}
                                         </span>
                                     </div>

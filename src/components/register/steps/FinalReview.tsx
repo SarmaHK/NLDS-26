@@ -40,7 +40,7 @@ export default function FinalReview({ onEditStep }: FinalReviewProps) {
             <button
                 type="button"
                 onClick={() => onEditStep(stepIndex)}
-                className="absolute top-4 right-4 font-classified text-[10px] tracking-[0.2em] text-[var(--red)] hover:text-white transition-colors uppercase"
+                className="absolute top-4 right-4 font-classified text-[12px] tracking-[0.2em] text-[var(--red)] hover:text-white transition-colors uppercase"
             >
                 EDIT
             </button>
@@ -51,10 +51,10 @@ export default function FinalReview({ onEditStep }: FinalReviewProps) {
 
     const DataRow = ({ label, value }: { label: string; value: string | undefined }) => (
         <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 border-b border-[var(--border-strong)] pb-2 mb-2 last:border-0 last:pb-0 last:mb-0">
-            <span className="font-classified text-[10px] tracking-[0.1em] text-white/40 uppercase sm:w-1/3 flex-shrink-0">
+            <span className="font-sans text-[13px] tracking-wide text-white/60 font-medium uppercase sm:w-1/3 flex-shrink-0">
                 {label}
             </span>
-            <span className="font-sans text-sm text-[var(--text)] whitespace-pre-wrap">
+            <span className="font-sans text-[15px] text-[var(--text)] whitespace-pre-wrap">
                 {value && value.trim() !== "" ? value : <span className="italic text-white/20">Not provided</span>}
             </span>
         </div>
@@ -62,7 +62,7 @@ export default function FinalReview({ onEditStep }: FinalReviewProps) {
 
     return (
         <div className="flex flex-col gap-8">
-            <p className="font-classified text-[9px] tracking-[0.28em] uppercase text-white/35">
+            <p className="font-classified text-[11px] tracking-[0.2em] uppercase text-white/50">
                 MISSION BRIEFING
             </p>
 

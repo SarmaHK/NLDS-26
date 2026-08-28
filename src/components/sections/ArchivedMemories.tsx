@@ -188,10 +188,10 @@ function ImageCarousel({ images }: { images: string[] }) {
             ) : (
               <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
                 <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.08 }} />
-                <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.2em", position: "relative", zIndex: 1 }}>
+                <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em", position: "relative", zIndex: 1 }}>
                   IMG_{String(current + 1).padStart(3, "0")}
                 </span>
-                <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.08)", letterSpacing: "0.15em", position: "relative", zIndex: 1 }}>
+                <span style={{ fontFamily: "monospace", fontSize: "10px", color: "var(--text-muted)", letterSpacing: "0.15em", position: "relative", zIndex: 1 }}>
                   AWAITING UPLOAD
                 </span>
               </div>
@@ -200,7 +200,7 @@ function ImageCarousel({ images }: { images: string[] }) {
         </AnimatePresence>
 
         <div style={{ position: "absolute", bottom: 10, left: 12, zIndex: 4, display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em", background: "rgba(6,6,8,0.6)", padding: "2px 6px", backdropFilter: "blur(4px)" }}>
+          <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.7)", letterSpacing: "0.18em", background: "rgba(6,6,8,0.6)", padding: "2px 6px", backdropFilter: "blur(4px)" }}>
             {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
           </span>
         </div>
@@ -387,10 +387,10 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         {/* ── Header row ── */}
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.2em" }}>
+            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>
               {card.fileNum}
             </span>
-            <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.25)", letterSpacing: "0.18em" }}>
+            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.5)", letterSpacing: "0.18em" }}>
               {card.edition}
             </span>
           </div>
@@ -398,7 +398,7 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
           {/* Status badge */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", padding: "3px 8px", border: `1px solid ${statusColour(card.status)}`, opacity: 0.75 }}>
             <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: statusColour(card.status), display: "inline-block" }} />
-            <span style={{ fontFamily: "monospace", fontSize: "7px", letterSpacing: "0.22em", color: statusColour(card.status) }}>
+            <span style={{ fontFamily: "monospace", fontSize: "10px", letterSpacing: "0.22em", color: statusColour(card.status) }}>
               {card.status}
             </span>
           </div>
@@ -416,7 +416,7 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
           <h3 style={{ fontFamily: "'Barlow Condensed', 'Oswald', sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", lineHeight: 0.9, letterSpacing: "0.04em", color: "var(--text)", marginBottom: "0.35rem" }}>
             {card.title}
           </h3>
-          <p style={{ fontFamily: "monospace", fontSize: "9px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.18em" }}>
+          <p style={{ fontFamily: "monospace", fontSize: "12px", color: "rgba(255,255,255,0.6)", letterSpacing: "0.18em" }}>
             {card.subtitle.toUpperCase()}
           </p>
         </div>
@@ -429,13 +429,13 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         )}
 
         {/* ── Caption ── */}
-        <p style={{ fontFamily: "monospace", fontSize: "9px", lineHeight: 1.7, color: "rgba(255,255,255,0.28)", letterSpacing: "0.05em" }}>
+        <p style={{ fontFamily: "sans-serif", fontSize: "14px", lineHeight: 1.7, color: "var(--text-dim)", letterSpacing: "0.05em" }}>
           {card.caption}
         </p>
 
         {/* ── Handwritten-style note ── */}
         <div style={{ borderLeft: "2px solid rgba(196,30,58,0.3)", paddingLeft: "0.75rem" }}>
-          <p style={{ fontFamily: "Georgia, serif", fontSize: "10px", color: "rgba(255,255,255,0.2)", fontStyle: "italic", lineHeight: 1.5 }}>
+          <p style={{ fontFamily: "Georgia, serif", fontSize: "12px", color: "var(--text-muted)", fontStyle: "italic", lineHeight: 1.5 }}>
             {card.note}
           </p>
         </div>
@@ -443,18 +443,18 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         {/* ── Footer metadata ── */}
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", paddingTop: "0.75rem", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.18em" }}>
+            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em" }}>
               {card.coords}
             </span>
-            <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.12)", letterSpacing: "0.15em" }}>
+            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>
               TIMESTAMP: {card.timestamp}
             </span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "3px" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "7px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.18em" }}>
+            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em" }}>
               {card.classification}
             </span>
-            <span style={{ fontFamily: "monospace", fontSize: "18px", color: "rgba(255,255,255,0.04)", lineHeight: 1 }}>
+            <span style={{ fontFamily: "monospace", fontSize: "20px", color: "rgba(255,255,255,0.1)", lineHeight: 1 }}>
               {card.id}
             </span>
           </div>
@@ -525,11 +525,11 @@ export default function ArchivedMemories() {
 
           {/* Redacted metadata row */}
           <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginTop: "0.5rem" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.2em" }}>EDITION: NLDS'25</span>
+            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>EDITION: NLDS'25</span>
             <div style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.1)" }} />
-            <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.2em" }}>STATUS: DECLASSIFIED</span>
+            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>STATUS: DECLASSIFIED</span>
             <div style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.1)" }} />
-            <span style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.18)", letterSpacing: "0.2em" }}>FILES: 03</span>
+            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>FILES: 03</span>
           </div>
         </motion.div>
 
@@ -558,7 +558,7 @@ export default function ArchivedMemories() {
           style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}
         >
           <div style={{ height: "1px", width: "3rem", background: "rgba(255,255,255,0.08)" }} />
-          <p style={{ fontFamily: "monospace", fontSize: "8px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.22em", textAlign: "center" }}>
+          <p style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.22em", textAlign: "center" }}>
             RECORDS DECLASSIFIED — AIESEC IN SRI LANKA // ARCHIVE DIVISION
           </p>
         </motion.div>

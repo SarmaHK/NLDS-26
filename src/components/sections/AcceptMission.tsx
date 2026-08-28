@@ -149,7 +149,7 @@ export default function AcceptMission() {
             They are meant to change you.
           </p>
           <p
-            className="font-classified text-[10px] tracking-[0.25em]"
+            className="font-classified text-[12px] tracking-[0.25em]"
             style={{ color: "var(--text-muted)" }}
           >
             09 — 11 OCTOBER 2026 // SRI LANKA
@@ -185,16 +185,16 @@ export default function AcceptMission() {
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--red)", opacity: 0.5 }} />
             <p
-              className="font-classified text-[8px] tracking-[0.3em]"
-              style={{ color: "rgba(255,255,255,0.2)" }}
+              className="font-classified text-[10px] tracking-[0.3em]"
+              style={{ color: "rgba(255,255,255,0.4)" }}
             >
               THIS MESSAGE WILL SELF-DESTRUCT
             </p>
             <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--red)", opacity: 0.5 }} />
           </div>
           <p
-            className="font-classified text-[8px] tracking-[0.22em]"
-            style={{ color: "rgba(255,255,255,0.1)" }}
+            className="font-classified text-[10px] tracking-[0.22em]"
+            style={{ color: "rgba(255,255,255,0.3)" }}
           >
             NLDS'26 // AIESEC IN SRI LANKA
           </p>

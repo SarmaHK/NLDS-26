@@ -36,7 +36,7 @@ export default function StepNavigation({
 
             {isLast ? (
                 <div className="flex flex-col items-stretch sm:items-end gap-3 sm:text-right">
-                    <span className="font-sans text-xs tracking-wide text-white/50 max-w-[280px]">
+                    <span className="font-sans text-[13px] tracking-wide text-white/70 max-w-[280px]">
                         Once submitted, your mission profile will be sent to the NLDS 2026 Conference Team for review.
                     </span>
                     <button

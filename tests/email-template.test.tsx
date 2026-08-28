@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import { render } from "@react-email/render";
 import { OTPEmail } from "../src/lib/backend/email/templates/otp";
 import { RegistrationSuccessEmail } from "../src/lib/backend/email/templates/registration-success";

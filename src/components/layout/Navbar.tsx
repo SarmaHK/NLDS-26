@@ -104,7 +104,7 @@ export default function Navbar() {
                   className="flex items-center gap-1.5 px-4 py-2 cursor-not-allowed select-none"
                 >
                   <Lock size={10} className="flex-shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} />
-                  <span className="font-classified text-[10px] tracking-[0.24em] text-white/40">
+                  <span className="font-classified text-[11px] tracking-[0.24em] text-white/60">
                     {link.label}
                   </span>
                 </div>
@@ -117,7 +117,7 @@ export default function Navbar() {
                   id={`nav-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <span
-                    className="font-classified text-[10px] tracking-[0.24em] text-white transition-colors duration-200 group-hover:text-[var(--red)]"
+                    className="font-classified text-[11px] tracking-[0.24em] text-white transition-colors duration-200 group-hover:text-[var(--red)]"
                   >
                     {link.label}
                   </span>
@@ -136,7 +136,7 @@ export default function Navbar() {
             <Link
               href="/register"
               className="btn-mission"
-              style={{ fontSize: "10px", padding: "12px 24px" }}
+              style={{ padding: "12px 24px" }}
               id="nav-cta"
             >
               ACCEPT THE MISSION →
@@ -173,7 +173,7 @@ export default function Navbar() {
               <div className="px-5 sm:px-6 py-6 flex flex-col gap-2">
                 {/* Classification strip */}
                 <div className="pb-4 mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
-                  <p className="font-classified text-[8px] tracking-[0.3em] text-white/18">
+                  <p className="font-classified text-[10px] tracking-[0.3em] text-[var(--text-dim)]">
                     CLASSIFICATION: TOP SECRET // AIESEC IN SRI LANKA
                   </p>
                 </div>
@@ -213,7 +213,7 @@ export default function Navbar() {
                           onClick={(e) => handleNavClick(e, link, () => setMenuOpen(false))}
                           className="flex items-center gap-3 py-3 group no-underline"
                         >
-                          <span className="font-classified text-[8px] text-white/15 w-4 hidden sm:block">
+                          <span className="font-classified text-[10px] text-white/40 w-4 hidden sm:block">
                             {String(i + 1).padStart(2, "0")}
                           </span>
                           <span
@@ -237,7 +237,7 @@ export default function Navbar() {
                     href="/register"
                     onClick={() => setMenuOpen(false)}
                     className="btn-mission w-full justify-center"
-                    style={{ display: "flex", fontSize: "10px" }}
+                    style={{ display: "flex" }}
                     id="mobile-cta"
                   >
                     ACCEPT THE MISSION →

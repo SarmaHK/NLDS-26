@@ -21,7 +21,7 @@ export default function SubmissionSuccess({ referenceCode, error, onRetry }: Pro
                 <span className="font-classified text-[10px] tracking-[0.32em] text-[var(--red)]">
                     TRANSMISSION FAILED
                 </span>
-                <p className="font-sans text-sm tracking-wide text-white/60">
+                <p className="font-sans text-[15px] tracking-wide text-[var(--text-dim)]">
                     {error || "Unknown network sequence interrupted"}
                 </p>
                 <button type="button" onClick={onRetry} className="btn-ghost mt-2 px-6">
@@ -47,7 +47,7 @@ export default function SubmissionSuccess({ referenceCode, error, onRetry }: Pro
                 <h2 className="font-display text-3xl tracking-[0.12em] text-white">
                     TRANSMITTING...
                 </h2>
-                <p className="font-classified text-[10px] tracking-[0.22em] text-white/40 uppercase">
+                <p className="font-classified text-[12px] tracking-[0.22em] text-[var(--text-dim)] uppercase">
                     Please stand by.
                 </p>
                 <div className="reg-progress reg-progress--indet w-full max-w-[220px]">
@@ -90,7 +90,7 @@ export default function SubmissionSuccess({ referenceCode, error, onRetry }: Pro
             </motion.h2>
 
             <motion.p
-                className="font-sans text-[15px] sm:text-base text-white/60 max-w-md leading-[1.8] relative z-10"
+                className="font-sans text-[15px] sm:text-base text-[var(--text-dim)] max-w-md leading-[1.8] relative z-10"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.35, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -99,7 +99,7 @@ export default function SubmissionSuccess({ referenceCode, error, onRetry }: Pro
                 <br />
                 Your mission briefing has been received.
                 <br />
-                <span className="block mt-6 text-xs tracking-wide text-white/40 uppercase">
+                <span className="block mt-6 text-[13px] tracking-wide text-white/60 uppercase font-medium">
                     Further communication will be sent to your registered email if required.
                 </span>
             </motion.p>

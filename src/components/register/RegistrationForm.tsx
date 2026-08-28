@@ -376,7 +376,7 @@ export default function RegistrationForm() {
                         >
                             <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10 pt-4">
                                 <div>
-                                    <p className="font-classified text-[9px] tracking-[0.28em] text-white/35 mb-2">
+                                    <p className="font-classified text-[11px] tracking-[0.2em] text-[var(--text-dim)] mb-2">
                                         NLDS 2026
                                     </p>
                                     <h1
@@ -440,7 +440,7 @@ export default function RegistrationForm() {
 
                                     <div className="flex items-center justify-center gap-3 mt-8">
                                         <div className="h-[1px] w-6" style={{ background: "var(--border)" }} />
-                                        <span className="font-classified text-[8px] tracking-[0.2em] text-white/15 uppercase">
+                                        <span className="font-classified text-[10px] tracking-[0.15em] text-white/40 uppercase">
                                             REGISTRATION DATA IS ENCRYPTED IN TRANSIT
                                         </span>
                                         <div className="h-[1px] w-6" style={{ background: "var(--border)" }} />

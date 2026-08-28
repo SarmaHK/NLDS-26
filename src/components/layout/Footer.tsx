@@ -91,7 +91,7 @@ export default function Footer() {
                 NLDS<span style={{ color: "var(--red)" }}>&apos;26</span>
               </span>
             </Link>
-            <p className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.2em", lineHeight: 1.8, color: "rgba(255,255,255,0.65)" }}>
+            <p className="font-classified" style={{ fontSize: "11px", letterSpacing: "0.2em", lineHeight: 1.8, color: "rgba(255,255,255,0.75)" }}>
               NATIONAL LEADERSHIP DEVELOPMENT SEMINAR
               <br />
               AIESEC IN SRI LANKA
@@ -134,7 +134,7 @@ export default function Footer() {
             <div>
               <p
                 className="font-classified"
-                style={{ fontSize: "9px", letterSpacing: "0.3em", color: "rgba(255,255,255,0.25)", marginBottom: "1.5rem", textTransform: "uppercase" }}
+                style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "1.5rem", textTransform: "uppercase" }}
               >
                 NAVIGATION
               </p>
@@ -145,9 +145,9 @@ export default function Footer() {
                       href={link.href}
                       className="font-classified"
                       style={{
-                        fontSize: "10px",
+                        fontSize: "12px",
                         letterSpacing: "0.22em",
-                        color: "rgba(255,255,255,0.75)",
+                        color: "var(--text)",
                         textDecoration: "none",
                         transition: "color 0.2s",
                       }}
@@ -163,7 +163,7 @@ export default function Footer() {
             <div>
               <p
                 className="font-classified"
-                style={{ fontSize: "9px", letterSpacing: "0.3em", color: "rgba(255,255,255,0.25)", marginBottom: "1.5rem", textTransform: "uppercase" }}
+                style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "1.5rem", textTransform: "uppercase" }}
               >
                 FOLLOW
               </p>
@@ -176,9 +176,9 @@ export default function Footer() {
                       rel="noopener noreferrer"
                       className="font-classified"
                       style={{
-                        fontSize: "10px",
+                        fontSize: "12px",
                         letterSpacing: "0.22em",
-                        color: "rgba(255,255,255,0.75)",
+                        color: "var(--text)",
                         textDecoration: "none",
                         transition: "color 0.2s",
                       }}
@@ -195,22 +195,22 @@ export default function Footer() {
               <div>
                 <p
                   className="font-classified"
-                  style={{ fontSize: "9px", letterSpacing: "0.3em", color: "rgba(255,255,255,0.25)", marginBottom: "0.75rem", textTransform: "uppercase" }}
+                  style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "0.75rem", textTransform: "uppercase" }}
                 >
                   MISSION DATE
                 </p>
-                <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.85)" }}>
+                <span className="font-classified" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--text)" }}>
                   09 — 11 OCTOBER 2026
                 </span>
               </div>
               <div>
                 <p
                   className="font-classified"
-                  style={{ fontSize: "9px", letterSpacing: "0.3em", color: "rgba(255,255,255,0.25)", marginBottom: "0.75rem", textTransform: "uppercase" }}
+                  style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "0.75rem", textTransform: "uppercase" }}
                 >
                   MISSION VENUE
                 </p>
-                <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.55)" }}>
+                <span className="font-classified" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--text-muted)" }}>
                   TO BE ANNOUNCED
                 </span>
               </div>
@@ -223,10 +223,10 @@ export default function Footer() {
 
         {/* ── Bottom bar ────────────────────────────────────── */}
         <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
-          <p className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.15em", color: "rgba(255,255,255,0.45)" }}>
+          <p className="font-classified" style={{ fontSize: "11px", letterSpacing: "0.15em", color: "rgba(255,255,255,0.6)" }}>
             © 2026 AIESEC IN SRI LANKA. ALL RIGHTS RESERVED.
           </p>
-          <p className="font-classified" style={{ fontSize: "8px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.2)" }}>
+          <p className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)" }}>
             NLDS&apos;26 // OFFICIAL MISSION PLATFORM
           </p>
         </div>

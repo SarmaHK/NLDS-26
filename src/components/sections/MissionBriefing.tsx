@@ -127,7 +127,7 @@ export default function MissionBriefing() {
             >
               <span className="label-classified">CLASSIFIED</span>
             </div>
-            <span className="font-classified text-[9px] text-white/20">
+            <span className="font-classified text-[11px] text-white/50">
               AUTHORIZED PERSONNEL ONLY
             </span>
           </motion.div>
@@ -177,11 +177,11 @@ export default function MissionBriefing() {
                   {value}
                 </span>
 
-                <span className="font-classified text-[10px] tracking-[0.22em] text-white/45">
+                <span className="font-classified text-[11px] tracking-[0.22em] text-[var(--text-dim)]">
                   {label}
                 </span>
 
-                <span className="font-classified text-[8px] text-white/20">
+                <span className="font-classified text-[10px] text-[var(--text-muted)]">
                   {sub.toUpperCase()}
                 </span>
 

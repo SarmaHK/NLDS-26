@@ -1,26 +1,26 @@
-// @ts-nocheck
+
 import { TelegramClient } from "../src/lib/backend/integrations/telegram";
 import { TelegramStrategy } from "../src/lib/backend/events/telegram.strategy";
 import { ExternalSyncService } from "../src/lib/backend/events/sync.service";
-import { RegistrationService } from "../src/lib/backend/services/registration.service";
-import { RegistrationRepository } from "../src/lib/backend/repositories/registration.repository";
 
 // Mocks verifying Telegram isolated execution bounds statically
 jest.mock("../src/lib/backend/integrations/telegram");
 
 describe("Phase 9 - Telegram Notification Synchronization", () => {
-    let mockClient;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let mockClient: any;
 
     beforeEach(() => {
         mockClient = {
             sendMessage: jest.fn().mockResolvedValue(true)
         };
-        TelegramClient.mockImplementation(() => mockClient);
+        (TelegramClient as jest.Mock).mockImplementation(() => mockClient);
     });
 
     test("1. Successful Telegram notification execution bounds", async () => {
         const strategy = new TelegramStrategy();
         await strategy.execute({
+            registrationId: "test",
             type: "REGISTRATION_SUBMITTED",
             referenceCode: "NLDS26-TELETEST",
             payload: { fullName: "A B", aiesecEmail: "a@b.net" }
@@ -52,6 +52,7 @@ describe("Phase 9 - Telegram Notification Synchronization", () => {
         const strategy = new TelegramStrategy();
 
         await expect(strategy.execute({
+            registrationId: "test-reg",
             type: "REGISTRATION_SUBMITTED",
             payload: {}
         })).rejects.toThrow("Network Error");
@@ -68,6 +69,7 @@ describe("Phase 9 - Telegram Notification Synchronization", () => {
     test("7. Notification does not contain sensitive fields properly mapped", async () => {
         const strategy = new TelegramStrategy();
         await strategy.execute({
+            registrationId: "test",
             type: "REGISTRATION_SUBMITTED",
             referenceCode: "NO-LEAKS",
             payload: {

@@ -69,7 +69,7 @@ export default function StoreFront() {
           {/* Subtext */}
           <p
             style={{
-              color: "rgba(255,255,255,0.45)",
+              color: "var(--text-dim)",
               maxWidth: "32rem",
               width: "100%",
               fontSize: "clamp(0.9rem, 1.4vw, 1.1rem)",
@@ -95,7 +95,7 @@ export default function StoreFront() {
             }}
           >
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.6 }} />
-            <span className="font-classified" style={{ fontSize: "8.5px", letterSpacing: "0.22em", color: "rgba(255,255,255,0.3)" }}>
+            <span className="font-classified" style={{ fontSize: "11px", letterSpacing: "0.22em", color: "var(--text-muted)" }}>
               STATUS: ACCESS LOCKED UNTIL RELEASE
             </span>
             <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", opacity: 0.6 }} />

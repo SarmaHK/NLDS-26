@@ -61,7 +61,7 @@ export default function AiesecIntel() {
                 <SectionLabel>AIESEC AFFILIATION & IDENTITY VERIFICATION</SectionLabel>
 
                 <div className="flex flex-col gap-3 mb-2">
-                    <label className="font-classified text-[11px] tracking-[0.22em] uppercase text-white/55">
+                    <label className="font-sans text-[13px] tracking-wide font-medium uppercase text-[var(--text-dim)]">
                         Are you a Newbie or Oldbie? <span className="text-[var(--red)]">*</span>
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -83,7 +83,7 @@ export default function AiesecIntel() {
                                 </span>
                             )}
                             <span className="font-display text-[2rem] leading-none tracking-[0.12em]">NEWBIE</span>
-                            <span className="font-sans text-[11px] tracking-wide text-white/50">New to AIESEC</span>
+                            <span className="font-sans text-[13px] tracking-wide text-[var(--text-muted)] mt-1">New to AIESEC</span>
                         </button>
                         <button
                             type="button"
@@ -103,7 +103,7 @@ export default function AiesecIntel() {
                                 </span>
                             )}
                             <span className="font-display text-[2rem] leading-none tracking-[0.12em]">OLDBIE</span>
-                            <span className="font-sans text-[11px] tracking-wide text-white/50">Existing AIESEC member</span>
+                            <span className="font-sans text-[13px] tracking-wide text-[var(--text-muted)] mt-1">Existing AIESEC member</span>
                         </button>
                     </div>
                     <input type="hidden" {...register("aiesecIntel.participantType")} />
@@ -167,7 +167,7 @@ export default function AiesecIntel() {
                 )}
 
                 {entity && igOptions.length === 0 && entity !== "Other" && (
-                    <p className="font-classified text-[10px] tracking-[0.12em] text-white/40 uppercase p-4 mt-2" style={{ border: "1px dashed var(--border-strong)" }}>
+                    <p className="font-sans text-[13px] tracking-wide text-[var(--text-dim)] uppercase p-4 mt-2" style={{ border: "1px dashed var(--border-strong)" }}>
                         No mapped Initiative Groups for {entity}. Please proceed.
                     </p>
                 )}

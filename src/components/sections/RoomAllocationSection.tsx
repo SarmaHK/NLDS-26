@@ -10,10 +10,10 @@ function getTimeLeft() {
   const diff = EVENT_DATE.getTime() - Date.now();
   if (diff <= 0) return null; // Event day — unlocked
   return {
-    days:    Math.floor(diff / 86400000),
-    hours:   Math.floor((diff % 86400000) / 3600000),
-    minutes: Math.floor((diff % 3600000)  / 60000),
-    seconds: Math.floor((diff % 60000)    / 1000),
+    days: Math.floor(diff / 86400000),
+    hours: Math.floor((diff % 86400000) / 3600000),
+    minutes: Math.floor((diff % 3600000) / 60000),
+    seconds: Math.floor((diff % 60000) / 1000),
   };
 }
 
@@ -62,10 +62,10 @@ export default function RoomAllocationSection() {
       />
 
       {/* Corner marks */}
-      {["top-10 left-10 corner-tl","top-10 right-10 corner-tr",
-        "bottom-10 left-10 corner-bl","bottom-10 right-10 corner-br"].map((cls, i) => (
-        <div key={i} className={`absolute z-10 w-5 h-5 border-white/08 ${cls}`} />
-      ))}
+      {["top-10 left-10 corner-tl", "top-10 right-10 corner-tr",
+        "bottom-10 left-10 corner-bl", "bottom-10 right-10 corner-br"].map((cls, i) => (
+          <div key={i} className={`absolute z-10 w-5 h-5 border-white/08 ${cls}`} />
+        ))}
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl">
 
@@ -123,7 +123,7 @@ export default function RoomAllocationSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.45 }}
-          className="font-classified text-[10px] tracking-[0.3em] text-white/30 mb-10"
+          className="font-classified text-[12px] tracking-[0.3em] text-[var(--text-muted)] mb-10"
         >
           {isUnlocked
             ? "MISSION ACTIVE // ALLOCATIONS RELEASED"
@@ -143,10 +143,10 @@ export default function RoomAllocationSection() {
               className="flex items-center justify-center gap-3 sm:gap-6 mb-8"
             >
               {[
-                { v: timeLeft.days,    l: "DAYS"    },
-                { v: timeLeft.hours,   l: "HOURS"   },
-                { v: timeLeft.minutes, l: "MIN"     },
-                { v: timeLeft.seconds, l: "SEC"     },
+                { v: timeLeft.days, l: "DAYS" },
+                { v: timeLeft.hours, l: "HOURS" },
+                { v: timeLeft.minutes, l: "MIN" },
+                { v: timeLeft.seconds, l: "SEC" },
               ].map(({ v, l }, i) => (
                 <div key={l} className="flex items-center gap-3 sm:gap-6">
                   <div className="flex flex-col items-center gap-2">
@@ -166,7 +166,7 @@ export default function RoomAllocationSection() {
                         {String(v).padStart(2, "0")}
                       </span>
                     </div>
-                    <span className="font-classified text-[8px] tracking-[0.22em] text-white/25">{l}</span>
+                    <span className="font-classified text-[10px] tracking-[0.22em] text-[var(--text-muted)]">{l}</span>
                   </div>
                   {i < 3 && (
                     <span className="font-display mb-6 hidden sm:block"
@@ -183,14 +183,14 @@ export default function RoomAllocationSection() {
               className="p-6 text-center"
               style={{ border: "1px solid rgba(255,255,255,0.06)", background: "var(--surface-1)" }}
             >
-              <p className="font-classified text-[10px] tracking-[0.22em] text-white/40 mb-2">
+              <p className="font-classified text-[11px] tracking-[0.22em] text-white/50 mb-2">
                 OPERATION DATE
               </p>
-              <p className="font-classified text-[11px] tracking-[0.18em] text-white/55">
+              <p className="font-classified text-[12px] tracking-[0.18em] text-white/70">
                 09 — 11 OCTOBER 2026
               </p>
               <div className="h-[1px] my-4" style={{ background: "var(--border)" }} />
-              <p className="font-classified text-[9px] text-white/20 leading-relaxed">
+              <p className="font-classified text-[11px] text-[var(--text-muted)] leading-relaxed">
                 ROOM ALLOCATION DETAILS WILL BE RELEASED TO ALL REGISTERED DELEGATES ON THE MORNING OF OCTOBER 9, 2026.
               </p>
             </div>
@@ -207,7 +207,7 @@ export default function RoomAllocationSection() {
             <p className="font-classified text-[11px] tracking-[0.2em] mb-2" style={{ color: "#4ade80" }}>
               ALLOCATION ACTIVE
             </p>
-            <p className="font-classified text-[9px] text-white/30">
+            <p className="font-classified text-[11px] text-white/50">
               CHECK YOUR EMAIL FOR YOUR ROOM ASSIGNMENT.
             </p>
           </motion.div>
@@ -220,7 +220,6 @@ export default function RoomAllocationSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
           className="btn-ghost mt-8 inline-flex"
-          style={{ fontSize: "10px" }}
         >
           ← RETURN TO HOME
         </motion.a>
@@ -231,10 +230,10 @@ export default function RoomAllocationSection() {
         className="absolute bottom-0 left-0 right-0 flex items-center justify-between px-8 py-3"
         style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
       >
-        <span className="font-classified text-[8px] tracking-[0.15em] text-white/12">
+        <span className="font-classified text-[10px] tracking-[0.15em] text-white/30">
           NLDS'26 // DELEGATE PORTAL
         </span>
-        <span className="font-classified text-[8px] tracking-[0.15em] text-white/12">
+        <span className="font-classified text-[10px] tracking-[0.15em] text-white/30">
           AIESEC IN SRI LANKA
         </span>
       </div>

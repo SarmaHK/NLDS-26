@@ -80,7 +80,7 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
               className="w-2 h-2 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               style={{ background: "rgba(196,30,58,0.3)" }}
             />
-            <span className="font-classified text-[9px] tracking-[0.2em] text-white/20 absolute bottom-4">
+            <span className="font-classified text-[11px] tracking-[0.2em] text-[border] absolute bottom-4">
               PHOTO PENDING
             </span>
           </div>
@@ -108,8 +108,8 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
           {member.name.toUpperCase()}
         </p>
         <p
-          className="font-classified text-[9px] tracking-[0.14em] leading-normal"
-          style={{ color: "var(--red)", opacity: 0.9 }}
+          className="font-classified text-[11px] tracking-[0.14em] leading-normal"
+          style={{ color: "var(--red)" }}
         >
           {member.role.toUpperCase()}
         </p>
@@ -140,7 +140,7 @@ function RoleRow({
         <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
         <span
           className="font-classified"
-          style={{ fontSize: "9px", letterSpacing: "0.3em", color: "var(--red)" }}
+          style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--red)" }}
         >
           {displayRole(role)}
         </span>
@@ -245,7 +245,7 @@ export default function ConferenceTeamSection() {
           <span
             className="font-classified"
             style={{
-              fontSize: "10px",
+              fontSize: "12px",
               letterSpacing: "0.25em",
               padding: "4px 14px",
               border: "1px solid var(--border-red)",
@@ -280,7 +280,7 @@ export default function ConferenceTeamSection() {
             <button
               onClick={() => setActiveTab("MC")}
               type="button"
-              className="flex-1 relative py-2.5 px-6 font-classified text-[10px] tracking-[0.22em] uppercase transition-all duration-300 cursor-pointer"
+              className="flex-1 relative py-2.5 px-6 font-classified text-[12px] tracking-[0.22em] uppercase transition-all duration-300 cursor-pointer"
               style={{
                 background: activeTab === "MC" ? "var(--red)" : "transparent",
                 color: activeTab === "MC" ? "#ffffff" : "var(--text-dim)",
@@ -295,7 +295,7 @@ export default function ConferenceTeamSection() {
             <button
               onClick={() => setActiveTab("OC")}
               type="button"
-              className="flex-1 relative py-2.5 px-6 font-classified text-[10px] tracking-[0.22em] uppercase transition-all duration-300 cursor-pointer"
+              className="flex-1 relative py-2.5 px-6 font-classified text-[12px] tracking-[0.22em] uppercase transition-all duration-300 cursor-pointer"
               style={{
                 background: activeTab === "OC" ? "var(--red)" : "transparent",
                 color: activeTab === "OC" ? "#ffffff" : "var(--text-dim)",
@@ -325,7 +325,7 @@ export default function ConferenceTeamSection() {
                   className="flex flex-col items-center justify-center py-20 gap-4"
                   style={{ border: "1px dashed rgba(255,255,255,0.07)" }}
                 >
-                  <p className="font-classified text-[9px] tracking-[0.25em] text-white/20">
+                  <p className="font-classified text-[11px] tracking-[0.25em] text-[var(--text-muted)]">
                     MEMBER COMMITTEE — PERSONNEL FILES PENDING
                   </p>
                 </div>
@@ -345,7 +345,7 @@ export default function ConferenceTeamSection() {
                         <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
                         <span
                           className="font-classified"
-                          style={{ fontSize: "9px", letterSpacing: "0.3em", color: "var(--red)" }}
+                          style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--red)" }}
                         >
                           PRESIDENT
                         </span>
@@ -372,7 +372,7 @@ export default function ConferenceTeamSection() {
                         <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
                         <span
                           className="font-classified"
-                          style={{ fontSize: "9px", letterSpacing: "0.3em", color: "var(--red)" }}
+                          style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--red)" }}
                         >
                           VICE PRESIDENTS
                         </span>
@@ -412,7 +412,7 @@ export default function ConferenceTeamSection() {
                   className="flex flex-col items-center justify-center py-20 gap-4"
                   style={{ border: "1px dashed rgba(255,255,255,0.07)" }}
                 >
-                  <p className="font-classified text-[9px] tracking-[0.25em] text-white/20">
+                  <p className="font-classified text-[11px] tracking-[0.25em] text-[var(--text-muted)]">
                     ORGANIZING COMMITTEE — PERSONNEL FILES PENDING
                   </p>
                 </div>
@@ -432,7 +432,7 @@ export default function ConferenceTeamSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.6 }}
-          className="font-classified text-[9px] tracking-[0.2em] text-white/20 mt-24 mb-48 text-center"
+          className="font-classified text-[11px] tracking-[0.2em] text-[var(--text-muted)] mt-24 mb-48 text-center"
         >
           ALL PERSONNEL DETAILS ARE CLASSIFIED
         </motion.p>

@@ -26,8 +26,8 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
             <div className="flex flex-col gap-1.5">
                 <label
                     htmlFor={inputId}
-                    className="font-classified text-[10px] tracking-[0.22em] uppercase"
-                    style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
+                    className="font-sans text-[13px] tracking-wide font-medium uppercase"
+                    style={{ color: error ? "var(--red)" : filled ? "var(--text)" : "var(--text-dim)" }}
                 >
                     <div className="flex justify-between items-center w-full gap-3">
                         <span>
@@ -37,7 +37,7 @@ export const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
                             )}
                         </span>
                         {extraLabel && (
-                            <span className="opacity-70 ml-2 normal-case tracking-normal font-sans text-[10px]" style={{ color: "inherit" }}>
+                            <span className="opacity-70 ml-2 normal-case tracking-normal font-sans text-[11px]" style={{ color: "inherit" }}>
                                 {extraLabel}
                             </span>
                         )}
@@ -108,8 +108,8 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
             <div className="flex flex-col gap-1.5">
                 <label
                     htmlFor={selectId}
-                    className="font-classified text-[10px] tracking-[0.22em] uppercase"
-                    style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
+                    className="font-sans text-[13px] tracking-wide font-medium uppercase"
+                    style={{ color: error ? "var(--red)" : filled ? "var(--text)" : "var(--text-dim)" }}
                 >
                     <div className="flex justify-between items-center w-full gap-3">
                         <span>
@@ -119,7 +119,7 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
                             )}
                         </span>
                         {extraLabel && (
-                            <span className="opacity-70 ml-2 normal-case tracking-normal font-sans text-[10px]" style={{ color: "inherit" }}>
+                            <span className="opacity-70 ml-2 normal-case tracking-normal font-sans text-[11px]" style={{ color: "inherit" }}>
                                 {extraLabel}
                             </span>
                         )}
@@ -194,8 +194,8 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
             <div className="flex flex-col gap-1.5">
                 <label
                     htmlFor={textareaId}
-                    className="font-classified text-[10px] tracking-[0.22em] uppercase"
-                    style={{ color: error ? "var(--red)" : filled ? "rgba(240,237,232,0.72)" : "rgba(255,255,255,0.45)" }}
+                    className="font-sans text-[13px] tracking-wide font-medium uppercase"
+                    style={{ color: error ? "var(--red)" : filled ? "var(--text)" : "var(--text-dim)" }}
                 >
                     {label}
                     {required && (
@@ -294,8 +294,8 @@ export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
                     </div>
 
                     <span
-                        className="text-sm leading-relaxed"
-                        style={{ color: "rgba(255,255,255,0.55)", fontWeight: 300 }}
+                        className="text-[15px] leading-relaxed font-sans"
+                        style={{ color: "var(--text-dim)", fontWeight: 400 }}
                     >
                         {label}
                     </span>

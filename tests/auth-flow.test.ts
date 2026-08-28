@@ -1,4 +1,4 @@
-// @ts-nocheck
+import crypto from "crypto";
 import { AuthService } from "../src/lib/backend/services/auth.service";
 import { prisma } from "../src/lib/backend/db/prisma";
 
@@ -27,7 +27,7 @@ jest.mock("../src/lib/backend/integrations/email", () => ({
 }));
 
 describe("Phase 10 - AIESEC Email OTP Verification Constraints", () => {
-    let authService = new AuthService();
+    const authService = new AuthService();
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -65,7 +65,8 @@ describe("Phase 10 - AIESEC Email OTP Verification Constraints", () => {
         prisma.oTPChallenge.findFirst.mockResolvedValueOnce(null);
         const result = await authService.requestParticipantOTP("secure@aiesec.net");
 
-        expect(result.otp).toBeUndefined(); // Verification avoiding API leaks
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        expect((result as any).otp).toBeUndefined(); // Verification avoiding API leaks
         const dbCallArgs = prisma.oTPChallenge.create.mock.calls[0][0].data;
         expect(dbCallArgs.otpHash).toContain("."); // Contains salt natively mapped protecting strings
     });
@@ -92,7 +93,7 @@ describe("Phase 10 - AIESEC Email OTP Verification Constraints", () => {
         // Generating physical payload mapping native hashing to bypass validation internally
         const testOtp = "999999";
         const testSalt = "salthere";
-        const generatedHash = require("crypto").scryptSync(testOtp, testSalt, 64).toString("hex") + "." + testSalt;
+        const generatedHash = crypto.scryptSync(testOtp, testSalt, 64).toString("hex") + "." + testSalt;
 
         prisma.oTPChallenge.findFirst.mockResolvedValueOnce({
             id: "CHALLENGE-ID",

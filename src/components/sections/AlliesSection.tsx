@@ -265,7 +265,7 @@ export default function AlliesSection() {
                         <Phone size={12} className="text-white/60 group-hover/btn:text-[var(--red)] transition-colors" />
                       </div>
                       <div>
-                        <p className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", marginBottom: "1px" }}>
+                        <p className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", marginBottom: "1px" }}>
                           PHONE DIRECT
                         </p>
                         <p className="font-classified group-hover/btn:text-white transition-colors" style={{ fontSize: "10px", letterSpacing: "0.08em", color: "rgba(255,255,255,0.8)" }}>
@@ -273,7 +273,7 @@ export default function AlliesSection() {
                         </p>
                       </div>
                     </div>
-                    <ArrowUpRight size={13} className="text-white/30 group-hover/btn:text-[var(--red)] transition-colors flex-shrink-0" />
+                    <ArrowUpRight size={13} className="text-white/50 group-hover/btn:text-[var(--red)] transition-colors flex-shrink-0" />
                   </a>
                 )}
 
@@ -307,7 +307,7 @@ export default function AlliesSection() {
                         <Mail size={12} className="text-white/60 group-hover/btn:text-[var(--red)] transition-colors" />
                       </div>
                       <div style={{ minWidth: 0 }}>
-                        <p className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)", marginBottom: "1px" }}>
+                        <p className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.5)", marginBottom: "1px" }}>
                           EMAIL DIRECT
                         </p>
                         <p
@@ -322,7 +322,7 @@ export default function AlliesSection() {
                         </p>
                       </div>
                     </div>
-                    <ArrowUpRight size={13} className="text-white/30 group-hover/btn:text-[var(--red)] transition-colors flex-shrink-0" />
+                    <ArrowUpRight size={13} className="text-white/50 group-hover/btn:text-[var(--red)] transition-colors flex-shrink-0" />
                   </a>
                 )}
               </div>

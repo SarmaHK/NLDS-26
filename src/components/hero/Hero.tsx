@@ -152,7 +152,7 @@ export default function Hero() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: [0, 1, 0] }}
                   transition={{ repeat: Infinity, duration: 0.9 }}
-                  className="font-classified text-white/20 text-sm"
+                  className="font-classified text-[var(--text-dim)] text-base"
                 >
                   ▌
                 </motion.div>
@@ -166,7 +166,7 @@ export default function Hero() {
                   transition={{ duration: 0.5 }}
                   className="flex flex-col items-center gap-3"
                 >
-                  <p className="font-classified text-[11px] tracking-[0.42em] text-white/35 uppercase">
+                  <p className="font-classified text-[12px] tracking-[0.42em] text-[var(--text-dim)] uppercase">
                     ▸ INCOMING TRANSMISSION ◂
                   </p>
 
@@ -194,10 +194,10 @@ export default function Hero() {
                   className="w-72"
                 >
                   <div className="flex justify-between mb-2">
-                    <span className="font-classified text-[9px] tracking-[0.22em] text-white/25 uppercase">
+                    <span className="font-classified text-[11px] tracking-[0.22em] text-[var(--text-muted)] uppercase">
                       SYSTEM VERIFICATION
                     </span>
-                    <span className="font-classified text-[9px] text-white/25 tabular">
+                    <span className="font-classified text-[11px] text-[var(--text-muted)] tabular">
                       {scanPct}%
                     </span>
                   </div>
@@ -211,10 +211,10 @@ export default function Hero() {
                     />
                   </div>
                   <div className="flex justify-between mt-1.5">
-                    <span className="font-classified text-[8px] tracking-[0.2em] text-white/15">
+                    <span className="font-classified text-[10px] tracking-[0.2em] text-white/40">
                       NLDS_SYSTEM_26
                     </span>
-                    <span className="font-classified text-[8px] tracking-[0.2em] text-white/15">
+                    <span className="font-classified text-[10px] tracking-[0.2em] text-white/40">
                       AUTH: GRANTED
                     </span>
                   </div>
@@ -245,7 +245,7 @@ export default function Hero() {
               className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-8"
             >
               <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
-              <span className="font-classified text-[7px] sm:text-[9px] tracking-[0.2em] sm:tracking-[0.35em] text-white/30 uppercase whitespace-nowrap">
+              <span className="font-classified text-[9px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.35em] text-[var(--text-muted)] uppercase whitespace-nowrap">
                 TOP SECRET // AIESEC IN SRI LANKA
               </span>
               <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
@@ -298,7 +298,7 @@ export default function Hero() {
               transition={{ delay: 1.6 }}
               className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
             >
-              <span className="font-classified text-[8px] tracking-[0.28em] text-white/18 uppercase">
+              <span className="font-classified text-[10px] tracking-[0.28em] text-white/40 uppercase">
                 SCROLL
               </span>
               <div
@@ -339,7 +339,7 @@ export default function Hero() {
                   className="animate-blink w-1.5 h-1.5 rounded-full flex-shrink-0"
                   style={{ background: "#4ade80" }}
                 />
-                <span className="text-white/28 uppercase tracking-[0.2em]">
+                <span className="text-white/50 uppercase tracking-[0.2em]">
                   SYS. STATUS
                 </span>
               </div>
@@ -354,9 +354,9 @@ export default function Hero() {
                 { k: "YEAR", v: "2026", red: false, green: false },
               ].map(({ k, v, red, green }) => (
                 <div key={k} className="mb-2.5">
-                  <span className="block text-white/20 uppercase text-[8px] tracking-[0.18em]">{k}</span>
+                  <span className="block text-white/50 uppercase text-[10px] tracking-[0.18em]">{k}</span>
                   <span
-                    className="block uppercase text-[10px] tracking-[0.12em]"
+                    className="block uppercase text-[12px] tracking-[0.12em]"
                     style={{
                       color: red ? "var(--red)" : green ? "#4ade80" : "rgba(240,237,232,0.65)",
                     }}

@@ -1,7 +1,5 @@
 import { realtimePublisher } from "../src/lib/backend/realtime/publisher";
 import { SocketIoStrategy } from "../src/lib/backend/events/socket.strategy";
-import { ExternalSyncService } from "../src/lib/backend/events/sync.service";
-import { PrismaClient } from "@prisma/client";
 
 // Global fetching mock
 global.fetch = jest.fn();
@@ -75,6 +73,7 @@ describe("Phase 10C - Socket.IO Realtime Abstract Boundaries", () => {
         });
 
         // The exact packet logged on the WS should ONLY have status, dates, IDs
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const packetArg = spyEmit.mock.calls[0][1] as any;
         expect(packetArg.nationalIdOrPassport).toBeUndefined();
         expect(packetArg.cvConsent).toBeUndefined();

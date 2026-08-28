@@ -138,10 +138,10 @@ function StepRow({
                         className="font-classified text-[10px] tracking-[0.14em] uppercase truncate"
                         style={{
                             color: isActive
-                                ? "rgba(255,255,255,0.92)"
+                                ? "var(--text)"
                                 : isCompleted
-                                    ? "rgba(255,255,255,0.55)"
-                                    : "rgba(255,255,255,0.32)",
+                                    ? "var(--text-dim)"
+                                    : "rgba(255,255,255,0.45)",
                         }}
                     >
                         {meta.label}
@@ -176,7 +176,7 @@ function MobileIndicator({
                         {String(currentStep + 1).padStart(2, "0")} / {String(TOTAL_STEPS).padStart(2, "0")}
                     </span>
                 </div>
-                <span className="font-classified text-[9px] tracking-[0.12em] text-white/35 uppercase truncate">
+                <span className="font-classified text-[10px] tracking-[0.12em] text-white/50 uppercase truncate">
                     {meta.label}
                 </span>
             </div>

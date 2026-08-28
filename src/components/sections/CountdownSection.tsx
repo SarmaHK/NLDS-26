@@ -63,7 +63,7 @@ function CountdownCell({ label, value }: { label: string; value: number }) {
       </div>
 
       {/* Label */}
-      <span className="font-classified text-[9px] sm:text-[10px] tracking-[0.28em] text-white/30 uppercase">
+      <span className="font-classified text-[11px] sm:text-[12px] tracking-[0.28em] text-white/50 uppercase">
         {label}
       </span>
     </div>
@@ -151,7 +151,7 @@ export default function CountdownSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.25 }}
-          className="font-classified text-[10px] tracking-[0.3em] text-white/25"
+          className="font-classified text-[12px] tracking-[0.3em] text-[var(--text-muted)]"
           style={{ marginBottom: "4rem" }}
         >
           09 OCTOBER 2026 // VENUE: TO BE ANNOUNCED
@@ -187,7 +187,7 @@ export default function CountdownSection() {
           style={{ marginTop: "3.5rem", marginBottom: "3rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}
         >
           <div style={{ height: "1px", width: "4rem", background: "var(--border-strong)" }} />
-          <p className="font-classified text-[9px] tracking-[0.22em] text-white/18">
+          <p className="font-classified text-[11px] tracking-[0.22em] text-white/40">
             NATIONAL LEADERSHIP DEVELOPMENT SEMINAR 2026
           </p>
         </motion.div>

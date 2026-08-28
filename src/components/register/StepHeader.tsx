@@ -11,13 +11,13 @@ export default function StepHeader({ currentStep }: { currentStep: number }) {
                     style={{ background: "var(--red)" }}
                 />
                 <span
-                    className="font-classified text-[9px] tracking-[0.25em] uppercase tabular"
+                    className="font-classified text-[11px] tracking-[0.25em] uppercase tabular"
                     style={{ color: "var(--red)" }}
                 >
                     {String(currentStep + 1).padStart(2, "0")} / {String(TOTAL_STEPS).padStart(2, "0")}
                 </span>
                 <div className="h-[1px] flex-1" style={{ background: "var(--border)" }} />
-                <span className="font-classified text-[8px] tracking-[0.15em] text-white/15">
+                <span className="font-classified text-[11px] tracking-[0.15em] text-white/40">
                     // {currentMeta.fileNo}
                 </span>
             </div>

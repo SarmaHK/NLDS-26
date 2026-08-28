@@ -104,7 +104,7 @@ export function FileUpload({
             {classification && (
                 <span className="label-classified">{classification}</span>
             )}
-            <label htmlFor={inputId} className="font-classified text-[10px] tracking-[0.22em] uppercase text-white/50">
+            <label htmlFor={inputId} className="font-sans text-[13px] tracking-wide font-medium uppercase text-[var(--text-dim)]">
                 {label}
             </label>
             <div
@@ -192,7 +192,7 @@ export function FileUpload({
                             <span className="font-classified text-[11px] tracking-[0.22em] text-white/80">
                                 {dropLabel || "DROP YOUR FILE HERE"}
                             </span>
-                            <span className="font-sans text-[11px] text-white/35">
+                            <span className="font-sans text-[13px] text-[var(--text-muted)] mt-1">
                                 {acceptSummary}  ·  MAX {maxSizeMB} MB
                             </span>
                             <span className="font-classified text-[9px] tracking-[0.2em] text-white/50 border border-white/15 px-3 py-1.5 mt-1">
@@ -210,7 +210,7 @@ export function FileUpload({
                 </div>
             )}
             {!error && hint && !fileName && (
-                <div className="font-sans text-[11px] text-white/30 mt-1">{hint}</div>
+                <div className="font-sans text-[13px] text-[var(--text-muted)] mt-1">{hint}</div>
             )}
         </div>
     );
