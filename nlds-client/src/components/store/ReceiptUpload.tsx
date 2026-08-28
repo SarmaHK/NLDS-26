@@ -52,36 +52,49 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
 
   return (
     <div
+      className="rounded-[4px] overflow-hidden"
       style={{
         background: "#0a0a0c",
         border: "1px solid rgba(255,255,255,0.08)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
       }}
     >
       {/* Header */}
       <div
-        className="px-5 py-4 flex items-center gap-3"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+        className="px-6 py-5 sm:px-8 sm:py-6 flex items-center gap-3"
+        style={{
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(255,255,255,0.015)",
+        }}
       >
-        <div style={{ width: 8, height: 8, border: "1px solid var(--red)", borderRadius: "50%" }} />
+        <div style={{ width: 8, height: 8, background: "var(--red)", borderRadius: "50%", boxShadow: "0 0 10px rgba(196,30,58,0.5)" }} />
         <span
-          className="font-classified"
-          style={{ fontSize: "10px", letterSpacing: "0.28em", color: "var(--text-muted)" }}
+          className="font-classified font-bold"
+          style={{ fontSize: "11px", letterSpacing: "0.26em", color: "#ffffff" }}
         >
           UPLOAD PAYMENT RECEIPT
         </span>
         <span
-          className="font-classified ml-auto"
-          style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--red)" }}
+          className="font-classified font-bold ml-auto"
+          style={{
+            fontSize: "9px",
+            letterSpacing: "0.18em",
+            color: "var(--red)",
+            background: "rgba(196,30,58,0.15)",
+            border: "1px solid rgba(196,30,58,0.3)",
+            padding: "2px 7px",
+            borderRadius: "2px",
+          }}
         >
           REQUIRED
         </span>
       </div>
 
-      <div className="px-5 py-5">
+      <div className="px-6 py-6 sm:px-8 sm:py-8">
         <p
-          style={{ fontSize: "0.8rem", color: "var(--text-muted)", lineHeight: 1.6, fontWeight: 300, marginBottom: "1rem" }}
+          style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.7, fontWeight: 300, marginBottom: "1.25rem" }}
         >
-          Upload your payment receipt to complete the mission.
+          Upload your payment receipt to complete the mission authorization.
         </p>
 
         {/* Drop zone */}

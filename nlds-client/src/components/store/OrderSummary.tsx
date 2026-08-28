@@ -48,31 +48,52 @@ export default function OrderSummary({ buyNow }: OrderSummaryProps) {
 
   return (
     <div
+      className="rounded-[4px] overflow-hidden"
       style={{
         background: "#0a0a0c",
-        border: "1px solid rgba(255,255,255,0.08)",
+        border: "1px solid rgba(255,255,255,0.1)",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.4)",
       }}
     >
       {/* Header */}
       <div
-        className="px-5 py-4 flex items-center gap-3"
-        style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
+        className="px-6 py-5 sm:px-8 sm:py-6 flex items-center justify-between"
+        style={{
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(255,255,255,0.015)",
+        }}
       >
-        <div style={{ width: 8, height: 8, border: "1px solid var(--red)", borderRadius: "50%" }} />
+        <div className="flex items-center gap-3">
+          <div style={{ width: 8, height: 8, background: "var(--red)", borderRadius: "50%", boxShadow: "0 0 10px rgba(196,30,58,0.5)" }} />
+          <span
+            className="font-classified font-bold"
+            style={{ fontSize: "11px", letterSpacing: "0.26em", color: "#ffffff" }}
+          >
+            MISSION INVENTORY
+          </span>
+        </div>
         <span
           className="font-classified"
-          style={{ fontSize: "10px", letterSpacing: "0.28em", color: "var(--text-muted)" }}
+          style={{
+            fontSize: "9.5px",
+            letterSpacing: "0.16em",
+            color: "var(--red)",
+            background: "rgba(196,30,58,0.15)",
+            border: "1px solid rgba(196,30,58,0.3)",
+            padding: "2px 8px",
+            borderRadius: "2px",
+          }}
         >
-          MISSION INVENTORY
+          {displayItems.length} ITEM{displayItems.length > 1 ? "S" : ""}
         </span>
       </div>
 
       {/* Items */}
-      <div className="px-5 py-3 flex flex-col">
+      <div className="px-6 py-6 sm:px-8 sm:py-7 flex flex-col gap-5">
         {displayItems.length === 0 ? (
           <p
-            className="font-classified py-4 text-center"
-            style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.2)" }}
+            className="font-classified py-6 text-center"
+            style={{ fontSize: "11px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.3)" }}
           >
             NO ITEMS FOUND
           </p>
@@ -80,42 +101,69 @@ export default function OrderSummary({ buyNow }: OrderSummaryProps) {
           displayItems.map((item, i) => (
             <div
               key={i}
-              className="flex justify-between items-start py-3"
-              style={{ borderBottom: i < displayItems.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}
+              className="flex justify-between items-center py-4"
+              style={{
+                borderBottom: i < displayItems.length - 1 ? "1px solid rgba(255,255,255,0.06)" : "none",
+              }}
             >
-              <div className="flex flex-col gap-1 flex-1 min-w-0 pr-3">
+              <div className="flex flex-col gap-2 flex-1 min-w-0 pr-4">
                 <span
                   className="font-display"
-                  style={{ fontSize: "0.95rem", letterSpacing: "0.04em", lineHeight: 1.1, color: "var(--text)" }}
+                  style={{
+                    fontSize: "1.35rem",
+                    letterSpacing: "0.04em",
+                    lineHeight: 1.1,
+                    color: "#ffffff",
+                  }}
                 >
                   {item.name}
                 </span>
-                <div className="flex flex-wrap gap-2 mt-0.5">
+                <div className="flex flex-wrap items-center gap-2.5">
                   <span
                     className="font-classified"
-                    style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--text-ghost)" }}
+                    style={{
+                      fontSize: "9.5px",
+                      letterSpacing: "0.18em",
+                      color: "rgba(255,255,255,0.5)",
+                    }}
                   >
                     {item.itemCode}
                   </span>
                   {item.size && (
-                    <span
-                      className="font-classified"
-                      style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--text-ghost)" }}
-                    >
-                      SIZE: {item.size}
-                    </span>
+                    <>
+                      <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "10px" }}>·</span>
+                      <span
+                        className="font-classified"
+                        style={{
+                          fontSize: "9px",
+                          letterSpacing: "0.14em",
+                          color: "#fff",
+                          background: "rgba(196,30,58,0.2)",
+                          border: "1px solid rgba(196,30,58,0.4)",
+                          padding: "2px 7px",
+                          borderRadius: "2px",
+                        }}
+                      >
+                        SIZE: {item.size}
+                      </span>
+                    </>
                   )}
+                  <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "10px" }}>·</span>
                   <span
                     className="font-classified"
-                    style={{ fontSize: "9px", letterSpacing: "0.2em", color: "var(--text-ghost)" }}
+                    style={{
+                      fontSize: "9.5px",
+                      letterSpacing: "0.16em",
+                      color: "rgba(255,255,255,0.7)",
+                    }}
                   >
                     QTY: {String(item.quantity).padStart(2, "0")}
                   </span>
                 </div>
               </div>
               <span
-                className="font-classified tabular flex-shrink-0"
-                style={{ fontSize: "12px", letterSpacing: "0.08em", color: "var(--text)" }}
+                className="font-display tabular flex-shrink-0"
+                style={{ fontSize: "1.4rem", letterSpacing: "0.04em", color: "#ffffff" }}
               >
                 LKR {item.total.toLocaleString()}
               </span>
@@ -126,18 +174,21 @@ export default function OrderSummary({ buyNow }: OrderSummaryProps) {
 
       {/* Total */}
       <div
-        className="px-5 py-4 flex items-center justify-between"
-        style={{ borderTop: "1px solid rgba(255,255,255,0.06)", background: "rgba(255,255,255,0.01)" }}
+        className="px-6 py-6 sm:px-8 sm:py-7 flex items-center justify-between"
+        style={{
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          background: "rgba(255,255,255,0.02)",
+        }}
       >
         <span
-          className="font-classified"
-          style={{ fontSize: "10px", letterSpacing: "0.24em", color: "var(--text-muted)" }}
+          className="font-classified font-bold"
+          style={{ fontSize: "11px", letterSpacing: "0.24em", color: "var(--text-muted)" }}
         >
-          TOTAL
+          TOTAL PAYABLE
         </span>
         <span
           className="font-display"
-          style={{ fontSize: "1.5rem", letterSpacing: "0.04em", color: "var(--text)" }}
+          style={{ fontSize: "2rem", letterSpacing: "0.04em", color: "#ffffff" }}
         >
           LKR {displayTotal.toLocaleString()}
         </span>
