@@ -51,7 +51,7 @@
   --font-mono: var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
 
   /* Admin Layout Tokens */
-  --sidebar-w: 280px;
+  --sidebar-w: 300px;
   --header-h: 56px;
   --page-px: 40px;
   --page-py: 32px;

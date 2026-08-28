@@ -42,18 +42,20 @@ export default function SidebarLink({ href, iconName, label, badge }: SidebarLin
     const pathname = usePathname();
     const isActive = pathname === href || pathname?.startsWith(`${href}/`);
 
-    const navLinkBase = "flex items-center gap-4 px-4 py-[14px] text-[13px] font-medium transition-colors w-full rounded-2xl";
-    const navLinkIdle = `${navLinkBase} text-[var(--text-dim)] hover:text-[var(--text-main)] hover:bg-[var(--surface-2)]`;
-    const navLinkActive = `${navLinkBase} text-white bg-[var(--red)] shadow-[0_8px_16px_rgba(196,30,58,0.25)]`;
+    const navLinkBase = "flex items-center gap-3.5 px-4 py-[11px] text-[13px] font-medium transition-all rounded-[14px] outline-none select-none";
+
+    // Extremely refined Dribbble-like colors. Very dim for idle to feel flat, stark bold background for active.
+    const navLinkIdle = `${navLinkBase} text-[var(--text-dim)] hover:text-white hover:bg-[rgba(255,255,255,0.03)]`;
+    const navLinkActive = `${navLinkBase} text-white bg-[var(--red)] shadow-sm`;
 
     const Icon = ICON_MAP[iconName];
 
     return (
-        <Link href={href} className={isActive ? navLinkActive : navLinkIdle}>
-            {Icon && <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-white' : 'text-[var(--text-muted)]'} />}
-            <span className="flex-1 text-left">{label}</span>
+        <Link href={href} className={isActive ? navLinkActive : navLinkIdle} style={{ display: 'flex', width: '100%' }}>
+            {Icon && <Icon size={17} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-white' : 'text-[var(--text-ghost)]'} />}
+            <span className="flex-1 text-left tracking-wide truncate pr-2">{label}</span>
             {badge !== undefined && (
-                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${isActive ? 'bg-black/20 text-white' : 'bg-[var(--surface-2)] text-[var(--text-ghost)]'}`}>
+                <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full shrink-0 ${isActive ? 'bg-black/20 text-white' : 'bg-[rgba(255,255,255,0.05)] text-[var(--text-ghost)]'}`}>
                     {badge}
                 </span>
             )}
