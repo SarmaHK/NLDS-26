@@ -49,11 +49,27 @@ export class RegistrationRepository {
         referenceCode: string
     ) {
         return prisma.$transaction(async (tx) => {
-            const participant = await tx.participant.upsert({
-                where: { nationalIdOrPassport: participantData.nationalIdOrPassport },
-                create: participantData,
-                update: participantData,
-            });
+            // Because OTP flows create a participant with ONLY an AIESEC Email initially (no National ID),
+            // an upsert purely by `nationalIdOrPassport` will fail to find them, executing `create` and causing a P2002 collision
+            // on the `aiesecEmail` unique constraint. We must resolve the identity safely.
+            let participant = null;
+            if (participantData.aiesecEmail) {
+                participant = await tx.participant.findUnique({ where: { aiesecEmail: participantData.aiesecEmail } });
+            }
+            if (!participant && participantData.nationalIdOrPassport) {
+                participant = await tx.participant.findUnique({ where: { nationalIdOrPassport: participantData.nationalIdOrPassport } });
+            }
+
+            if (participant) {
+                participant = await tx.participant.update({
+                    where: { id: participant.id },
+                    data: participantData,
+                });
+            } else {
+                participant = await tx.participant.create({
+                    data: participantData,
+                });
+            }
 
             const regInput: Prisma.RegistrationCreateInput = {
                 ...registrationData,
