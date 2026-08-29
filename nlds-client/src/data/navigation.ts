@@ -9,6 +9,7 @@ export interface NavLink {
     isExternal?: boolean;
     /** Highlight as primary CTA button in navbar */
     isCTA?: boolean;
+    locked?: boolean;
 }
 
 export const navLinks: NavLink[] = [
@@ -16,7 +17,7 @@ export const navLinks: NavLink[] = [
     { label: "About", href: "/#mission" },
     { label: "Conference Team", href: "/team" },
     { label: "Partners", href: "/partners" },
-    { label: "Store", href: "/store" },
-    { label: "Room Allocation", href: "/delegates" },
+    { label: "Store", href: "/store", locked: true },
+    { label: "Room Allocation", href: "/delegates", locked: true },
     { label: "Register", href: "/register", isCTA: true },
 ];

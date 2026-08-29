@@ -7,8 +7,7 @@ import {
     Row,
     Column,
     Img,
-    Link,
-    Button
+    Link
 } from "@react-email/components";
 
 interface RegistrationSuccessEmailProps {
@@ -175,7 +174,7 @@ export const RegistrationSuccessEmail: React.FC<RegistrationSuccessEmailProps> =
 
                 <Row style={matrixRow}>
                     <Column style={matrixKeyCol}>
-                        <Text style={matrixKey}>OPERATION TIMELINE</Text>
+                        <Text style={matrixKey}>TENTATIVE OPERATION TIMELINE</Text>
                     </Column>
                     <Column style={matrixValCol}>
                         <Text style={matrixVal}>9TH, 10TH &amp; 11TH OCTOBER 2026</Text>
@@ -197,19 +196,6 @@ export const RegistrationSuccessEmail: React.FC<RegistrationSuccessEmailProps> =
                 <Text style={quotePrefix}>"Until your clearance arrives, consider this your first mission:"</Text>
                 <Text style={quoteMain}>Stay curious.</Text>
                 <Section style={quoteBar} />
-            </Section>
-
-            {/* Merch / Field Kit Intercept Teaser */}
-            <Section style={merchInterceptContainer}>
-                <Text style={merchHeader}>▸ IMF FIELD GEAR PROTOCOL ◂</Text>
-                <Img
-                    src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80"
-                    alt="Tactical Merchandise Kit"
-                    style={merchImage}
-                />
-                <Button style={merchButton} href="https://aiesec.lk">
-                    SECURE YOUR GEAR PACK
-                </Button>
             </Section>
 
             {/* Mission Command Authority Signature */}
@@ -570,42 +556,6 @@ const quoteBar = {
     height: "2px",
     backgroundColor: "#FF2424",
     margin: "0 auto",
-};
-
-const merchInterceptContainer = {
-    backgroundColor: "#0A0A0E",
-    border: "1px solid #1E1E26",
-    borderRadius: "6px",
-    padding: "20px",
-    textAlign: "center" as const,
-    marginBottom: "32px",
-};
-
-const merchHeader = {
-    color: "#A1A1AA",
-    fontSize: "10px",
-    fontFamily: "Courier, 'Courier New', monospace",
-    fontWeight: "bold" as const,
-    letterSpacing: "0.2em",
-    margin: "0 0 14px 0",
-};
-
-const merchImage = {
-    width: "100%",
-    borderRadius: "4px",
-    marginBottom: "16px",
-};
-
-const merchButton = {
-    backgroundColor: "#FF2424",
-    color: "#FFFFFF",
-    borderRadius: "3px",
-    padding: "12px 26px",
-    fontSize: "11px",
-    fontWeight: "bold" as const,
-    letterSpacing: "0.14em",
-    textDecoration: "none",
-    display: "inline-block",
 };
 
 const commandSignature = {
