@@ -1,13 +1,14 @@
 import React from 'react';
-import { requireAdmin } from '@/lib/auth/session';
-import { prisma } from '@/lib/db/prisma';
+import { requireSuperAdmin } from '@/lib/auth/rbac';
+import prisma from '@/lib/db/prisma';
 import AccessManagerClient from './AccessManagerClient';
 import { redirect } from 'next/navigation';
 
 export default async function AccessControlPage() {
-    const currentUser = await requireAdmin().catch(() => null);
-
-    if (!currentUser || currentUser.role !== "SUPER_ADMIN") {
+    let currentUser;
+    try {
+        currentUser = await requireSuperAdmin();
+    } catch {
         redirect('/dashboard?error=unauthorized');
     }
 
@@ -23,7 +24,7 @@ export default async function AccessControlPage() {
         isActive: a.isActive,
         lastLoginAt: a.lastLoginAt?.toISOString() ?? null,
         createdAt: a.createdAt.toISOString(),
-        permissions: a.permissions.map(p => p.permission)
+        permissions: a.permissions.map((p: any) => p.permission)
     }));
 
     return (

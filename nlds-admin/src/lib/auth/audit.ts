@@ -1,12 +1,12 @@
-import { prisma } from '../db/prisma';
+import { prisma } from '@/lib/db/prisma';
 
 export async function logAudit(
-    actorId: string,
-    actorType: "ADMIN" | "SYSTEM",
+    actorId: string | null,
+    actorType: 'ADMIN' | 'SYSTEM',
     action: string,
-    targetId: string,
+    targetId: string | null,
     targetType: string,
-    metadata?: Record<string, any>
+    metadata?: any
 ) {
     try {
         await prisma.auditLog.create({
@@ -16,11 +16,10 @@ export async function logAudit(
                 action,
                 targetId,
                 targetType,
-                metadata: metadata ? JSON.stringify(metadata) : null
+                metadata: metadata ? JSON.stringify(metadata) : null,
             }
         });
-    } catch (e) {
-        // Suppress failure defensively so primary actions don't abort, but tracking isn't critical path.
-        console.error("Audit log failed to write:", e);
+    } catch (error) {
+        console.error('Failed to write audit log:', error);
     }
 }

@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db/prisma';
-import { requireAdmin } from '@/lib/auth/session';
+import { requireSuperAdmin } from '@/lib/auth/rbac';
 import { logAudit } from '@/lib/auth/audit';
 import bcrypt from 'bcryptjs';
+import { AdminRole } from '@prisma/client';
 
 export async function POST(request: Request) {
     try {
-        const caller = await requireAdmin();
-        if (caller.role !== "SUPER_ADMIN") {
-            return NextResponse.json({ error: "Unauthorized." }, { status: 403 });
-        }
+        const caller = await requireSuperAdmin();
 
         const body = await request.json();
         const { email, password } = body;
@@ -31,16 +29,16 @@ export async function POST(request: Request) {
             data: {
                 email: normalizedEmail,
                 passwordHash,
-                role: "OC_VIEWER",
+                role: AdminRole.OC_VIEWER,
                 isActive: true
             }
         });
 
-        await logAudit(caller.id, "ADMIN", "ADMIN_CREATED", newAdmin.id, "AdminUser", { email: normalizedEmail });
+        await logAudit(caller.id, "ADMIN", "ADMIN_CREATED", newAdmin.id, "Admin", { email: normalizedEmail });
 
         return NextResponse.json({ success: true, id: newAdmin.id });
     } catch (e: any) {
-        if (e.message === "UNAUTHORIZED" || e.message === "FORBIDDEN") return NextResponse.json({}, { status: 403 });
+        if (e.name === 'AuthorizationError') return NextResponse.json({ error: e.message }, { status: 403 });
         return NextResponse.json({ error: "Internal Error" }, { status: 500 });
     }
 }
