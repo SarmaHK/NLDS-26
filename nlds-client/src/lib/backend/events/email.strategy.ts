@@ -1,3 +1,4 @@
+import * as React from "react";
 import { SyncStrategy, ExternalEvent } from "./sync.service";
 import { EmailClient } from "../integrations/email";
 import { render } from "@react-email/render";
@@ -22,7 +23,7 @@ export class EmailStrategy implements SyncStrategy {
             }
 
             // Syncing payload specifically natively parsing into React Email rendering nodes accurately
-            const htmlFormat = await render(RegistrationSuccessEmail({ missionId: event.referenceCode }));
+            const htmlFormat = await render(React.createElement(RegistrationSuccessEmail, { missionId: event.referenceCode, recipientName: event.payload?.preferredName || event.payload?.fullName || "AGENT" }));
 
             await this.client.sendEmail({
                 to: recipientEmail,
