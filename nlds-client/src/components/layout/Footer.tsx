@@ -1,15 +1,10 @@
 "use client";
 
 import Link from "next/link";
+
 import { Lock } from "lucide-react";
 
-interface FooterLink {
-  label: string;
-  href: string;
-  locked?: boolean;
-}
-
-const FOOTER_LINKS: FooterLink[] = [
+const FOOTER_LINKS = [
   { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/#mission" },
   { label: "CONFERENCE TEAM", href: "/team" },
@@ -195,12 +190,13 @@ export default function Footer() {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="font-classified hover:text-[var(--red)] transition-colors duration-200"
+                      className="font-classified"
                       style={{
                         fontSize: "12px",
                         letterSpacing: "0.22em",
                         color: "var(--text)",
                         textDecoration: "none",
+                        transition: "color 0.2s",
                       }}
                     >
                       {link.label}

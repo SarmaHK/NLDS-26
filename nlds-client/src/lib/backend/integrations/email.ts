@@ -37,7 +37,7 @@ export class EmailClient {
 
         try {
             const info = await this.transporter.sendMail({
-                from: `"NLDS 2026" <${this.fromEmail}>`,
+                from: `"NLDS 2026 Admin" <${this.fromEmail}>`,
                 to: options.to,
                 subject: options.subject,
                 html: options.html,
