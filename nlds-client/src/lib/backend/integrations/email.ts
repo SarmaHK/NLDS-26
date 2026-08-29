@@ -1,56 +1,54 @@
-import { Resend } from "resend";
+import * as nodemailer from "nodemailer";
 import { env } from "@/lib/config/env";
 
 export class EmailClient {
-    private resend: Resend | null = null;
+    private transporter: nodemailer.Transporter | null = null;
     private fromEmail: string;
 
     constructor() {
-        const apiKey = env.EMAIL_API_KEY;
-        // Binds strictly to configured environmental structures preventing spoofing envelopes natively
-        this.fromEmail = env.EMAIL_FROM || "NLDS Auth <onboarding@resend.dev>";
+        // Fallback to the specifically requested credentials if env is missing
+        const smtpUser = env.EMAIL_SMTP_USER || process.env.EMAIL_SMTP_USER || "monaliedirisinghe@aiesec.net";
+        const smtpPass = env.EMAIL_SMTP_PASS || process.env.EMAIL_SMTP_PASS || "sdfxqdmtcwtwcwsg";
 
-        if (!apiKey) {
-            console.warn("[EmailClient] Missing EMAIL_API_KEY. Email execution logically disabled.");
+        this.fromEmail = smtpUser;
+
+        if (!smtpUser || !smtpPass) {
+            console.warn("[EmailClient] Missing SMTP Credentials. Email execution logically disabled.");
         } else {
-            this.resend = new Resend(apiKey);
+            this.transporter = nodemailer.createTransport({
+                service: "gmail",
+                auth: {
+                    user: smtpUser,
+                    pass: smtpPass,
+                },
+            });
         }
     }
 
     /**
-     * Natively dispatches an Email utilizing official boundaries dropping exceptions implicitly securely.
+     * Dispatches an Email using Nodemailer over SMTP.
      */
     async sendEmail(options: { to: string; subject: string; html: string }) {
-        if (!this.resend) {
-            console.warn("[EmailClient] Missing API Key. Executing mocked console-dispatch sequence internally:");
+        if (!this.transporter) {
+            console.warn("[EmailClient] Missing SMTP Config. Executing mocked console-dispatch sequence internally:");
             console.warn(`[EmailClient] MOCKED EMAIL DISPATCH: TO[${options.to}] SUB[${options.subject}]`);
             return { id: "mock_email_dev" };
         }
 
         try {
-            const data = await this.resend.emails.send({
-                from: this.fromEmail,
+            const info = await this.transporter.sendMail({
+                from: `"NLDS 2026 Admin" <${this.fromEmail}>`,
                 to: options.to,
                 subject: options.subject,
                 html: options.html,
             });
 
-            // Resend API SDK structural intercepts natively trapping unverified domain restrictions
-            if (data.error) {
-                // Allows local testing to proceed even if the domain is unverified by defaulting to a terminal mock
-                if (data.error.message?.includes("testing emails")) {
-                    console.warn(`[EmailClient] Unverified Resend Domain. Bypassed restriction organically: Email suppressed for (${options.to}).`);
-                    return { id: "mock_email_dev" };
-                }
-                console.error(`[EmailClient] Delivery rejected: ${data.error.name}`);
-                throw new Error(data.error.message || "Failed to dispatch email safely over API bounds.");
-            }
-
-            return data;
+            console.log(`[EmailClient] Message sent successfully: ${info.messageId}`);
+            return { id: info.messageId };
         } catch (error: any) {
-            // Block sensitive headers / Keys from executing backward into Node exception leaks natively
-            console.error(`[EmailClient] Exception encountered internally resolving structural headers: ${error.message}`);
-            throw new Error(error.message || "A fatal configuration error occurred synchronizing API parameters over Email protocols.");
+            console.error(`[EmailClient] Exception encountered sequentially during SMTP delivery: ${error.message}`);
+            // Log it but we can choose to throw or bypass depending on requirements
+            throw new Error(error.message || "A fatal configuration error occurred synchronizing SMTP parameters.");
         }
     }
 }

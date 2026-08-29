@@ -226,6 +226,28 @@ model AdminSession {
   @@index([expiresAt])
 }
 
+model MerchOrder {
+  id              String             @id @db.Uuid
+  orderId         String             @unique
+  fullName        String
+  email           String
+  mobileNumber    String
+  entity          String
+  totalUnits      Int
+  totalAmount     Int
+  paymentStatus   MerchPaymentStatus @default(PENDING_VERIFICATION)
+  receiptDriveUrl String?
+  itemsSummary    String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime
+  items           Json
+  receiptFileName String?
+
+  @@index([email])
+  @@index([orderId])
+  @@index([paymentStatus])
+}
+
 enum RegistrationStatus {
   DRAFT
   SUBMITTED
@@ -273,4 +295,11 @@ enum RequestStatus {
 enum ReviewDecision {
   ACCEPTED
   REJECTED
+}
+
+enum MerchPaymentStatus {
+  PENDING_VERIFICATION
+  VERIFIED
+  REJECTED
+  CANCELLED
 }
