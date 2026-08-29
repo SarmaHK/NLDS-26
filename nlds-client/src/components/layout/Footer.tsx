@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 
+import { Lock } from "lucide-react";
+
 const FOOTER_LINKS = [
   { label: "HOME", href: "/" },
   { label: "ABOUT", href: "/#mission" },
   { label: "CONFERENCE TEAM", href: "/team" },
   { label: "PARTNERS", href: "/partners" },
-  { label: "STORE", href: "/store" },
-  { label: "ROOM ALLOCATION", href: "/delegates" },
+  { label: "STORE", href: "/store", locked: true },
+  { label: "ROOM ALLOCATION", href: "/delegates", locked: true },
   { label: "REGISTER", href: "/register" },
 ];
 
@@ -141,19 +143,33 @@ export default function Footer() {
               <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
                 {FOOTER_LINKS.map((link) => (
                   <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="font-classified"
-                      style={{
-                        fontSize: "12px",
-                        letterSpacing: "0.22em",
-                        color: "var(--text)",
-                        textDecoration: "none",
-                        transition: "color 0.2s",
-                      }}
-                    >
-                      {link.label}
-                    </Link>
+                    {link.locked ? (
+                      <div
+                        title="Opens on event day"
+                        className="font-classified flex items-center gap-2 cursor-not-allowed select-none"
+                        style={{
+                          fontSize: "12px",
+                          letterSpacing: "0.22em",
+                          color: "rgba(255,255,255,0.4)"
+                        }}
+                      >
+                        <Lock size={12} className="flex-shrink-0" />
+                        <span>{link.label}</span>
+                      </div>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="font-classified hover:text-[var(--red)] transition-colors duration-200"
+                        style={{
+                          fontSize: "12px",
+                          letterSpacing: "0.22em",
+                          color: "var(--text)",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
