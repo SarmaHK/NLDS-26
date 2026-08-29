@@ -1,68 +1,45 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { jwtVerify } from 'jose';
 
-// Define the precise array bounded by Phase 1 UI architectures
-const protectedRoutes = [
-    '/dashboard',
-    '/registrations',
-    '/participants',
-    '/cvs',
-    '/photos',
-    '/analytics',
-    '/access',
-    '/audit',
-    '/settings'
-];
-
-export async function middleware(request: NextRequest) {
+export function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
-    const isProtected = protectedRoutes.some(route => pathname.startsWith(route));
 
-    // Secret verification bound
-    const SECRET_KEY = new TextEncoder().encode(
-        process.env.SESSION_SECRET || 'fallback_development_secret_only_for_local_env'
-    );
-    const token = request.cookies.get('nlds_admin_session')?.value;
-
-    if (isProtected) {
-        if (!token) {
-            return NextResponse.redirect(new URL('/login', request.url));
-        }
-
-        try {
-            // Very high speed Edge-compliant JWT verification mechanically routing requests correctly
-            await jwtVerify(token, SECRET_KEY);
-            return NextResponse.next();
-        } catch (e) {
-            return NextResponse.redirect(new URL('/login', request.url));
-        }
+    // Public Paths that don't need auth checking
+    if (
+        pathname.startsWith('/api/auth') ||
+        pathname.startsWith('/api/admin/auth') ||
+        pathname.startsWith('/_next') ||
+        pathname.includes('favicon')
+    ) {
+        return NextResponse.next();
     }
 
-    // Bypass /login if already authenticated
-    if (pathname === '/login' || pathname === '/') {
-        if (token) {
-            try {
-                await jwtVerify(token, SECRET_KEY);
-                return NextResponse.redirect(new URL('/dashboard', request.url));
-            } catch (e) {
-                // Ignore gracefully allowing login attempt
-            }
-        }
+    // Check if session cookie exists (lightweight check, server validates fully on API/Server Load)
+    const sessionToken = request.cookies.get('nlds_admin_session')?.value;
+
+    const isLoginPage = pathname === '/login';
+
+    if (!sessionToken && !isLoginPage) {
+        // Unauthenticated user trying to access secure route -> redirect to login
+        const loginUrl = new URL('/login', request.url);
+        return NextResponse.redirect(loginUrl);
+    }
+
+    if (sessionToken && isLoginPage) {
+        // Authenticated user trying to access login -> redirect to dashboard
+        const dashboardUrl = new URL('/dashboard', request.url);
+        return NextResponse.redirect(dashboardUrl);
+    }
+
+    if (pathname === '/') {
+        // Root redirects directly to dashboard assuming they have a session
+        const dashboardUrl = new URL('/dashboard', request.url);
+        return NextResponse.redirect(dashboardUrl);
     }
 
     return NextResponse.next();
 }
 
 export const config = {
-    matcher: [
-        /*
-         * Match all request paths except for the ones starting with:
-         * - api (API routes)
-         * - _next/static (static files)
-         * - _next/image (image optimization files)
-         * - favicon.ico (favicon file)
-         */
-        '/((?!api|_next/static|_next/image|favicon.ico).*)',
-    ],
+    matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
 };

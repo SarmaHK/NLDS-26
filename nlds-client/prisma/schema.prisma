@@ -217,6 +217,7 @@ model ParticipantSession {
 model AdminSession {
   id        String    @id @default(uuid()) @db.Uuid
   adminId   String    @db.Uuid
+  tokenHash String?   @unique
   expiresAt DateTime
   revokedAt DateTime?
   createdAt DateTime  @default(now())
@@ -247,15 +248,20 @@ enum AdminRole {
 }
 
 enum Permission {
+  VIEW_DASHBOARD
   VIEW_REGISTRATIONS
+  VIEW_PARTICIPANTS
   VIEW_PERSONAL_INFO
   VIEW_AIESEC_INFO
-  VIEW_CV
-  VIEW_PROFILE_PHOTO
-  UPDATE_STATUS
+  VIEW_CVS
+  VIEW_PROFILE_PHOTOS
+  UPDATE_REGISTRATION_STATUS
   VIEW_ANALYTICS
+  VIEW_REPORTS
   EXPORT_DATA
   VIEW_AUDIT_LOGS
+  MANAGE_SETTINGS
+  MANAGE_USERS
 }
 
 enum InvitationStatus {
