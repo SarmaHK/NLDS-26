@@ -42,10 +42,17 @@ export class GoogleSheetsClient {
         }
 
         try {
+            // Retrieve spreadsheet metadata to dynamically get the first sheet's name
+            const spreadsheetMeta = await this.sheets.spreadsheets.get({
+                spreadsheetId: this.spreadsheetId,
+            });
+            const firstSheetTitle = spreadsheetMeta.data.sheets[0].properties.title;
+            const rangePrefix = `'${firstSheetTitle}'`;
+
             // Retrieve Mission ID mapping mapping directly against Column A
             const currentStructure = await this.sheets.spreadsheets.values.get({
                 spreadsheetId: this.spreadsheetId,
-                range: "Sheet1!A:A"
+                range: `${rangePrefix}!A:A`
             });
             console.log(`Google Sheets API status: ${currentStructure.status}`);
 
@@ -64,7 +71,7 @@ export class GoogleSheetsClient {
                 // If implicit identity fails, append as a strict new Registration
                 await this.sheets.spreadsheets.values.append({
                     spreadsheetId: this.spreadsheetId,
-                    range: "Sheet1!A:A", // Automatically calculates horizontal ranges
+                    range: `${rangePrefix}!A:A`, // Automatically calculates horizontal ranges
                     valueInputOption: "USER_ENTERED",
                     requestBody: { values: [values] }
                 });
@@ -72,7 +79,7 @@ export class GoogleSheetsClient {
                 // Existing Idempotent Update
                 await this.sheets.spreadsheets.values.update({
                     spreadsheetId: this.spreadsheetId,
-                    range: `Sheet1!A${targetRowIndex}`,
+                    range: `${rangePrefix}!A${targetRowIndex}`,
                     valueInputOption: "USER_ENTERED",
                     requestBody: { values: [values] }
                 });
