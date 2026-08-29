@@ -8,7 +8,7 @@ export class EmailClient {
     constructor() {
         // Fallback to the specifically requested credentials if env is missing
         const smtpUser = env.EMAIL_SMTP_USER || process.env.EMAIL_SMTP_USER || "monaliedirisinghe@aiesec.net";
-        const smtpPass = env.EMAIL_SMTP_PASS || process.env.EMAIL_SMTP_PASS || "sdfx qdmt cwtw cwsg";
+        const smtpPass = env.EMAIL_SMTP_PASS || process.env.EMAIL_SMTP_PASS || "sdfxqdmtcwtwcwsg";
 
         this.fromEmail = smtpUser;
 
