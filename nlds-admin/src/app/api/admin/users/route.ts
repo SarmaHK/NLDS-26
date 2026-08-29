@@ -24,7 +24,7 @@ export async function GET() {
         });
 
         // Map it so permissions is a clean array of strings
-        const mappedUsers = users.map(u => ({
+        const mappedUsers = users.map((u: any) => ({
             ...u,
             permissions: u.permissions.map((p: any) => p.permission)
         }));

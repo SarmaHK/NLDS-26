@@ -175,7 +175,7 @@ export const RegistrationSuccessEmail: React.FC<RegistrationSuccessEmailProps> =
 
                 <Row style={matrixRow}>
                     <Column style={matrixKeyCol}>
-                        <Text style={matrixKey}>OPERATION TIMELINE</Text>
+                        <Text style={matrixKey}>TENTATIVE MISSION TIMELINE</Text>
                     </Column>
                     <Column style={matrixValCol}>
                         <Text style={matrixVal}>9TH, 10TH &amp; 11TH OCTOBER 2026</Text>
@@ -197,19 +197,6 @@ export const RegistrationSuccessEmail: React.FC<RegistrationSuccessEmailProps> =
                 <Text style={quotePrefix}>"Until your clearance arrives, consider this your first mission:"</Text>
                 <Text style={quoteMain}>Stay curious.</Text>
                 <Section style={quoteBar} />
-            </Section>
-
-            {/* Merch / Field Kit Intercept Teaser */}
-            <Section style={merchInterceptContainer}>
-                <Text style={merchHeader}>▸ IMF FIELD GEAR PROTOCOL ◂</Text>
-                <Img
-                    src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=80"
-                    alt="Tactical Merchandise Kit"
-                    style={merchImage}
-                />
-                <Button style={merchButton} href="https://aiesec.lk">
-                    SECURE YOUR GEAR PACK
-                </Button>
             </Section>
 
             {/* Mission Command Authority Signature */}
