@@ -31,7 +31,9 @@ const envSchema = z.object({
     GOOGLE_DRIVE_PRIVATE_KEY: z.string().optional(),
 
     EMAIL_API_KEY: z.string().optional(),
-    EMAIL_FROM: z.string().optional()
+    EMAIL_FROM: z.string().optional(),
+    EMAIL_SMTP_USER: z.string().optional(),
+    EMAIL_SMTP_PASS: z.string().optional()
 });
 
 const _env = envSchema.safeParse(process.env);
