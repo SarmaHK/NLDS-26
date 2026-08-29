@@ -35,7 +35,8 @@ export default function AcceptMission() {
           style={{
             width: "80vw",
             height: "60vh",
-            background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
+            background:
+              "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
             filter: "blur(100px)",
             opacity: 0.065,
           }}
@@ -55,16 +56,20 @@ export default function AcceptMission() {
       />
 
       {/* Corner marks */}
-      {["top-8 left-8 corner-tl", "top-8 right-8 corner-tr",
-        "bottom-8 left-8 corner-bl", "bottom-8 right-8 corner-br"].map((cls, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ delay: 0.8 + i * 0.1 }}
-            className={`absolute z-10 w-6 h-6 border-white/08 ${cls}`}
-          />
-        ))}
+      {[
+        "top-8 left-8 corner-tl",
+        "top-8 right-8 corner-tr",
+        "bottom-8 left-8 corner-bl",
+        "bottom-8 right-8 corner-br",
+      ].map((cls, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8 + i * 0.1 }}
+          className={`absolute z-10 w-6 h-6 border-white/08 ${cls}`}
+        />
+      ))}
 
       {/* Content — centered flex column with explicit gaps */}
       <div
@@ -77,13 +82,17 @@ export default function AcceptMission() {
           gap: 0,
         }}
       >
-
         {/* FINAL DIRECTIVE label */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5 }}
-          style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2.5rem" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1rem",
+            marginBottom: "2.5rem",
+          }}
         >
           <div className="h-[1px] w-10" style={{ background: "var(--red)" }} />
           <span className="label-classified">FINAL DIRECTIVE</span>
@@ -94,7 +103,11 @@ export default function AcceptMission() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] as const }}
+          transition={{
+            duration: 0.9,
+            delay: 0.15,
+            ease: [0.16, 1, 0.3, 1] as const,
+          }}
           style={{ marginBottom: "3rem" }}
         >
           <h2
@@ -107,7 +120,8 @@ export default function AcceptMission() {
             className="font-display leading-[0.85] tracking-[0.04em]"
             style={{
               fontSize: "clamp(3rem, 11vw, 10rem)",
-              background: "linear-gradient(145deg, #C41E3A 0%, #8B0010 45%, #C41E3A 100%)",
+              background:
+                "linear-gradient(145deg, #C41E3A 0%, #8B0010 45%, #C41E3A 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -121,12 +135,17 @@ export default function AcceptMission() {
         <motion.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.55, ease: [0.16, 1, 0.3, 1] as const }}
+          transition={{
+            duration: 0.8,
+            delay: 0.55,
+            ease: [0.16, 1, 0.3, 1] as const,
+          }}
           style={{
             width: "100%",
             maxWidth: "32rem",
             height: "1px",
-            background: "linear-gradient(90deg, transparent, var(--red), transparent)",
+            background:
+              "linear-gradient(90deg, transparent, var(--red), transparent)",
             opacity: 0.4,
             transformOrigin: "center",
             marginBottom: "3rem",
@@ -138,11 +157,21 @@ export default function AcceptMission() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.7 }}
-          style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "3rem", maxWidth: "36rem" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            marginBottom: "3rem",
+            maxWidth: "36rem",
+          }}
         >
           <p
             className="leading-relaxed"
-            style={{ fontSize: "1.05rem", color: "var(--text-dim)", fontWeight: 300 }}
+            style={{
+              fontSize: "1.05rem",
+              color: "var(--text-dim)",
+              fontWeight: 300,
+            }}
           >
             Some challenges are not meant to be easy.
             <br />
@@ -161,14 +190,26 @@ export default function AcceptMission() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.85 }}
-          style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "4rem" }}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1rem",
+            marginBottom: "4rem",
+          }}
         >
           <Link href="/register" className="btn-mission" id="final-cta">
             ACCEPT THE MISSION →
           </Link>
           <button
             className="btn-ghost"
-            onClick={() => document.getElementById("mission")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            onClick={() =>
+              document
+                .getElementById("mission")
+                ?.scrollIntoView({ behavior: "smooth", block: "start" })
+            }
           >
             VIEW THE BRIEFING
           </button>
@@ -179,18 +220,45 @@ export default function AcceptMission() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 1.2 }}
-          style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.75rem",
+          }}
         >
-          <div style={{ width: "3rem", height: "1px", background: "rgba(255,255,255,0.08)" }} />
+          <div
+            style={{
+              width: "3rem",
+              height: "1px",
+              background: "rgba(255,255,255,0.08)",
+            }}
+          />
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--red)", opacity: 0.5 }} />
+            <div
+              style={{
+                width: "4px",
+                height: "4px",
+                borderRadius: "50%",
+                background: "var(--red)",
+                opacity: 0.5,
+              }}
+            />
             <p
               className="font-classified text-[10px] tracking-[0.3em]"
               style={{ color: "rgba(255,255,255,0.4)" }}
             >
               THIS MESSAGE WILL SELF-DESTRUCT
             </p>
-            <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "var(--red)", opacity: 0.5 }} />
+            <div
+              style={{
+                width: "4px",
+                height: "4px",
+                borderRadius: "50%",
+                background: "var(--red)",
+                opacity: 0.5,
+              }}
+            />
           </div>
           <p
             className="font-classified text-[10px] tracking-[0.22em]"
@@ -199,7 +267,6 @@ export default function AcceptMission() {
             NLDS'26 // AIESEC IN SRI LANKA
           </p>
         </motion.div>
-
       </div>
     </section>
   );

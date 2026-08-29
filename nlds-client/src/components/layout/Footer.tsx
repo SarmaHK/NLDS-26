@@ -16,7 +16,10 @@ const FOOTER_LINKS = [
 
 const SOCIAL_LINKS = [
   { label: "INSTAGRAM ↗", href: "https://www.instagram.com/aiesecinsrilanka/" },
-  { label: "LINKEDIN ↗", href: "https://www.linkedin.com/company/aieseclk/posts/?feedView=all" },
+  {
+    label: "LINKEDIN ↗",
+    href: "https://www.linkedin.com/company/aieseclk/posts/?feedView=all",
+  },
   { label: "FACEBOOK ↗", href: "https://www.facebook.com/AIESECLK" },
 ];
 
@@ -32,14 +35,17 @@ export default function Footer() {
       }}
     >
       {/* Glowing top accent line */}
-      <div style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        height: "1px",
-        background: "linear-gradient(90deg, transparent, rgba(196,30,58,0.5), transparent)",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "1px",
+          background:
+            "linear-gradient(90deg, transparent, rgba(196,30,58,0.5), transparent)",
+        }}
+      />
 
       {/* Subtle grid bg */}
       <div
@@ -79,8 +85,19 @@ export default function Footer() {
           }}
         >
           {/* Brand block */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1rem", minWidth: "200px", maxWidth: "280px" }}>
-            <Link href="/" style={{ textDecoration: "none", display: "inline-block" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              minWidth: "200px",
+              maxWidth: "280px",
+            }}
+          >
+            <Link
+              href="/"
+              style={{ textDecoration: "none", display: "inline-block" }}
+            >
               <span
                 className="font-display"
                 style={{
@@ -93,7 +110,15 @@ export default function Footer() {
                 NLDS<span style={{ color: "var(--red)" }}>&apos;26</span>
               </span>
             </Link>
-            <p className="font-classified" style={{ fontSize: "11px", letterSpacing: "0.2em", lineHeight: 1.8, color: "rgba(255,255,255,0.75)" }}>
+            <p
+              className="font-classified"
+              style={{
+                fontSize: "11px",
+                letterSpacing: "0.2em",
+                lineHeight: 1.8,
+                color: "rgba(255,255,255,0.75)",
+              }}
+            >
               NATIONAL LEADERSHIP DEVELOPMENT SEMINAR
               <br />
               AIESEC IN SRI LANKA
@@ -113,17 +138,32 @@ export default function Footer() {
                 marginRight: "auto",
               }}
             />
-            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "0.25rem" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                marginTop: "0.25rem",
+              }}
+            >
               <span
                 className="animate-blink"
                 style={{
-                  width: 6, height: 6,
+                  width: 6,
+                  height: 6,
                   borderRadius: "50%",
                   background: "var(--red)",
                   display: "inline-block",
                 }}
               />
-              <span className="font-classified" style={{ fontSize: "8.5px", letterSpacing: "0.25em", color: "rgba(255,255,255,0.75)" }}>
+              <span
+                className="font-classified"
+                style={{
+                  fontSize: "8.5px",
+                  letterSpacing: "0.25em",
+                  color: "rgba(255,255,255,0.75)",
+                }}
+              >
                 MISSION STATUS: ACTIVE
               </span>
             </div>
@@ -131,16 +171,30 @@ export default function Footer() {
 
           {/* Links block */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "4rem" }}>
-
             {/* Navigation */}
             <div>
               <p
                 className="font-classified"
-                style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "1.5rem", textTransform: "uppercase" }}
+                style={{
+                  fontSize: "11px",
+                  letterSpacing: "0.3em",
+                  color: "var(--text-dim)",
+                  marginBottom: "1.5rem",
+                  textTransform: "uppercase",
+                }}
               >
                 NAVIGATION
               </p>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.85rem",
+                }}
+              >
                 {FOOTER_LINKS.map((link) => (
                   <li key={link.label}>
                     {link.locked ? (
@@ -150,7 +204,7 @@ export default function Footer() {
                         style={{
                           fontSize: "12px",
                           letterSpacing: "0.22em",
-                          color: "rgba(255,255,255,0.4)"
+                          color: "rgba(255,255,255,0.4)",
                         }}
                       >
                         <Lock size={12} className="flex-shrink-0" />
@@ -179,11 +233,26 @@ export default function Footer() {
             <div>
               <p
                 className="font-classified"
-                style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "1.5rem", textTransform: "uppercase" }}
+                style={{
+                  fontSize: "11px",
+                  letterSpacing: "0.3em",
+                  color: "var(--text-dim)",
+                  marginBottom: "1.5rem",
+                  textTransform: "uppercase",
+                }}
               >
                 FOLLOW
               </p>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+              <ul
+                style={{
+                  listStyle: "none",
+                  padding: 0,
+                  margin: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "0.85rem",
+                }}
+              >
                 {SOCIAL_LINKS.map((link) => (
                   <li key={link.label}>
                     <a
@@ -207,26 +276,54 @@ export default function Footer() {
             </div>
 
             {/* Mission Info */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "2rem" }}
+            >
               <div>
                 <p
                   className="font-classified"
-                  style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "0.75rem", textTransform: "uppercase" }}
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.3em",
+                    color: "var(--text-dim)",
+                    marginBottom: "0.75rem",
+                    textTransform: "uppercase",
+                  }}
                 >
                   TENTATIVE MISSION DATE
                 </p>
-                <span className="font-classified" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--text)" }}>
+                <span
+                  className="font-classified"
+                  style={{
+                    fontSize: "12px",
+                    letterSpacing: "0.2em",
+                    color: "var(--text)",
+                  }}
+                >
                   09 — 11 OCTOBER 2026
                 </span>
               </div>
               <div>
                 <p
                   className="font-classified"
-                  style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "0.75rem", textTransform: "uppercase" }}
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.3em",
+                    color: "var(--text-dim)",
+                    marginBottom: "0.75rem",
+                    textTransform: "uppercase",
+                  }}
                 >
                   MISSION VENUE
                 </p>
-                <span className="font-classified" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--text-muted)" }}>
+                <span
+                  className="font-classified"
+                  style={{
+                    fontSize: "12px",
+                    letterSpacing: "0.2em",
+                    color: "var(--text-muted)",
+                  }}
+                >
                   TO BE ANNOUNCED
                 </span>
               </div>
@@ -235,14 +332,43 @@ export default function Footer() {
         </div>
 
         {/* ── Divider ───────────────────────────────────────── */}
-        <div style={{ height: "1px", background: "var(--border)", marginBottom: "2.5rem" }} />
+        <div
+          style={{
+            height: "1px",
+            background: "var(--border)",
+            marginBottom: "2.5rem",
+          }}
+        />
 
         {/* ── Bottom bar ────────────────────────────────────── */}
-        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
-          <p className="font-classified" style={{ fontSize: "11px", letterSpacing: "0.15em", color: "rgba(255,255,255,0.6)" }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1rem",
+          }}
+        >
+          <p
+            className="font-classified"
+            style={{
+              fontSize: "11px",
+              letterSpacing: "0.15em",
+              color: "rgba(255,255,255,0.6)",
+            }}
+          >
             © 2026 AIESEC IN SRI LANKA. ALL RIGHTS RESERVED.
           </p>
-          <p className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.2em", color: "rgba(255,255,255,0.4)" }}>
+          <p
+            className="font-classified"
+            style={{
+              fontSize: "10px",
+              letterSpacing: "0.2em",
+              color: "rgba(255,255,255,0.4)",
+            }}
+          >
             NLDS&apos;26 // OFFICIAL MISSION PLATFORM
           </p>
         </div>

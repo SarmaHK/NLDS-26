@@ -2,7 +2,11 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { mainCommittee, organizingCommittee, type TeamMember } from "@/data/team";
+import {
+  mainCommittee,
+  organizingCommittee,
+  type TeamMember,
+} from "@/data/team";
 
 /** Display order for OC roles */
 const OC_ROLE_ORDER = [
@@ -18,21 +22,22 @@ const OC_ROLE_ORDER = [
 /** Convert internal role key → display label */
 function displayRole(role: string): string {
   if (role === "Conference Manager") return "CONFERENCE MANAGERS";
-  return role
-    .replace(/^OC\b/, "ORGANIZING COMMITTEE")
-    .toUpperCase();
+  return role.replace(/^OC\b/, "ORGANIZING COMMITTEE").toUpperCase();
 }
 
 /** Group members by role, preserving display order */
-function groupByRole(members: TeamMember[]): { role: string; members: TeamMember[] }[] {
+function groupByRole(
+  members: TeamMember[],
+): { role: string; members: TeamMember[] }[] {
   const map = new Map<string, TeamMember[]>();
   for (const m of members) {
     if (!map.has(m.role)) map.set(m.role, []);
     map.get(m.role)!.push(m);
   }
-  return OC_ROLE_ORDER
-    .filter((r) => map.has(r))
-    .map((r) => ({ role: r, members: map.get(r)! }));
+  return OC_ROLE_ORDER.filter((r) => map.has(r)).map((r) => ({
+    role: r,
+    members: map.get(r)!,
+  }));
 }
 
 function MemberCard({ member, index }: { member: TeamMember; index: number }) {
@@ -41,7 +46,11 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ delay: index * 0.05, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        delay: index * 0.05,
+        duration: 0.5,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       className="group relative overflow-hidden flex flex-col"
       style={{
         border: "1px solid var(--border)",
@@ -71,7 +80,10 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="w-16 h-16 rounded-full" style={{ border: "1px solid rgba(255,255,255,0.08)" }} />
+            <div
+              className="w-16 h-16 rounded-full"
+              style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+            />
             <div
               className="w-10 h-10 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
               style={{ border: "1px solid rgba(196,30,58,0.2)" }}
@@ -89,7 +101,10 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
         {/* Hover gradient overlay */}
         <div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-400"
-          style={{ background: "linear-gradient(to top, rgba(6,6,8,0.95) 0%, rgba(6,6,8,0.2) 60%, transparent 100%)" }}
+          style={{
+            background:
+              "linear-gradient(to top, rgba(6,6,8,0.95) 0%, rgba(6,6,8,0.2) 60%, transparent 100%)",
+          }}
         />
 
         {/* Top red accent line on hover */}
@@ -100,7 +115,10 @@ function MemberCard({ member, index }: { member: TeamMember; index: number }) {
       </div>
 
       {/* Info: Name and Position */}
-      <div className="px-4 py-4 text-center flex flex-col items-center justify-center gap-1.5 flex-1" style={{ borderTop: "1px solid var(--border)" }}>
+      <div
+        className="px-4 py-4 text-center flex flex-col items-center justify-center gap-1.5 flex-1"
+        style={{ borderTop: "1px solid var(--border)" }}
+      >
         <p
           className="font-display leading-tight tracking-[0.04em] text-white"
           style={{ fontSize: "clamp(1rem, 2vw, 1.15rem)" }}
@@ -132,19 +150,46 @@ function RoleRow({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ delay: rowIndex * 0.06, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{
+        delay: rowIndex * 0.06,
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+      }}
       style={{ textAlign: "center", width: "100%" }}
     >
       {/* Role label */}
-      <div style={{ display: "inline-flex", alignItems: "center", gap: "1.25rem", marginBottom: "2.5rem" }}>
-        <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "1.25rem",
+          marginBottom: "2.5rem",
+        }}
+      >
+        <div
+          style={{
+            height: "1px",
+            width: "40px",
+            background: "var(--border-red)",
+          }}
+        />
         <span
           className="font-classified"
-          style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--red)" }}
+          style={{
+            fontSize: "11px",
+            letterSpacing: "0.3em",
+            color: "var(--red)",
+          }}
         >
           {displayRole(role)}
         </span>
-        <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
+        <div
+          style={{
+            height: "1px",
+            width: "40px",
+            background: "var(--border-red)",
+          }}
+        />
       </div>
 
       {/* Member cards — centered */}
@@ -174,20 +219,24 @@ export default function ConferenceTeamSection() {
   const ocGroups = groupByRole(organizingCommittee);
 
   // Separate MC: 1 top card (President) and 12 cards below
-  const mcPresident = mainCommittee.find(
-    (m) => m.id === "mc-president" || m.role.toLowerCase().includes("president")
-  ) || mainCommittee[0];
+  const mcPresident =
+    mainCommittee.find(
+      (m) =>
+        m.id === "mc-president" || m.role.toLowerCase().includes("president"),
+    ) || mainCommittee[0];
 
-  const mcMembers = mainCommittee.filter(
-    (m) => m.id !== mcPresident?.id
-  );
+  const mcMembers = mainCommittee.filter((m) => m.id !== mcPresident?.id);
 
   return (
     <section
       ref={ref}
       id="team"
       className="relative overflow-hidden"
-      style={{ background: "var(--bg)", paddingTop: "8rem", paddingBottom: "10rem" }}
+      style={{
+        background: "var(--bg)",
+        paddingTop: "8rem",
+        paddingBottom: "10rem",
+      }}
     >
       {/* Grid bg */}
       <div
@@ -210,7 +259,8 @@ export default function ConferenceTeamSection() {
           transform: "translate(-50%, -50%)",
           width: "700px",
           height: "350px",
-          background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
           filter: "blur(140px)",
           opacity: 0.06,
         }}
@@ -286,7 +336,8 @@ export default function ConferenceTeamSection() {
                 color: activeTab === "MC" ? "#ffffff" : "var(--text-dim)",
                 border: "none",
                 fontWeight: activeTab === "MC" ? "600" : "400",
-                boxShadow: activeTab === "MC" ? "0 0 20px rgba(196,30,58,0.35)" : "none",
+                boxShadow:
+                  activeTab === "MC" ? "0 0 20px rgba(196,30,58,0.35)" : "none",
               }}
             >
               MC
@@ -301,7 +352,8 @@ export default function ConferenceTeamSection() {
                 color: activeTab === "OC" ? "#ffffff" : "var(--text-dim)",
                 border: "none",
                 fontWeight: activeTab === "OC" ? "600" : "400",
-                boxShadow: activeTab === "OC" ? "0 0 20px rgba(196,30,58,0.35)" : "none",
+                boxShadow:
+                  activeTab === "OC" ? "0 0 20px rgba(196,30,58,0.35)" : "none",
               }}
             >
               OC
@@ -330,7 +382,14 @@ export default function ConferenceTeamSection() {
                   </p>
                 </div>
               ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: "5rem", width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5rem",
+                    width: "100%",
+                  }}
+                >
                   {/* Top: 1 Card (President) */}
                   {mcPresident && (
                     <div style={{ textAlign: "center", width: "100%" }}>
@@ -342,17 +401,35 @@ export default function ConferenceTeamSection() {
                           marginBottom: "2rem",
                         }}
                       >
-                        <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
+                        <div
+                          style={{
+                            height: "1px",
+                            width: "40px",
+                            background: "var(--border-red)",
+                          }}
+                        />
                         <span
                           className="font-classified"
-                          style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--red)" }}
+                          style={{
+                            fontSize: "11px",
+                            letterSpacing: "0.3em",
+                            color: "var(--red)",
+                          }}
                         >
                           PRESIDENT
                         </span>
-                        <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
+                        <div
+                          style={{
+                            height: "1px",
+                            width: "40px",
+                            background: "var(--border-red)",
+                          }}
+                        />
                       </div>
 
-                      <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div
+                        style={{ display: "flex", justifyContent: "center" }}
+                      >
                         <MemberCard member={mcPresident} index={0} />
                       </div>
                     </div>
@@ -369,14 +446,30 @@ export default function ConferenceTeamSection() {
                           marginBottom: "2.5rem",
                         }}
                       >
-                        <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
+                        <div
+                          style={{
+                            height: "1px",
+                            width: "40px",
+                            background: "var(--border-red)",
+                          }}
+                        />
                         <span
                           className="font-classified"
-                          style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--red)" }}
+                          style={{
+                            fontSize: "11px",
+                            letterSpacing: "0.3em",
+                            color: "var(--red)",
+                          }}
                         >
                           VICE PRESIDENTS
                         </span>
-                        <div style={{ height: "1px", width: "40px", background: "var(--border-red)" }} />
+                        <div
+                          style={{
+                            height: "1px",
+                            width: "40px",
+                            background: "var(--border-red)",
+                          }}
+                        />
                       </div>
 
                       <div
@@ -417,9 +510,21 @@ export default function ConferenceTeamSection() {
                   </p>
                 </div>
               ) : (
-                <div style={{ display: "flex", flexDirection: "column", gap: "5rem", width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "5rem",
+                    width: "100%",
+                  }}
+                >
                   {ocGroups.map((g, ri) => (
-                    <RoleRow key={g.role} role={g.role} members={g.members} rowIndex={ri} />
+                    <RoleRow
+                      key={g.role}
+                      role={g.role}
+                      members={g.members}
+                      rowIndex={ri}
+                    />
                   ))}
                 </div>
               )}

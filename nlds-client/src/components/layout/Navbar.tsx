@@ -10,7 +10,7 @@ import CartBadge from "@/components/store/CartBadge";
 interface NavLink {
   label: string;
   href: string;
-  scrollTo?: string;   // smooth-scroll to this element ID on the homepage
+  scrollTo?: string; // smooth-scroll to this element ID on the homepage
   locked?: boolean;
   external?: boolean;
 }
@@ -39,7 +39,8 @@ export default function Navbar() {
 
   // Close mobile menu on Escape
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    const onKey = (e: KeyboardEvent) =>
+      e.key === "Escape" && setMenuOpen(false);
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, []);
@@ -47,13 +48,15 @@ export default function Navbar() {
   // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [menuOpen]);
 
   function handleNavClick(
     e: React.MouseEvent,
     link: NavLink,
-    closeMobile?: () => void
+    closeMobile?: () => void,
   ) {
     if (link.scrollTo) {
       e.preventDefault();
@@ -84,20 +87,29 @@ export default function Navbar() {
         }}
       >
         <div className="max-w-[1440px] mx-auto px-5 sm:px-6 md:px-10 flex items-center justify-between h-[76px] sm:h-[82px] md:h-[88px] lg:h-[94px]">
-
           {/* ── Logo ───────── */}
-          <Link href="/" className="flex items-center no-underline flex-shrink-0" id="nav-logo">
+          <Link
+            href="/"
+            className="flex items-center no-underline flex-shrink-0"
+            id="nav-logo"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/Logos/NLDS 2026.png"
               alt="NLDS 2026"
               className="h-14 sm:h-16 md:h-18 lg:h-20 w-auto max-w-[190px] sm:max-w-[220px] md:max-w-[250px] lg:max-w-[280px] object-contain transition-transform duration-300 hover:scale-105"
-              style={{ filter: "brightness(1.1) drop-shadow(0 0 14px rgba(196,30,58,0.28))" }}
+              style={{
+                filter:
+                  "brightness(1.1) drop-shadow(0 0 14px rgba(196,30,58,0.28))",
+              }}
             />
           </Link>
 
           {/* ── Desktop Nav links ─── */}
-          <nav className="hidden lg:flex items-center gap-5 xl:gap-9" aria-label="Main navigation">
+          <nav
+            className="hidden lg:flex items-center gap-5 xl:gap-9"
+            aria-label="Main navigation"
+          >
             {NAV_LINKS.map((link) =>
               link.locked ? (
                 <div
@@ -105,7 +117,11 @@ export default function Navbar() {
                   title="Opens on event day"
                   className="flex items-center gap-1.5 px-4 py-2 cursor-not-allowed select-none"
                 >
-                  <Lock size={10} className="flex-shrink-0" style={{ color: "rgba(255,255,255,0.4)" }} />
+                  <Lock
+                    size={10}
+                    className="flex-shrink-0"
+                    style={{ color: "rgba(255,255,255,0.4)" }}
+                  />
                   <span className="font-classified text-[11px] tracking-[0.24em] text-white/60">
                     {link.label}
                   </span>
@@ -118,18 +134,19 @@ export default function Navbar() {
                   className="relative flex items-center px-4 py-2 no-underline group"
                   id={`nav-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
-                  <span
-                    className="font-classified text-[11px] tracking-[0.24em] text-white transition-colors duration-200 group-hover:text-[var(--red)]"
-                  >
+                  <span className="font-classified text-[11px] tracking-[0.24em] text-white transition-colors duration-200 group-hover:text-[var(--red)]">
                     {link.label}
                   </span>
                   {/* Hover underline only */}
                   <span
                     className="absolute bottom-0 left-4 right-4 h-[2px] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"
-                    style={{ background: "var(--red)", boxShadow: "0 0 8px var(--red)" }}
+                    style={{
+                      background: "var(--red)",
+                      boxShadow: "0 0 8px var(--red)",
+                    }}
                   />
                 </Link>
-              )
+              ),
             )}
           </nav>
 
@@ -177,7 +194,10 @@ export default function Navbar() {
             >
               <div className="px-5 sm:px-6 py-6 flex flex-col gap-2">
                 {/* Classification strip */}
-                <div className="pb-4 mb-2" style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}>
+                <div
+                  className="pb-4 mb-2"
+                  style={{ borderBottom: "1px solid rgba(255,255,255,0.04)" }}
+                >
                   <p className="font-classified text-[10px] tracking-[0.3em] text-[var(--text-dim)]">
                     CLASSIFICATION: TOP SECRET // AIESEC IN SRI LANKA
                   </p>
@@ -200,13 +220,19 @@ export default function Navbar() {
                             </span>
                             <span
                               className="font-display tracking-[0.06em]"
-                              style={{ fontSize: "1.4rem", color: "rgba(255,255,255,0.2)" }}
+                              style={{
+                                fontSize: "1.4rem",
+                                color: "rgba(255,255,255,0.2)",
+                              }}
                             >
                               {link.label}
                             </span>
                           </div>
                           <div className="flex items-center gap-1.5 opacity-60">
-                            <Lock size={10} style={{ color: "rgba(255,255,255,0.5)" }} />
+                            <Lock
+                              size={10}
+                              style={{ color: "rgba(255,255,255,0.5)" }}
+                            />
                             <span className="font-classified text-[7px] text-white/50 tracking-[0.15em]">
                               EVENT DAY
                             </span>
@@ -215,7 +241,9 @@ export default function Navbar() {
                       ) : (
                         <Link
                           href={link.href}
-                          onClick={(e) => handleNavClick(e, link, () => setMenuOpen(false))}
+                          onClick={(e) =>
+                            handleNavClick(e, link, () => setMenuOpen(false))
+                          }
                           className="flex items-center gap-3 py-3 group no-underline"
                         >
                           <span className="font-classified text-[10px] text-white/40 w-4 hidden sm:block">
@@ -244,7 +272,10 @@ export default function Navbar() {
                 )}
 
                 {/* Mobile CTA */}
-                <div className="pt-6 pb-2 mt-2" style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+                <div
+                  className="pt-6 pb-2 mt-2"
+                  style={{ borderTop: "1px solid rgba(255,255,255,0.04)" }}
+                >
                   <Link
                     href="/register"
                     onClick={() => setMenuOpen(false)}

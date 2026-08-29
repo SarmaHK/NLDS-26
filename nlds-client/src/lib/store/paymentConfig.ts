@@ -24,7 +24,7 @@ export const PAYMENT_CONFIG: PaymentConfig = {
   bankName: "PEOPLE'S BANK",
   accountName: "AIESEC IN SRI LANKA",
   accountNumber: "XXXX XXXX XXXX XXXX", // ← Replace with real account number
-  branch: "YOUR BRANCH NAME",            // ← Replace with real branch
+  branch: "YOUR BRANCH NAME", // ← Replace with real branch
   referenceFormat: "Your full name + NLDS26 (e.g. JOHN DOE NLDS26)",
   referenceExample: "JOHN DOE NLDS26",
 };

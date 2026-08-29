@@ -2,7 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 type Phase = 0 | 1 | 2 | 3 | 4;
 
@@ -33,7 +38,7 @@ export default function Hero() {
   /* Phase progression */
   useEffect(() => {
     const timers = PHASE_DELAYS.map((delay, i) =>
-      setTimeout(() => setPhase((i + 1) as Phase), delay)
+      setTimeout(() => setPhase((i + 1) as Phase), delay),
     );
     return () => timers.forEach(clearTimeout);
   }, []);
@@ -83,7 +88,10 @@ export default function Hero() {
       </motion.div>
 
       {/* ── Atmospheric Red Glow ──────────────────────── */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center" style={{ zIndex: 1 }}>
+      <div
+        className="pointer-events-none absolute inset-0 flex items-center justify-center"
+        style={{ zIndex: 1 }}
+      >
         <div
           style={{
             width: "700px",
@@ -244,18 +252,28 @@ export default function Hero() {
               transition={{ delay: 0.15, duration: 0.6 }}
               className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-8"
             >
-              <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
+              <div
+                className="h-[1px] w-8 sm:w-12 flex-shrink-0"
+                style={{ background: "var(--red)" }}
+              />
               <span className="font-classified text-[9px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.35em] text-[var(--text-muted)] uppercase whitespace-nowrap">
                 TOP SECRET // AIESEC IN SRI LANKA
               </span>
-              <div className="h-[1px] w-8 sm:w-12 flex-shrink-0" style={{ background: "var(--red)" }} />
+              <div
+                className="h-[1px] w-8 sm:w-12 flex-shrink-0"
+                style={{ background: "var(--red)" }}
+              />
             </motion.div>
 
             {/* ── NLDS 2026 LOGO ── */}
             <motion.div
               initial={{ opacity: 0, scale: 0.88, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                delay: 0.2,
+                duration: 1.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="mb-[15px]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -284,7 +302,9 @@ export default function Hero() {
               <button
                 className="btn-ghost"
                 onClick={() => {
-                  document.getElementById("mission")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  document
+                    .getElementById("mission")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
                 }}
               >
                 VIEW BRIEFING ↓
@@ -354,11 +374,17 @@ export default function Hero() {
                 { k: "YEAR", v: "2026", red: false, green: false },
               ].map(({ k, v, red, green }) => (
                 <div key={k} className="mb-2.5">
-                  <span className="block text-white/50 uppercase text-[10px] tracking-[0.18em]">{k}</span>
+                  <span className="block text-white/50 uppercase text-[10px] tracking-[0.18em]">
+                    {k}
+                  </span>
                   <span
                     className="block uppercase text-[12px] tracking-[0.12em]"
                     style={{
-                      color: red ? "var(--red)" : green ? "#4ade80" : "rgba(240,237,232,0.65)",
+                      color: red
+                        ? "var(--red)"
+                        : green
+                          ? "#4ade80"
+                          : "rgba(240,237,232,0.65)",
                     }}
                   >
                     {v}

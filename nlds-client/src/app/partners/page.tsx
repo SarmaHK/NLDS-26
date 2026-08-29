@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import PageHero      from "@/components/ui/PageHero";
+import PageHero from "@/components/ui/PageHero";
 import AlliesSection from "@/components/sections/AlliesSection";
 
 export const metadata: Metadata = {

@@ -90,7 +90,9 @@ const CartContext = createContext<CartContextValue | null>(null);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [buyNowSession, setBuyNowSession] = useState<BuyNowSession | null>(null);
+  const [buyNowSession, setBuyNowSession] = useState<BuyNowSession | null>(
+    null,
+  );
   const [hydrated, setHydrated] = useState(false);
 
   // Load from localStorage on mount
@@ -110,16 +112,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     (product: Product, size: string | null, quantity: number) => {
       setItems((prev) => {
         const key = itemKey(product.id, size);
-        const existing = prev.find(
-          (i) => itemKey(i.productId, i.size) === key
-        );
+        const existing = prev.find((i) => itemKey(i.productId, i.size) === key);
 
         if (existing) {
           // Increase quantity of existing item
           return prev.map((i) =>
             itemKey(i.productId, i.size) === key
               ? { ...i, quantity: i.quantity + quantity }
-              : i
+              : i,
           );
         }
 
@@ -138,12 +138,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         return [...prev, newItem];
       });
     },
-    []
+    [],
   );
 
   const removeItem = useCallback((productId: string, size: string | null) => {
     setItems((prev) =>
-      prev.filter((i) => itemKey(i.productId, i.size) !== itemKey(productId, size))
+      prev.filter(
+        (i) => itemKey(i.productId, i.size) !== itemKey(productId, size),
+      ),
     );
   }, []);
 
@@ -157,11 +159,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         prev.map((i) =>
           itemKey(i.productId, i.size) === itemKey(productId, size)
             ? { ...i, quantity }
-            : i
-        )
+            : i,
+        ),
       );
     },
-    [removeItem]
+    [removeItem],
   );
 
   const clearCart = useCallback(() => {
@@ -187,7 +189,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       updateQty,
       clearCart,
     }),
-    [items, buyNowSession, isCartOpen, addItem, removeItem, updateQty, clearCart, setBuyNow]
+    [
+      items,
+      buyNowSession,
+      isCartOpen,
+      addItem,
+      removeItem,
+      updateQty,
+      clearCart,
+      setBuyNow,
+    ],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

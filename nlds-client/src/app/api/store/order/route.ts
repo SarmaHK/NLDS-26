@@ -43,35 +43,35 @@ export async function POST(request: Request) {
     if (!fullName || fullName.length < 2) {
       return NextResponse.json(
         { error: "Full name is required (minimum 2 characters)." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!email || !email.includes("@")) {
       return NextResponse.json(
         { error: "Valid email address is required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!mobileNumber || mobileNumber.length < 7) {
       return NextResponse.json(
         { error: "Valid mobile phone number is required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!entity) {
       return NextResponse.json(
         { error: "AIESEC entity is required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (!receiptFile || receiptFile.size === 0) {
       return NextResponse.json(
         { error: "Payment receipt file is required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -85,11 +85,13 @@ export async function POST(request: Request) {
     } catch {
       return NextResponse.json(
         { error: "Invalid order items payload." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    const totalAmount = parseInt(totalRaw, 10) || items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
+    const totalAmount =
+      parseInt(totalRaw, 10) ||
+      items.reduce((sum, i) => sum + i.unitPrice * i.quantity, 0);
     const totalUnits = items.reduce((sum, i) => sum + i.quantity, 0);
 
     // Format human-readable item summary for Google Sheet
@@ -109,19 +111,25 @@ export async function POST(request: Request) {
     const fileBuffer = Buffer.from(arrayBuffer);
 
     const ext = receiptFile.name.split(".").pop() || "png";
-    const sanitizedCustomer = fullName.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 20);
+    const sanitizedCustomer = fullName
+      .replace(/[^a-zA-Z0-9]/g, "_")
+      .slice(0, 20);
     const driveFileName = `MERCH_${orderId}_${sanitizedCustomer}_${Date.now()}.${ext}`;
 
-    console.log(`[Store Order API] Uploading receipt: ${driveFileName} (${receiptFile.size} bytes)...`);
+    console.log(
+      `[Store Order API] Uploading receipt: ${driveFileName} (${receiptFile.size} bytes)...`,
+    );
     const { viewUrl: receiptDriveUrl } = await driveClient.uploadReceipt(
       fileBuffer,
       driveFileName,
-      receiptFile.type || "application/octet-stream"
+      receiptFile.type || "application/octet-stream",
     );
 
     // 4. Append Order Row to Google Sheets
     const sheetsClient = new MerchSheetsClient();
-    console.log(`[Store Order API] Appending order ${orderId} to Google Sheet...`);
+    console.log(
+      `[Store Order API] Appending order ${orderId} to Google Sheet...`,
+    );
     await sheetsClient.appendOrder({
       orderId,
       fullName,
@@ -148,7 +156,7 @@ export async function POST(request: Request) {
       {
         error: error.message || "Failed to process merchandise order.",
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

@@ -38,10 +38,7 @@ export interface CustomerDetails {
 
 // ─── Order ──────────────────────────────────────────────────────────────────
 
-export type PaymentStatus =
-  | "PENDING_VERIFICATION"
-  | "VERIFIED"
-  | "REJECTED";
+export type PaymentStatus = "PENDING_VERIFICATION" | "VERIFIED" | "REJECTED";
 
 export interface OrderItem {
   productId: string;

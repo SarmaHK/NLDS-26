@@ -41,7 +41,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NLDS'26 — Mission Impossible",
-    description: "Your next mission begins here. NLDS 2026 by AIESEC in Sri Lanka.",
+    description:
+      "Your next mission begins here. NLDS 2026 by AIESEC in Sri Lanka.",
   },
   icons: {
     icon: "/images/Logos/NLDS LOGO.png",
@@ -58,14 +59,21 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="en"
       data-scroll-behavior="smooth"
       className={`${poppins.variable} ${bebasNeue.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="antialiased" style={{ overflowX: "hidden", maxWidth: "100vw" }}>
+      <body
+        className="antialiased"
+        style={{ overflowX: "hidden", maxWidth: "100vw" }}
+      >
         <CartProvider>
           <LenisProvider>
             <Navbar />

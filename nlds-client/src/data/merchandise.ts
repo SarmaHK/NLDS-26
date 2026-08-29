@@ -8,11 +8,7 @@
  */
 
 export type ProductCategory =
-  | "combo"
-  | "tshirt"
-  | "wristband"
-  | "stickers"
-  | "bucket-hat";
+  "combo" | "tshirt" | "wristband" | "stickers" | "bucket-hat";
 
 export interface Product {
   id: string;
@@ -35,11 +31,10 @@ export const PRODUCTS: Product[] = [
     category: "combo",
     description:
       "The complete operative kit. Everything you need to gear up for the mission. Includes the official NLDS'26 T-Shirt, wrist band, and sticker pack. Best value for the full NLDS'26 experience.",
-    shortDescription: "Complete operative kit — T-Shirt, wrist band & stickers.",
+    shortDescription:
+      "Complete operative kit — T-Shirt, wrist band & stickers.",
     price: 5500,
-    images: [
-      "/images/merch/combo-1.jpg",
-    ],
+    images: ["/images/merch/combo-1.jpg"],
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     available: true,
     itemCode: "NLDS26-001",
@@ -51,11 +46,10 @@ export const PRODUCTS: Product[] = [
     category: "tshirt",
     description:
       "Official mission apparel. Premium quality cotton T-Shirt with the NLDS'26 Mission Impossible graphic. Wear the mission wherever you go. Limited edition, official issue.",
-    shortDescription: "Official mission apparel. Premium cotton. Limited edition.",
+    shortDescription:
+      "Official mission apparel. Premium cotton. Limited edition.",
     price: 3500,
-    images: [
-      "/images/merch/tshirt-1.jpg",
-    ],
+    images: ["/images/merch/tshirt-1.jpg"],
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     available: true,
     itemCode: "NLDS26-002",
@@ -68,9 +62,7 @@ export const PRODUCTS: Product[] = [
       "Official silicone wrist band. Compact mission identifier. Wear it as a mark of your commitment to the NLDS'26 mission. One size fits all.",
     shortDescription: "Official mission identifier. One size fits all.",
     price: 350,
-    images: [
-      "/images/merch/wristband-1.jpg",
-    ],
+    images: ["/images/merch/wristband-1.jpg"],
     sizes: [], // no size selector needed
     available: true,
     itemCode: "NLDS26-003",
@@ -83,9 +75,7 @@ export const PRODUCTS: Product[] = [
       "Pack of 5 premium high-quality vinyl stickers. NLDS'26 Mission Impossible themed designs. Waterproof. Perfect for laptops, notebooks, and equipment.",
     shortDescription: "5 premium vinyl stickers. Waterproof. Mission themed.",
     price: 450,
-    images: [
-      "/images/merch/stickers-1.jpg",
-    ],
+    images: ["/images/merch/stickers-1.jpg"],
     sizes: [], // no size selector needed
     available: true,
     itemCode: "NLDS26-004",
@@ -96,11 +86,10 @@ export const PRODUCTS: Product[] = [
     category: "bucket-hat",
     description:
       "Official NLDS'26 bucket hat. Structured, premium quality. NLDS'26 Mission Impossible embroidered logo. The operative's field headgear. One size fits most.",
-    shortDescription: "Official operative headgear. Embroidered logo. One size fits most.",
+    shortDescription:
+      "Official operative headgear. Embroidered logo. One size fits most.",
     price: 2500,
-    images: [
-      "/images/merch/hat-1.jpg",
-    ],
+    images: ["/images/merch/hat-1.jpg"],
     sizes: [], // one size fits most
     available: true,
     itemCode: "NLDS26-005",

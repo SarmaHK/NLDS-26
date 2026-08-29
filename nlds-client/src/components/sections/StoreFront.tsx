@@ -15,7 +15,11 @@ export default function StoreFront() {
         ref={ref}
         id="store"
         className="relative overflow-hidden w-full flex flex-col items-center"
-        style={{ background: "var(--bg)", paddingTop: "4rem", paddingBottom: "10rem" }}
+        style={{
+          background: "var(--bg)",
+          paddingTop: "4rem",
+          paddingBottom: "10rem",
+        }}
       >
         {/* Subtle grid background */}
         <div
@@ -38,7 +42,8 @@ export default function StoreFront() {
             transform: "translate(-50%, -50%)",
             width: "700px",
             height: "400px",
-            background: "radial-gradient(ellipse, rgba(196,30,58,0.8) 0%, transparent 70%)",
+            background:
+              "radial-gradient(ellipse, rgba(196,30,58,0.8) 0%, transparent 70%)",
             filter: "blur(140px)",
             opacity: 0.05,
           }}
@@ -79,8 +84,23 @@ export default function StoreFront() {
                 marginBottom: "1.5rem",
               }}
             >
-              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)", display: "inline-block" }} />
-              <span className="font-classified" style={{ fontSize: "10px", letterSpacing: "0.26em", color: "rgba(255,255,255,0.85)" }}>
+              <span
+                style={{
+                  width: 6,
+                  height: 6,
+                  borderRadius: "50%",
+                  background: "var(--red)",
+                  display: "inline-block",
+                }}
+              />
+              <span
+                className="font-classified"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.26em",
+                  color: "rgba(255,255,255,0.85)",
+                }}
+              >
                 OFFICIAL INVENTORY // LIMITED EDITION
               </span>
             </div>
@@ -96,7 +116,8 @@ export default function StoreFront() {
                 marginBottom: "1.25rem",
               }}
             >
-              AUTHORIZED <span style={{ color: "var(--red)" }}>MISSION GEAR</span>
+              AUTHORIZED{" "}
+              <span style={{ color: "var(--red)" }}>MISSION GEAR</span>
             </h2>
 
             {/* Description */}
@@ -110,7 +131,9 @@ export default function StoreFront() {
                 marginBottom: "2rem",
               }}
             >
-              Select an item to view specifications, available sizes, and secure your order. All items are delivered during registration at NLDS&apos;26.
+              Select an item to view specifications, available sizes, and secure
+              your order. All items are delivered during registration at
+              NLDS&apos;26.
             </p>
 
             {/* Centered tactical metadata row */}
@@ -129,17 +152,37 @@ export default function StoreFront() {
               ].map(([key, val], idx) => (
                 <div key={key} className="flex items-center gap-2">
                   {idx > 0 && (
-                    <span className="hidden sm:inline-block" style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(255,255,255,0.15)", marginRight: "0.75rem" }} />
+                    <span
+                      className="hidden sm:inline-block"
+                      style={{
+                        width: 3,
+                        height: 3,
+                        borderRadius: "50%",
+                        background: "rgba(255,255,255,0.15)",
+                        marginRight: "0.75rem",
+                      }}
+                    />
                   )}
                   <span
                     className="font-classified"
-                    style={{ fontSize: "9.5px", letterSpacing: "0.22em", color: "var(--text-ghost)" }}
+                    style={{
+                      fontSize: "9.5px",
+                      letterSpacing: "0.22em",
+                      color: "var(--text-ghost)",
+                    }}
                   >
                     {key}:
                   </span>
                   <span
                     className="font-classified"
-                    style={{ fontSize: "9.5px", letterSpacing: "0.18em", color: val === "INVENTORY ACTIVE" ? "var(--red)" : "var(--text-muted)" }}
+                    style={{
+                      fontSize: "9.5px",
+                      letterSpacing: "0.18em",
+                      color:
+                        val === "INVENTORY ACTIVE"
+                          ? "var(--red)"
+                          : "var(--text-muted)",
+                    }}
                   >
                     {val === "INVENTORY ACTIVE" ? `● ${val}` : val}
                   </span>
@@ -152,7 +195,8 @@ export default function StoreFront() {
               style={{
                 width: "140px",
                 height: "1px",
-                background: "linear-gradient(90deg, transparent, var(--red), transparent)",
+                background:
+                  "linear-gradient(90deg, transparent, var(--red), transparent)",
                 opacity: 0.6,
                 marginTop: "2.5rem",
                 marginBottom: "1rem",

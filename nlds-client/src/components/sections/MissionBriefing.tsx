@@ -12,7 +12,11 @@ const STATS = [
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+  },
 };
 
 const stagger = {
@@ -43,7 +47,8 @@ export default function MissionBriefing() {
           transform: "translate(-50%, -50%)",
           width: "700px",
           height: "400px",
-          background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
           filter: "blur(120px)",
           opacity: 0.04,
         }}
@@ -76,22 +81,74 @@ export default function MissionBriefing() {
           }}
         >
           {/* Section label */}
-          <motion.div variants={fadeUp} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem" }}>
-            <div style={{ height: "1px", width: "2.5rem", background: "var(--red)" }} />
+          <motion.div
+            variants={fadeUp}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1rem",
+            }}
+          >
+            <div
+              style={{
+                height: "1px",
+                width: "2.5rem",
+                background: "var(--red)",
+              }}
+            />
             <span className="label-classified">THE MISSION</span>
-            <div style={{ height: "1px", width: "2.5rem", background: "var(--red)" }} />
+            <div
+              style={{
+                height: "1px",
+                width: "2.5rem",
+                background: "var(--red)",
+              }}
+            />
           </motion.div>
 
           {/* File info */}
-          <motion.div variants={fadeUp} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "2rem" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", alignItems: "center" }}>
+          <motion.div
+            variants={fadeUp}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "2rem",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+                alignItems: "center",
+              }}
+            >
               <span className="label-section">FILE NO.</span>
-              <span className="font-classified text-[10px] text-white/40">NLDS-2026-0001</span>
+              <span className="font-classified text-[10px] text-white/40">
+                NLDS-2026-0001
+              </span>
             </div>
-            <div style={{ height: "1.5rem", width: "1px", background: "var(--border)" }} />
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", alignItems: "center" }}>
+            <div
+              style={{
+                height: "1.5rem",
+                width: "1px",
+                background: "var(--border)",
+              }}
+            />
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "0.25rem",
+                alignItems: "center",
+              }}
+            >
               <span className="label-section">ORIGIN</span>
-              <span className="font-classified text-[10px] text-white/40">AIESEC IN SRI LANKA</span>
+              <span className="font-classified text-[10px] text-white/40">
+                AIESEC IN SRI LANKA
+              </span>
             </div>
           </motion.div>
 
@@ -110,20 +167,51 @@ export default function MissionBriefing() {
           </motion.h2>
 
           {/* Body text */}
-          <motion.div variants={fadeUp} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1.25rem", maxWidth: "38rem", textAlign: "center" }}>
-            <p style={{ fontSize: "1.1rem", color: "var(--text-dim)", fontWeight: 300, lineHeight: 1.7 }}>
-              The National Leadership Development Seminar (NLDS) is one of the largest
-              conferences organized by AIESEC in Sri Lanka, bringing together over 270 delegates
-              from more than 11 prestigious universities across the country. It serves as a
-              platform for AIESECers from all over Sri Lanka to connect, expand their networks,
-              and foster the development of the next generation of leaders.
+          <motion.div
+            variants={fadeUp}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "1.25rem",
+              maxWidth: "38rem",
+              textAlign: "center",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "1.1rem",
+                color: "var(--text-dim)",
+                fontWeight: 300,
+                lineHeight: 1.7,
+              }}
+            >
+              The National Leadership Development Seminar (NLDS) is one of the
+              largest conferences organized by AIESEC in Sri Lanka, bringing
+              together over 270 delegates from more than 11 prestigious
+              universities across the country. It serves as a platform for
+              AIESECers from all over Sri Lanka to connect, expand their
+              networks, and foster the development of the next generation of
+              leaders.
             </p>
           </motion.div>
 
           {/* Classification stamp */}
-          <motion.div variants={fadeUp} style={{ display: "flex", alignItems: "center", gap: "0.75rem", justifyContent: "center" }}>
+          <motion.div
+            variants={fadeUp}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              justifyContent: "center",
+            }}
+          >
             <div
-              style={{ border: "1px solid var(--red)", padding: "0.375rem 1rem", opacity: 0.65 }}
+              style={{
+                border: "1px solid var(--red)",
+                padding: "0.375rem 1rem",
+                opacity: 0.65,
+              }}
             >
               <span className="label-classified">CLASSIFIED</span>
             </div>
@@ -163,7 +251,14 @@ export default function MissionBriefing() {
                   transition: "background 0.3s",
                 }}
               >
-                <span className="font-classified text-[8px] text-white/20" style={{ position: "absolute", top: "0.75rem", right: "0.75rem" }}>
+                <span
+                  className="font-classified text-[8px] text-white/20"
+                  style={{
+                    position: "absolute",
+                    top: "0.75rem",
+                    right: "0.75rem",
+                  }}
+                >
                   {String(i + 1).padStart(2, "0")}
                 </span>
 
@@ -211,7 +306,8 @@ export default function MissionBriefing() {
           transform: "translateX(-50%)",
           width: "60%",
           height: "1px",
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)",
+          background:
+            "linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent)",
         }}
       />
     </section>

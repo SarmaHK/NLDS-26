@@ -5,87 +5,89 @@ import { EmailStrategy } from "./email.strategy";
 import { SocketIoStrategy } from "./socket.strategy";
 
 export interface ExternalEvent {
-    registrationId: string;
-    referenceCode: string;
-    type: "REGISTRATION_SUBMITTED" | "STATUS_CHANGED";
-    payload: any;
+  registrationId: string;
+  referenceCode: string;
+  type: "REGISTRATION_SUBMITTED" | "STATUS_CHANGED";
+  payload: any;
 }
 
 export interface SyncStrategy {
-    providerName: string;
-    execute(event: ExternalEvent): Promise<void>;
+  providerName: string;
+  execute(event: ExternalEvent): Promise<void>;
 }
 
 export class ExternalSyncService {
-    private strategies: SyncStrategy[] = [];
+  private strategies: SyncStrategy[] = [];
 
-    registerStrategy(strategy: SyncStrategy) {
-        this.strategies.push(strategy);
+  registerStrategy(strategy: SyncStrategy) {
+    this.strategies.push(strategy);
+  }
+
+  /**
+   * Dispatches an event to all configured strategies.
+   * VERCEL PATCH: We must formally await the execution using Promise.allSettled,
+   * otherwise AWS Lambda environments instantly freeze the container and kill the connections!
+   */
+  async dispatch(event: ExternalEvent) {
+    const promises = this.strategies.map((strategy) =>
+      this.handleDispatch(strategy, event).catch((err) => {
+        console.error(`[ExternalSync Error] - ${strategy.providerName}: `, err);
+      }),
+    );
+    await Promise.allSettled(promises);
+  }
+
+  private async handleDispatch(strategy: SyncStrategy, event: ExternalEvent) {
+    // Enforcing DB Idempotency across notifications explicitly to avoid spam triggers
+    const existingSuccess = await prisma.externalSync.findFirst({
+      where: {
+        registrationId: event.registrationId,
+        provider: strategy.providerName,
+        eventType: event.type,
+        status: "SUCCESS",
+      },
+    });
+
+    if (existingSuccess) {
+      console.log(
+        `[Idempotency Watch] Dropping duplicate sequence for ${event.referenceCode} on ${strategy.providerName}`,
+      );
+      return;
     }
 
-    /**
-     * Dispatches an event to all configured strategies.
-     * VERCEL PATCH: We must formally await the execution using Promise.allSettled,
-     * otherwise AWS Lambda environments instantly freeze the container and kill the connections!
-     */
-    async dispatch(event: ExternalEvent) {
-        const promises = this.strategies.map(strategy =>
-            this.handleDispatch(strategy, event).catch(err => {
-                console.error(`[ExternalSync Error] - ${strategy.providerName}: `, err);
-            })
-        );
-        await Promise.allSettled(promises);
+    const syncRecord = await prisma.externalSync.create({
+      data: {
+        registrationId: event.registrationId,
+        provider: strategy.providerName,
+        eventType: event.type,
+        status: "PENDING",
+      },
+    });
+
+    try {
+      await strategy.execute(event);
+
+      await prisma.externalSync.update({
+        where: { id: syncRecord.id },
+        data: {
+          status: "SUCCESS",
+          syncedAt: new Date(),
+          attempts: 1,
+        },
+      });
+    } catch (error: any) {
+      await prisma.externalSync.update({
+        where: { id: syncRecord.id },
+        data: {
+          status: "FAILED",
+          errorMessage: error.message || "Unknown external failure",
+          attempts: 1,
+          lastAttemptAt: new Date(),
+        },
+      });
+      throw error; // Let generic error handler catch and output without halting DB pipeline
     }
-
-    private async handleDispatch(strategy: SyncStrategy, event: ExternalEvent) {
-        // Enforcing DB Idempotency across notifications explicitly to avoid spam triggers
-        const existingSuccess = await prisma.externalSync.findFirst({
-            where: {
-                registrationId: event.registrationId,
-                provider: strategy.providerName,
-                eventType: event.type,
-                status: "SUCCESS"
-            }
-        });
-
-        if (existingSuccess) {
-            console.log(`[Idempotency Watch] Dropping duplicate sequence for ${event.referenceCode} on ${strategy.providerName}`);
-            return;
-        }
-
-        const syncRecord = await prisma.externalSync.create({
-            data: {
-                registrationId: event.registrationId,
-                provider: strategy.providerName,
-                eventType: event.type,
-                status: "PENDING"
-            }
-        });
-
-        try {
-            await strategy.execute(event);
-
-            await prisma.externalSync.update({
-                where: { id: syncRecord.id },
-                data: {
-                    status: "SUCCESS",
-                    syncedAt: new Date(),
-                    attempts: 1
-                }
-            });
-        } catch (error: any) {
-            await prisma.externalSync.update({
-                where: { id: syncRecord.id },
-                data: {
-                    status: "FAILED",
-                    errorMessage: error.message || "Unknown external failure",
-                    attempts: 1,
-                    lastAttemptAt: new Date()
-                }
-            });
-            throw error; // Let generic error handler catch and output without halting DB pipeline
-        }
-    }
+  }
 }
 
 export const syncService = new ExternalSyncService();

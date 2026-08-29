@@ -99,7 +99,10 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[300]"
-            style={{ background: "rgba(0,0,0,0.92)", backdropFilter: "blur(8px)" }}
+            style={{
+              background: "rgba(0,0,0,0.92)",
+              backdropFilter: "blur(8px)",
+            }}
             onClick={handleClose}
           />
 
@@ -119,14 +122,19 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               style={{
                 background: "#0a0a0c",
                 border: "1px solid rgba(255,255,255,0.1)",
-                boxShadow: "0 30px 80px rgba(0,0,0,0.95), 0 0 0 1px rgba(196,30,58,0.18)",
+                boxShadow:
+                  "0 30px 80px rgba(0,0,0,0.95), 0 0 0 1px rgba(196,30,58,0.18)",
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Subtle top red accent line */}
               <div
                 className="absolute top-0 left-0 right-0 h-[1px]"
-                style={{ background: "linear-gradient(90deg, var(--red), transparent 60%)", opacity: 0.6 }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, var(--red), transparent 60%)",
+                  opacity: 0.6,
+                }}
               />
 
               {/* Compact Header bar */}
@@ -139,11 +147,33 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 }}
               >
                 <div className="flex items-center gap-1.5">
-                  <div style={{ width: 4.5, height: 4.5, borderRadius: "50%", background: "var(--red)", opacity: 0.8 }} />
-                  <span className="font-classified" style={{ fontSize: "8px", letterSpacing: "0.24em", color: "var(--text-muted)" }}>
+                  <div
+                    style={{
+                      width: 4.5,
+                      height: 4.5,
+                      borderRadius: "50%",
+                      background: "var(--red)",
+                      opacity: 0.8,
+                    }}
+                  />
+                  <span
+                    className="font-classified"
+                    style={{
+                      fontSize: "8px",
+                      letterSpacing: "0.24em",
+                      color: "var(--text-muted)",
+                    }}
+                  >
                     ITEM FILE
                   </span>
-                  <span className="font-classified" style={{ fontSize: "8px", letterSpacing: "0.16em", color: "rgba(255,255,255,0.3)" }}>
+                  <span
+                    className="font-classified"
+                    style={{
+                      fontSize: "8px",
+                      letterSpacing: "0.16em",
+                      color: "rgba(255,255,255,0.3)",
+                    }}
+                  >
                     // {product.itemCode}
                   </span>
                 </div>
@@ -151,7 +181,12 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   onClick={handleClose}
                   aria-label="Close product file"
                   className="flex items-center justify-center w-6 h-6 sm:w-7 sm:h-7 transition-colors hover:text-white"
-                  style={{ color: "rgba(255,255,255,0.5)", background: "transparent", border: "none", cursor: "pointer" }}
+                  style={{
+                    color: "rgba(255,255,255,0.5)",
+                    background: "transparent",
+                    border: "none",
+                    cursor: "pointer",
+                  }}
                 >
                   <X size={14} />
                 </button>
@@ -168,7 +203,10 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                     background: "#08080a",
                   }}
                 >
-                  <ProductGallery images={product.images} productName={product.name} />
+                  <ProductGallery
+                    images={product.images}
+                    productName={product.name}
+                  />
                 </div>
 
                 {/* Right — Details with ultra compact mobile padding & spacing */}
@@ -180,19 +218,55 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                   }}
                 >
                   {/* Top Block */}
-                  <div className="flex flex-col w-full text-left" style={{ textAlign: "left", marginBottom: "0.5rem" }}>
+                  <div
+                    className="flex flex-col w-full text-left"
+                    style={{ textAlign: "left", marginBottom: "0.5rem" }}
+                  >
                     {/* Classification tags */}
-                    <div className="flex flex-wrap items-center gap-1.5" style={{ marginBottom: "0.3rem" }}>
-                      <span className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.18em", color: "var(--text-ghost)" }}>
+                    <div
+                      className="flex flex-wrap items-center gap-1.5"
+                      style={{ marginBottom: "0.3rem" }}
+                    >
+                      <span
+                        className="font-classified"
+                        style={{
+                          fontSize: "7.5px",
+                          letterSpacing: "0.18em",
+                          color: "var(--text-ghost)",
+                        }}
+                      >
                         ITEM // {product.itemCode}
                       </span>
-                      <div style={{ width: 2, height: 2, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
-                      <span className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: product.available ? "var(--red)" : "rgba(255,255,255,0.3)" }}>
+                      <div
+                        style={{
+                          width: 2,
+                          height: 2,
+                          borderRadius: "50%",
+                          background: "rgba(255,255,255,0.15)",
+                        }}
+                      />
+                      <span
+                        className="font-classified"
+                        style={{
+                          fontSize: "7.5px",
+                          letterSpacing: "0.16em",
+                          color: product.available
+                            ? "var(--red)"
+                            : "rgba(255,255,255,0.3)",
+                        }}
+                      >
                         {product.available ? "● AVAILABLE" : "● OUT OF STOCK"}
                       </span>
                       {product.badge && (
                         <>
-                          <div style={{ width: 2, height: 2, borderRadius: "50%", background: "rgba(255,255,255,0.15)" }} />
+                          <div
+                            style={{
+                              width: 2,
+                              height: 2,
+                              borderRadius: "50%",
+                              background: "rgba(255,255,255,0.15)",
+                            }}
+                          />
                           <span
                             className="font-classified font-medium"
                             style={{
@@ -213,13 +287,23 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                     <div style={{ marginBottom: "0.3rem" }}>
                       <h2
                         className="font-display"
-                        style={{ fontSize: "clamp(1.15rem, 3vw, 1.7rem)", letterSpacing: "0.04em", lineHeight: 1.05, color: "var(--text)" }}
+                        style={{
+                          fontSize: "clamp(1.15rem, 3vw, 1.7rem)",
+                          letterSpacing: "0.04em",
+                          lineHeight: 1.05,
+                          color: "var(--text)",
+                        }}
                       >
                         {product.name}
                       </h2>
                       <p
                         className="font-classified"
-                        style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "var(--text-muted)", marginTop: "0.15rem" }}
+                        style={{
+                          fontSize: "7.5px",
+                          letterSpacing: "0.16em",
+                          color: "var(--text-muted)",
+                          marginTop: "0.15rem",
+                        }}
                       >
                         OFFICIAL ISSUE
                       </p>
@@ -231,38 +315,62 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                     </p>
 
                     {/* Price */}
-                    <div className="flex items-baseline gap-1.5" style={{ marginBottom: "0.3rem" }}>
+                    <div
+                      className="flex items-baseline gap-1.5"
+                      style={{ marginBottom: "0.3rem" }}
+                    >
                       <span
                         className="font-classified"
-                        style={{ fontSize: "8px", letterSpacing: "0.16em", color: "var(--text-ghost)" }}
+                        style={{
+                          fontSize: "8px",
+                          letterSpacing: "0.16em",
+                          color: "var(--text-ghost)",
+                        }}
                       >
                         PRICE:
                       </span>
                       <span
                         className="font-display"
-                        style={{ fontSize: "1.35rem", letterSpacing: "0.04em", color: "var(--text)" }}
+                        style={{
+                          fontSize: "1.35rem",
+                          letterSpacing: "0.04em",
+                          color: "var(--text)",
+                        }}
                       >
                         LKR {product.price.toLocaleString()}
                       </span>
                     </div>
 
                     {/* Divider */}
-                    <div className="mission-line w-full" style={{ opacity: 0.35, margin: "0.2rem 0 0.5rem 0" }} />
+                    <div
+                      className="mission-line w-full"
+                      style={{ opacity: 0.35, margin: "0.2rem 0 0.5rem 0" }}
+                    />
 
                     {/* Size selector */}
                     {requiresSize && (
-                      <div style={{ marginBottom: "0.5rem" }} className="w-full text-left">
+                      <div
+                        style={{ marginBottom: "0.5rem" }}
+                        className="w-full text-left"
+                      >
                         <SizeSelector
                           sizes={product.sizes}
                           selected={selectedSize}
-                          onChange={(s) => { setSelectedSize(s); setSizeError(false); }}
+                          onChange={(s) => {
+                            setSelectedSize(s);
+                            setSizeError(false);
+                          }}
                         />
                         {sizeError && (
                           <motion.p
                             initial={{ opacity: 0, y: -2 }}
                             animate={{ opacity: 1, y: 0 }}
                             className="font-classified mt-1"
-                            style={{ fontSize: "7.5px", letterSpacing: "0.14em", color: "var(--red)" }}
+                            style={{
+                              fontSize: "7.5px",
+                              letterSpacing: "0.14em",
+                              color: "var(--red)",
+                            }}
                           >
                             ⚠ PLEASE SELECT A SIZE
                           </motion.p>
@@ -271,13 +379,22 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                     )}
 
                     {/* Quantity selector */}
-                    <div style={{ marginBottom: "0.6rem" }} className="w-full text-left">
-                      <QuantitySelector value={quantity} onChange={setQuantity} />
+                    <div
+                      style={{ marginBottom: "0.6rem" }}
+                      className="w-full text-left"
+                    >
+                      <QuantitySelector
+                        value={quantity}
+                        onChange={setQuantity}
+                      />
                     </div>
                   </div>
 
                   {/* Bottom Actions with ultra compact padding */}
-                  <div className="flex flex-col gap-1.5 w-full" style={{ marginTop: "0.2rem" }}>
+                  <div
+                    className="flex flex-col gap-1.5 w-full"
+                    style={{ marginTop: "0.2rem" }}
+                  >
                     <button
                       onClick={handleBuyNow}
                       className="btn-mission w-full flex items-center justify-center gap-1.5"
@@ -312,7 +429,14 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                         }}
                       >
                         <Check size={11} style={{ color: "var(--red)" }} />
-                        <span className="font-classified" style={{ fontSize: "7.5px", letterSpacing: "0.16em", color: "var(--text)" }}>
+                        <span
+                          className="font-classified"
+                          style={{
+                            fontSize: "7.5px",
+                            letterSpacing: "0.16em",
+                            color: "var(--text)",
+                          }}
+                        >
                           ITEM ADDED TO MISSION INVENTORY ✓
                         </span>
                       </motion.div>

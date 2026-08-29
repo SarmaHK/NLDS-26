@@ -5,31 +5,40 @@ import { render } from "@react-email/render";
 import { RegistrationSuccessEmail } from "../email/templates/registration-success";
 
 export class EmailStrategy implements SyncStrategy {
-    providerName = "RESEND_EMAIL";
-    private client = new EmailClient();
+  providerName = "RESEND_EMAIL";
+  private client = new EmailClient();
 
-    async execute(event: ExternalEvent): Promise<void> {
-        if (event.type === "REGISTRATION_SUBMITTED") {
-            const preferredEmail = event.payload?.aiesecEmail;
-            const fallbackEmail = event.payload?.personalEmail;
+  async execute(event: ExternalEvent): Promise<void> {
+    if (event.type === "REGISTRATION_SUBMITTED") {
+      const preferredEmail = event.payload?.aiesecEmail;
+      const fallbackEmail = event.payload?.personalEmail;
 
-            const recipientEmail = (preferredEmail && preferredEmail !== "N/A" && preferredEmail !== "[N/A]")
-                ? preferredEmail
-                : fallbackEmail;
+      const recipientEmail =
+        preferredEmail && preferredEmail !== "N/A" && preferredEmail !== "[N/A]"
+          ? preferredEmail
+          : fallbackEmail;
 
-            if (!recipientEmail) {
-                console.warn("[EmailStrategy] No valid email address (AIESEC or Personal) mapped. Bypassing delivery.");
-                return;
-            }
+      if (!recipientEmail) {
+        console.warn(
+          "[EmailStrategy] No valid email address (AIESEC or Personal) mapped. Bypassing delivery.",
+        );
+        return;
+      }
 
-            // Syncing payload specifically natively parsing into React Email rendering nodes accurately
-            const htmlFormat = await render(React.createElement(RegistrationSuccessEmail, { missionId: event.referenceCode, recipientName: event.payload?.preferredName || event.payload?.fullName || "AGENT" }));
+      // Syncing payload specifically natively parsing into React Email rendering nodes accurately
+      const htmlFormat = await render(
+        React.createElement(RegistrationSuccessEmail, {
+          missionId: event.referenceCode,
+          recipientName:
+            event.payload?.preferredName || event.payload?.fullName || "AGENT",
+        }),
+      );
 
-            await this.client.sendEmail({
-                to: recipientEmail,
-                subject: "NLDS 2026 — Mission Successfully Submitted",
-                html: htmlFormat
-            });
-        }
+      await this.client.sendEmail({
+        to: recipientEmail,
+        subject: "NLDS 2026 — Mission Successfully Submitted",
+        html: htmlFormat,
+      });
     }
+  }
 }

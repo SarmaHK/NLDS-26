@@ -17,7 +17,7 @@ interface MemoryCard {
   status: "ARCHIVED" | "MEMORY RECOVERED" | "RESTRICTED ACCESS";
   type: CardType;
   caption: string;
-  images?: string[];   // Cloudinary URLs — up to 10
+  images?: string[]; // Cloudinary URLs — up to 10
   timestamp: string;
   classification: string;
   note: string;
@@ -35,7 +35,8 @@ const MEMORIES: MemoryCard[] = [
     subtitle: "Moments from the front lines",
     status: "MEMORY RECOVERED",
     type: "gallery",
-    caption: "Selected frames recovered from NLDS'25 field operations. 270+ operatives, 3 days of high-intensity leadership missions across Sri Lanka.",
+    caption:
+      "Selected frames recovered from NLDS'25 field operations. 270+ operatives, 3 days of high-intensity leadership missions across Sri Lanka.",
     images: [
       "https://res.cloudinary.com/daamlqcer/image/upload/v1787591168/565646989_1223927079782015_25125892466108142_n_bcs5ba.jpg", // 01
       "https://res.cloudinary.com/daamlqcer/image/upload/v1787591169/566246539_1223927329781990_8284568885312634037_n_u6n0en.jpg", // 02
@@ -72,7 +73,8 @@ const MEMORIES: MemoryCard[] = [
     subtitle: "The night they were recognised",
     status: "ARCHIVED",
     type: "gallery",
-    caption: "Classified images from the Gala Ceremony — NLDS'25's final night. Outstanding operatives recognised for leadership under pressure.",
+    caption:
+      "Classified images from the Gala Ceremony — NLDS'25's final night. Outstanding operatives recognised for leadership under pressure.",
     images: [
       "https://res.cloudinary.com/daamlqcer/image/upload/v1787585794/571256432_1230052342502822_2293923886028176538_n_pcqsfi.jpg",
       "https://res.cloudinary.com/daamlqcer/image/upload/v1787585799/571448603_1230049729169750_7279052457716443494_n_zrkgc7.jpg",
@@ -99,7 +101,8 @@ const MEMORIES: MemoryCard[] = [
     subtitle: "Full mission debrief — NLDS'25",
     status: "RESTRICTED ACCESS",
     type: "film",
-    caption: "The complete visual record of NLDS'25. Every moment, every mission, every transformation — captured and archived for future operatives.",
+    caption:
+      "The complete visual record of NLDS'25. Every moment, every mission, every transformation — captured and archived for future operatives.",
     timestamp: "2025:12:01 00:00:00",
     classification: "DECLASSIFIED FOOTAGE",
     note: "Duration: classified. Viewing may cause permanent leadership upgrades.",
@@ -124,11 +127,14 @@ function ImageCarousel({ images }: { images: string[] }) {
   const [paused, setPaused] = useState(false);
   const [direction, setDirection] = useState(1);
 
-  const go = useCallback((next: number) => {
-    const d = next > current ? 1 : -1;
-    setDirection(d);
-    setCurrent((next + total) % total);
-  }, [current, total]);
+  const go = useCallback(
+    (next: number) => {
+      const d = next > current ? 1 : -1;
+      setDirection(d);
+      setCurrent((next + total) % total);
+    },
+    [current, total],
+  );
 
   useEffect(() => {
     if (paused || total <= 1) return;
@@ -157,21 +163,80 @@ function ImageCarousel({ images }: { images: string[] }) {
           border: "1px solid rgba(255,255,255,0.08)",
         }}
       >
-        <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.06, zIndex: 2, pointerEvents: "none" }} />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            backgroundImage: NOISE_SVG,
+            opacity: 0.06,
+            zIndex: 2,
+            pointerEvents: "none",
+          }}
+        />
 
-        <div style={{ position: "absolute", top: 8, left: 8, width: 12, height: 12, borderTop: "1px solid rgba(255,255,255,0.2)", borderLeft: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
-        <div style={{ position: "absolute", top: 8, right: 8, width: 12, height: 12, borderTop: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
-        <div style={{ position: "absolute", bottom: 8, left: 8, width: 12, height: 12, borderBottom: "1px solid rgba(255,255,255,0.2)", borderLeft: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
-        <div style={{ position: "absolute", bottom: 8, right: 8, width: 12, height: 12, borderBottom: "1px solid rgba(255,255,255,0.2)", borderRight: "1px solid rgba(255,255,255,0.2)", zIndex: 3 }} />
+        <div
+          style={{
+            position: "absolute",
+            top: 8,
+            left: 8,
+            width: 12,
+            height: 12,
+            borderTop: "1px solid rgba(255,255,255,0.2)",
+            borderLeft: "1px solid rgba(255,255,255,0.2)",
+            zIndex: 3,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            top: 8,
+            right: 8,
+            width: 12,
+            height: 12,
+            borderTop: "1px solid rgba(255,255,255,0.2)",
+            borderRight: "1px solid rgba(255,255,255,0.2)",
+            zIndex: 3,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 8,
+            left: 8,
+            width: 12,
+            height: 12,
+            borderBottom: "1px solid rgba(255,255,255,0.2)",
+            borderLeft: "1px solid rgba(255,255,255,0.2)",
+            zIndex: 3,
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: 8,
+            right: 8,
+            width: 12,
+            height: 12,
+            borderBottom: "1px solid rgba(255,255,255,0.2)",
+            borderRight: "1px solid rgba(255,255,255,0.2)",
+            zIndex: 3,
+          }}
+        />
 
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={current}
             custom={direction}
             variants={{
-              enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+              enter: (d: number) => ({
+                x: d > 0 ? "100%" : "-100%",
+                opacity: 0,
+              }),
               center: { x: 0, opacity: 1 },
-              exit: (d: number) => ({ x: d > 0 ? "-100%" : "100%", opacity: 0 }),
+              exit: (d: number) => ({
+                x: d > 0 ? "-100%" : "100%",
+                opacity: 0,
+              }),
             }}
             initial="enter"
             animate="center"
@@ -186,12 +251,47 @@ function ImageCarousel({ images }: { images: string[] }) {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             ) : (
-              <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
-                <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.08 }} />
-                <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em", position: "relative", zIndex: 1 }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.5rem",
+                }}
+              >
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    backgroundImage: NOISE_SVG,
+                    opacity: 0.08,
+                  }}
+                />
+                <span
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "10px",
+                    color: "rgba(255,255,255,0.4)",
+                    letterSpacing: "0.2em",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                >
                   IMG_{String(current + 1).padStart(3, "0")}
                 </span>
-                <span style={{ fontFamily: "monospace", fontSize: "10px", color: "var(--text-muted)", letterSpacing: "0.15em", position: "relative", zIndex: 1 }}>
+                <span
+                  style={{
+                    fontFamily: "monospace",
+                    fontSize: "10px",
+                    color: "var(--text-muted)",
+                    letterSpacing: "0.15em",
+                    position: "relative",
+                    zIndex: 1,
+                  }}
+                >
                   AWAITING UPLOAD
                 </span>
               </div>
@@ -199,14 +299,42 @@ function ImageCarousel({ images }: { images: string[] }) {
           </motion.div>
         </AnimatePresence>
 
-        <div style={{ position: "absolute", bottom: 10, left: 12, zIndex: 4, display: "flex", alignItems: "center", gap: "0.4rem" }}>
-          <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.7)", letterSpacing: "0.18em", background: "rgba(6,6,8,0.6)", padding: "2px 6px", backdropFilter: "blur(4px)" }}>
-            {String(current + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 10,
+            left: 12,
+            zIndex: 4,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "monospace",
+              fontSize: "11px",
+              color: "rgba(255,255,255,0.7)",
+              letterSpacing: "0.18em",
+              background: "rgba(6,6,8,0.6)",
+              padding: "2px 6px",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            {String(current + 1).padStart(2, "0")} /{" "}
+            {String(total).padStart(2, "0")}
           </span>
         </div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "0.75rem" }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginTop: "0.75rem",
+        }}
+      >
         <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
           {slots.map((_, i) => (
             <button
@@ -216,7 +344,8 @@ function ImageCarousel({ images }: { images: string[] }) {
                 width: i === current ? "18px" : "6px",
                 height: "6px",
                 borderRadius: "3px",
-                background: i === current ? "var(--red)" : "rgba(255,255,255,0.15)",
+                background:
+                  i === current ? "var(--red)" : "rgba(255,255,255,0.15)",
                 border: "none",
                 padding: 0,
                 cursor: "pointer",
@@ -242,8 +371,18 @@ function ImageCarousel({ images }: { images: string[] }) {
               fontSize: "12px",
               transition: "all 0.2s",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(196,30,58,0.15)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(196,30,58,0.4)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.12)"; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background =
+                "rgba(196,30,58,0.15)";
+              (e.currentTarget as HTMLButtonElement).style.borderColor =
+                "rgba(196,30,58,0.4)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background =
+                "rgba(255,255,255,0.05)";
+              (e.currentTarget as HTMLButtonElement).style.borderColor =
+                "rgba(255,255,255,0.12)";
+            }}
           >
             ←
           </button>
@@ -262,8 +401,18 @@ function ImageCarousel({ images }: { images: string[] }) {
               fontSize: "12px",
               transition: "all 0.2s",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(196,30,58,0.15)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(196,30,58,0.4)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.background = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(255,255,255,0.12)"; }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background =
+                "rgba(196,30,58,0.15)";
+              (e.currentTarget as HTMLButtonElement).style.borderColor =
+                "rgba(196,30,58,0.4)";
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.background =
+                "rgba(255,255,255,0.05)";
+              (e.currentTarget as HTMLButtonElement).style.borderColor =
+                "rgba(255,255,255,0.12)";
+            }}
           >
             →
           </button>
@@ -274,7 +423,8 @@ function ImageCarousel({ images }: { images: string[] }) {
 }
 
 /* ── Film reel placeholder ──────────────────────────── */
-const BASE_SRC = "https://www.youtube.com/embed/IZCI-6-Jiu4?si=ZapPeV9vsx0kVEvw";
+const BASE_SRC =
+  "https://www.youtube.com/embed/IZCI-6-Jiu4?si=ZapPeV9vsx0kVEvw";
 const PLAY_SRC = `${BASE_SRC}&autoplay=1&mute=1`;
 
 function FilmPlaceholder({ hovered }: { hovered: boolean }) {
@@ -288,7 +438,7 @@ function FilmPlaceholder({ hovered }: { hovered: boolean }) {
       ([entry]) => {
         setSrc(entry.isIntersecting ? PLAY_SRC : BASE_SRC);
       },
-      { threshold: 0.5 }   // fires when 50% of the player is visible
+      { threshold: 0.5 }, // fires when 50% of the player is visible
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -297,9 +447,25 @@ function FilmPlaceholder({ hovered }: { hovered: boolean }) {
   return (
     <div style={{ width: "100%", position: "relative" }}>
       {/* Film strip top perfs */}
-      <div style={{ display: "flex", gap: "6px", marginBottom: "4px", paddingLeft: "2px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "6px",
+          marginBottom: "4px",
+          paddingLeft: "2px",
+        }}
+      >
         {Array.from({ length: 14 }).map((_, i) => (
-          <div key={i} style={{ width: "14px", height: "10px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", flexShrink: 0 }} />
+          <div
+            key={i}
+            style={{
+              width: "14px",
+              height: "10px",
+              background: "rgba(255,255,255,0.06)",
+              borderRadius: "1px",
+              flexShrink: 0,
+            }}
+          />
         ))}
       </div>
 
@@ -322,14 +488,36 @@ function FilmPlaceholder({ hovered }: { hovered: boolean }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            border: "none",
+          }}
         />
       </motion.div>
 
       {/* Film strip bottom perfs */}
-      <div style={{ display: "flex", gap: "6px", marginTop: "4px", paddingLeft: "2px" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "6px",
+          marginTop: "4px",
+          paddingLeft: "2px",
+        }}
+      >
         {Array.from({ length: 14 }).map((_, i) => (
-          <div key={i} style={{ width: "14px", height: "10px", background: "rgba(255,255,255,0.06)", borderRadius: "1px", flexShrink: 0 }} />
+          <div
+            key={i}
+            style={{
+              width: "14px",
+              height: "10px",
+              background: "rgba(255,255,255,0.06)",
+              borderRadius: "1px",
+              flexShrink: 0,
+            }}
+          />
         ))}
       </div>
     </div>
@@ -345,7 +533,11 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
       initial={{ opacity: 0, y: 36 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] as const }}
+      transition={{
+        duration: 0.7,
+        delay: index * 0.12,
+        ease: [0.16, 1, 0.3, 1] as const,
+      }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -359,7 +551,16 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
       }}
     >
       {/* Paper grain texture */}
-      <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.05, pointerEvents: "none", zIndex: 0 }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: NOISE_SVG,
+          opacity: 0.05,
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
       {/* Subtle red scan sweep on hover */}
       <AnimatePresence>
@@ -369,7 +570,16 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
             animate={{ left: "130%" }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: "linear" }}
-            style={{ position: "absolute", top: 0, bottom: 0, width: "30%", background: "linear-gradient(90deg, transparent, rgba(196,30,58,0.05), transparent)", pointerEvents: "none", zIndex: 1 }}
+            style={{
+              position: "absolute",
+              top: 0,
+              bottom: 0,
+              width: "30%",
+              background:
+                "linear-gradient(90deg, transparent, rgba(196,30,58,0.05), transparent)",
+              pointerEvents: "none",
+              zIndex: 1,
+            }}
           />
         )}
       </AnimatePresence>
@@ -379,26 +589,89 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         animate={{ scaleX: hovered ? 1 : 0 }}
         initial={{ scaleX: 0 }}
         transition={{ duration: 0.4 }}
-        style={{ position: "absolute", top: 0, left: 0, right: 0, height: "2px", background: "var(--red)", transformOrigin: "left", zIndex: 2 }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "2px",
+          background: "var(--red)",
+          transformOrigin: "left",
+          zIndex: 2,
+        }}
       />
 
-      <div style={{ position: "relative", zIndex: 3, padding: "clamp(1.25rem, 3vw, 2rem)", display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-
+      <div
+        style={{
+          position: "relative",
+          zIndex: 3,
+          padding: "clamp(1.25rem, 3vw, 2rem)",
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.25rem",
+        }}
+      >
         {/* ── Header row ── */}
-        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+          }}
+        >
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}
+          >
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.2em",
+              }}
+            >
               {card.fileNum}
             </span>
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.5)", letterSpacing: "0.18em" }}>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.5)",
+                letterSpacing: "0.18em",
+              }}
+            >
               {card.edition}
             </span>
           </div>
 
           {/* Status badge */}
-          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", padding: "3px 8px", border: `1px solid ${statusColour(card.status)}`, opacity: 0.75 }}>
-            <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: statusColour(card.status), display: "inline-block" }} />
-            <span style={{ fontFamily: "monospace", fontSize: "10px", letterSpacing: "0.22em", color: statusColour(card.status) }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              padding: "3px 8px",
+              border: `1px solid ${statusColour(card.status)}`,
+              opacity: 0.75,
+            }}
+          >
+            <span
+              style={{
+                width: "5px",
+                height: "5px",
+                borderRadius: "50%",
+                background: statusColour(card.status),
+                display: "inline-block",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                letterSpacing: "0.22em",
+                color: statusColour(card.status),
+              }}
+            >
               {card.status}
             </span>
           </div>
@@ -407,16 +680,40 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         {/* ── Redacted decorative lines ── */}
         <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
           {[72, 55, 38].map((w, i) => (
-            <div key={i} style={{ height: "6px", width: `${w}%`, background: "rgba(255,255,255,0.06)", borderRadius: "1px" }} />
+            <div
+              key={i}
+              style={{
+                height: "6px",
+                width: `${w}%`,
+                background: "rgba(255,255,255,0.06)",
+                borderRadius: "1px",
+              }}
+            />
           ))}
         </div>
 
         {/* ── Title ── */}
         <div>
-          <h3 style={{ fontFamily: "'Barlow Condensed', 'Oswald', sans-serif", fontSize: "clamp(1.6rem, 3vw, 2.2rem)", lineHeight: 0.9, letterSpacing: "0.04em", color: "var(--text)", marginBottom: "0.35rem" }}>
+          <h3
+            style={{
+              fontFamily: "'Barlow Condensed', 'Oswald', sans-serif",
+              fontSize: "clamp(1.6rem, 3vw, 2.2rem)",
+              lineHeight: 0.9,
+              letterSpacing: "0.04em",
+              color: "var(--text)",
+              marginBottom: "0.35rem",
+            }}
+          >
             {card.title}
           </h3>
-          <p style={{ fontFamily: "monospace", fontSize: "12px", color: "rgba(255,255,255,0.6)", letterSpacing: "0.18em" }}>
+          <p
+            style={{
+              fontFamily: "monospace",
+              fontSize: "12px",
+              color: "rgba(255,255,255,0.6)",
+              letterSpacing: "0.18em",
+            }}
+          >
             {card.subtitle.toUpperCase()}
           </p>
         </div>
@@ -429,32 +726,96 @@ function MemoryCard({ card, index }: { card: MemoryCard; index: number }) {
         )}
 
         {/* ── Caption ── */}
-        <p style={{ fontFamily: "sans-serif", fontSize: "14px", lineHeight: 1.7, color: "var(--text-dim)", letterSpacing: "0.05em" }}>
+        <p
+          style={{
+            fontFamily: "sans-serif",
+            fontSize: "14px",
+            lineHeight: 1.7,
+            color: "var(--text-dim)",
+            letterSpacing: "0.05em",
+          }}
+        >
           {card.caption}
         </p>
 
         {/* ── Handwritten-style note ── */}
-        <div style={{ borderLeft: "2px solid rgba(196,30,58,0.3)", paddingLeft: "0.75rem" }}>
-          <p style={{ fontFamily: "Georgia, serif", fontSize: "12px", color: "var(--text-muted)", fontStyle: "italic", lineHeight: 1.5 }}>
+        <div
+          style={{
+            borderLeft: "2px solid rgba(196,30,58,0.3)",
+            paddingLeft: "0.75rem",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "Georgia, serif",
+              fontSize: "12px",
+              color: "var(--text-muted)",
+              fontStyle: "italic",
+              lineHeight: 1.5,
+            }}
+          >
             {card.note}
           </p>
         </div>
 
         {/* ── Footer metadata ── */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", paddingTop: "0.75rem", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            paddingTop: "0.75rem",
+            borderTop: "1px solid rgba(255,255,255,0.05)",
+          }}
+        >
           <div style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em" }}>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.18em",
+              }}
+            >
               {card.coords}
             </span>
-            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.15em" }}>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                color: "rgba(255,255,255,0.3)",
+                letterSpacing: "0.15em",
+              }}
+            >
               TIMESTAMP: {card.timestamp}
             </span>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "3px" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.18em" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+              gap: "3px",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "10px",
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.18em",
+              }}
+            >
               {card.classification}
             </span>
-            <span style={{ fontFamily: "monospace", fontSize: "20px", color: "rgba(255,255,255,0.1)", lineHeight: 1 }}>
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "20px",
+                color: "rgba(255,255,255,0.1)",
+                lineHeight: 1,
+              }}
+            >
               {card.id}
             </span>
           </div>
@@ -489,23 +850,62 @@ export default function ArchivedMemories() {
         }}
       />
       {/* Global noise grain */}
-      <div style={{ position: "absolute", inset: 0, backgroundImage: NOISE_SVG, opacity: 0.04, pointerEvents: "none" }} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: NOISE_SVG,
+          opacity: 0.04,
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Centered content */}
-      <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", paddingLeft: "clamp(1.5rem, 6vw, 5rem)", paddingRight: "clamp(1.5rem, 6vw, 5rem)", position: "relative", zIndex: 1 }}>
-
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          paddingLeft: "clamp(1.5rem, 6vw, 5rem)",
+          paddingRight: "clamp(1.5rem, 6vw, 5rem)",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
         {/* ── Section header ── */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          style={{ marginBottom: "4rem", display: "flex", flexDirection: "column", gap: "1rem", alignItems: "center", textAlign: "center", width: "100%", maxWidth: "56rem" }}
+          style={{
+            marginBottom: "4rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            alignItems: "center",
+            textAlign: "center",
+            width: "100%",
+            maxWidth: "56rem",
+          }}
         >
           {/* Label */}
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            <div style={{ height: "1px", width: "2.5rem", background: "var(--red)" }} />
+            <div
+              style={{
+                height: "1px",
+                width: "2.5rem",
+                background: "var(--red)",
+              }}
+            />
             <span className="label-classified">ARCHIVE // NLDS'25</span>
-            <div style={{ height: "1px", width: "2.5rem", background: "var(--red)" }} />
+            <div
+              style={{
+                height: "1px",
+                width: "2.5rem",
+                background: "var(--red)",
+              }}
+            />
           </div>
 
           {/* Headline */}
@@ -519,17 +919,73 @@ export default function ArchivedMemories() {
           </h2>
 
           {/* Subtext */}
-          <p style={{ maxWidth: "36rem", fontSize: "0.9rem", color: "var(--text-muted)", fontWeight: 300, lineHeight: 1.7 }}>
-            Recovered records from the NLDS'25 field operations. Moments, milestones, and memories — archived for the next generation of operatives.
+          <p
+            style={{
+              maxWidth: "36rem",
+              fontSize: "0.9rem",
+              color: "var(--text-muted)",
+              fontWeight: 300,
+              lineHeight: 1.7,
+            }}
+          >
+            Recovered records from the NLDS'25 field operations. Moments,
+            milestones, and memories — archived for the next generation of
+            operatives.
           </p>
 
           {/* Redacted metadata row */}
-          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem", marginTop: "0.5rem" }}>
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>EDITION: NLDS'25</span>
-            <div style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.1)" }} />
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>STATUS: DECLASSIFIED</span>
-            <div style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.1)" }} />
-            <span style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.4)", letterSpacing: "0.2em" }}>FILES: 03</span>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1.5rem",
+              marginTop: "0.5rem",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.2em",
+              }}
+            >
+              EDITION: NLDS'25
+            </span>
+            <div
+              style={{
+                width: "1px",
+                height: "12px",
+                background: "rgba(255,255,255,0.1)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.2em",
+              }}
+            >
+              STATUS: DECLASSIFIED
+            </span>
+            <div
+              style={{
+                width: "1px",
+                height: "12px",
+                background: "rgba(255,255,255,0.1)",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "monospace",
+                fontSize: "11px",
+                color: "rgba(255,255,255,0.4)",
+                letterSpacing: "0.2em",
+              }}
+            >
+              FILES: 03
+            </span>
           </div>
         </motion.div>
 
@@ -555,14 +1011,33 @@ export default function ArchivedMemories() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.9 }}
-          style={{ marginTop: "2.5rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}
+          style={{
+            marginTop: "2.5rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.5rem",
+          }}
         >
-          <div style={{ height: "1px", width: "3rem", background: "rgba(255,255,255,0.08)" }} />
-          <p style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.3)", letterSpacing: "0.22em", textAlign: "center" }}>
+          <div
+            style={{
+              height: "1px",
+              width: "3rem",
+              background: "rgba(255,255,255,0.08)",
+            }}
+          />
+          <p
+            style={{
+              fontFamily: "monospace",
+              fontSize: "11px",
+              color: "rgba(255,255,255,0.3)",
+              letterSpacing: "0.22em",
+              textAlign: "center",
+            }}
+          >
             RECORDS DECLASSIFIED — AIESEC IN SRI LANKA // ARCHIVE DIVISION
           </p>
         </motion.div>
-
       </div>
     </section>
   );

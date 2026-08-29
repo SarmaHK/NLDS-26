@@ -55,20 +55,27 @@ export default function RoomAllocationSection() {
         style={{
           width: "600px",
           height: "300px",
-          background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
           filter: "blur(100px)",
           opacity: 0.04,
         }}
       />
 
       {/* Corner marks */}
-      {["top-10 left-10 corner-tl", "top-10 right-10 corner-tr",
-        "bottom-10 left-10 corner-bl", "bottom-10 right-10 corner-br"].map((cls, i) => (
-          <div key={i} className={`absolute z-10 w-5 h-5 border-white/08 ${cls}`} />
-        ))}
+      {[
+        "top-10 left-10 corner-tl",
+        "top-10 right-10 corner-tr",
+        "bottom-10 left-10 corner-bl",
+        "bottom-10 right-10 corner-br",
+      ].map((cls, i) => (
+        <div
+          key={i}
+          className={`absolute z-10 w-5 h-5 border-white/08 ${cls}`}
+        />
+      ))}
 
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-2xl">
-
         {/* Lock icon */}
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -78,7 +85,10 @@ export default function RoomAllocationSection() {
         >
           <div
             className="w-20 h-20 rounded-full flex items-center justify-center relative"
-            style={{ border: "1px solid rgba(196,30,58,0.2)", background: "rgba(196,30,58,0.04)" }}
+            style={{
+              border: "1px solid rgba(196,30,58,0.2)",
+              background: "rgba(196,30,58,0.04)",
+            }}
           >
             {/* Pulse ring */}
             <motion.div
@@ -98,11 +108,17 @@ export default function RoomAllocationSection() {
           transition={{ delay: 0.2 }}
           className="flex items-center gap-4 mb-6"
         >
-          <div className="h-[1px] w-8" style={{ background: "var(--red)", opacity: 0.4 }} />
+          <div
+            className="h-[1px] w-8"
+            style={{ background: "var(--red)", opacity: 0.4 }}
+          />
           <span className="label-classified">
             {isUnlocked ? "ACCESS GRANTED" : "ACCESS RESTRICTED"}
           </span>
-          <div className="h-[1px] w-8" style={{ background: "var(--red)", opacity: 0.4 }} />
+          <div
+            className="h-[1px] w-8"
+            style={{ background: "var(--red)", opacity: 0.4 }}
+          />
         </motion.div>
 
         {/* Title */}
@@ -139,9 +155,7 @@ export default function RoomAllocationSection() {
             className="w-full"
           >
             {/* Countdown row */}
-            <div
-              className="flex items-center justify-center gap-3 sm:gap-6 mb-8"
-            >
+            <div className="flex items-center justify-center gap-3 sm:gap-6 mb-8">
               {[
                 { v: timeLeft.days, l: "DAYS" },
                 { v: timeLeft.hours, l: "HOURS" },
@@ -161,16 +175,26 @@ export default function RoomAllocationSection() {
                     >
                       <span
                         className="font-display tabular"
-                        style={{ fontSize: "clamp(1.5rem, 5vw, 3rem)", lineHeight: 1 }}
+                        style={{
+                          fontSize: "clamp(1.5rem, 5vw, 3rem)",
+                          lineHeight: 1,
+                        }}
                       >
                         {String(v).padStart(2, "0")}
                       </span>
                     </div>
-                    <span className="font-classified text-[10px] tracking-[0.22em] text-[var(--text-muted)]">{l}</span>
+                    <span className="font-classified text-[10px] tracking-[0.22em] text-[var(--text-muted)]">
+                      {l}
+                    </span>
                   </div>
                   {i < 3 && (
-                    <span className="font-display mb-6 hidden sm:block"
-                      style={{ fontSize: "1.5rem", color: "rgba(196,30,58,0.4)" }}>
+                    <span
+                      className="font-display mb-6 hidden sm:block"
+                      style={{
+                        fontSize: "1.5rem",
+                        color: "rgba(196,30,58,0.4)",
+                      }}
+                    >
                       :
                     </span>
                   )}
@@ -181,7 +205,10 @@ export default function RoomAllocationSection() {
             {/* Info box */}
             <div
               className="p-6 text-center"
-              style={{ border: "1px solid rgba(255,255,255,0.06)", background: "var(--surface-1)" }}
+              style={{
+                border: "1px solid rgba(255,255,255,0.06)",
+                background: "var(--surface-1)",
+              }}
             >
               <p className="font-classified text-[11px] tracking-[0.22em] text-white/50 mb-2">
                 OPERATION DATE
@@ -189,9 +216,13 @@ export default function RoomAllocationSection() {
               <p className="font-classified text-[12px] tracking-[0.18em] text-white/70">
                 09 — 11 OCTOBER 2026
               </p>
-              <div className="h-[1px] my-4" style={{ background: "var(--border)" }} />
+              <div
+                className="h-[1px] my-4"
+                style={{ background: "var(--border)" }}
+              />
               <p className="font-classified text-[11px] text-[var(--text-muted)] leading-relaxed">
-                ROOM ALLOCATION DETAILS WILL BE RELEASED TO ALL REGISTERED DELEGATES ON THE MORNING OF OCTOBER 9, 2026.
+                ROOM ALLOCATION DETAILS WILL BE RELEASED TO ALL REGISTERED
+                DELEGATES ON THE MORNING OF OCTOBER 9, 2026.
               </p>
             </div>
           </motion.div>
@@ -202,9 +233,15 @@ export default function RoomAllocationSection() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             className="w-full p-8 text-center"
-            style={{ border: "1px solid rgba(74,222,128,0.2)", background: "rgba(74,222,128,0.03)" }}
+            style={{
+              border: "1px solid rgba(74,222,128,0.2)",
+              background: "rgba(74,222,128,0.03)",
+            }}
           >
-            <p className="font-classified text-[11px] tracking-[0.2em] mb-2" style={{ color: "#4ade80" }}>
+            <p
+              className="font-classified text-[11px] tracking-[0.2em] mb-2"
+              style={{ color: "#4ade80" }}
+            >
               ALLOCATION ACTIVE
             </p>
             <p className="font-classified text-[11px] text-white/50">

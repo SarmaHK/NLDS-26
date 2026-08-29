@@ -24,10 +24,18 @@ export default function QuantitySelector({
   };
 
   return (
-    <div className="flex flex-col gap-2 text-left items-start" style={{ textAlign: "left", alignItems: "flex-start" }}>
+    <div
+      className="flex flex-col gap-2 text-left items-start"
+      style={{ textAlign: "left", alignItems: "flex-start" }}
+    >
       <span
         className="font-classified"
-        style={{ fontSize: "9.5px", letterSpacing: "0.22em", color: "var(--text-muted)", textAlign: "left" }}
+        style={{
+          fontSize: "9.5px",
+          letterSpacing: "0.22em",
+          color: "var(--text-muted)",
+          textAlign: "left",
+        }}
       >
         QUANTITY
       </span>
@@ -56,9 +64,7 @@ export default function QuantitySelector({
           −
         </button>
 
-        <div
-          className="flex items-center justify-center w-[34px] sm:w-[44px] h-[28px] sm:h-[36px]"
-        >
+        <div className="flex items-center justify-center w-[34px] sm:w-[44px] h-[28px] sm:h-[36px]">
           <AnimatePresence mode="wait">
             <motion.span
               key={value}

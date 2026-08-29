@@ -8,14 +8,16 @@ export class MerchDriveClient {
 
   constructor() {
     const clientEmail =
-      env.GOOGLE_DRIVE_CLIENT_EMAIL?.trim() || env.GOOGLE_CLIENT_EMAIL?.trim() || "";
+      env.GOOGLE_DRIVE_CLIENT_EMAIL?.trim() ||
+      env.GOOGLE_CLIENT_EMAIL?.trim() ||
+      "";
     const privateKeyRaw =
       env.GOOGLE_DRIVE_PRIVATE_KEY || env.GOOGLE_PRIVATE_KEY || "";
     this.folderId = env.GOOGLE_DRIVE_MERCH_FOLDER_ID?.trim() || "";
 
     if (!clientEmail || !privateKeyRaw || !this.folderId) {
       console.warn(
-        "[MerchDriveClient] Missing Drive credentials or GOOGLE_DRIVE_MERCH_FOLDER_ID."
+        "[MerchDriveClient] Missing Drive credentials or GOOGLE_DRIVE_MERCH_FOLDER_ID.",
       );
     }
 
@@ -26,7 +28,10 @@ export class MerchDriveClient {
         client_email: clientEmail,
         private_key: privateKey,
       },
-      scopes: ["https://www.googleapis.com/auth/drive.file", "https://www.googleapis.com/auth/drive"],
+      scopes: [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/drive",
+      ],
     });
 
     this.drive = google.drive({ version: "v3", auth });
@@ -42,17 +47,17 @@ export class MerchDriveClient {
   async uploadReceipt(
     fileBuffer: Buffer,
     fileName: string,
-    mimeType: string
+    mimeType: string,
   ): Promise<{ fileId: string; viewUrl: string }> {
     if (!this.drive) {
       throw new Error(
-        "Google Drive client is not initialized. Please verify GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY."
+        "Google Drive client is not initialized. Please verify GOOGLE_CLIENT_EMAIL and GOOGLE_PRIVATE_KEY.",
       );
     }
 
     if (!this.folderId) {
       throw new Error(
-        "GOOGLE_DRIVE_MERCH_FOLDER_ID is not configured in the environment."
+        "GOOGLE_DRIVE_MERCH_FOLDER_ID is not configured in the environment.",
       );
     }
 
@@ -91,12 +96,13 @@ export class MerchDriveClient {
       } catch (permErr: any) {
         console.warn(
           "[MerchDriveClient] Could not set public view permission (non-critical):",
-          permErr.message
+          permErr.message,
         );
       }
 
       const viewUrl =
-        response.data.webViewLink || `https://drive.google.com/file/d/${fileId}/view`;
+        response.data.webViewLink ||
+        `https://drive.google.com/file/d/${fileId}/view`;
 
       return {
         fileId,
@@ -105,7 +111,7 @@ export class MerchDriveClient {
     } catch (error: any) {
       console.error(
         "[MerchDriveClient] Failed to upload receipt:",
-        error.response?.data || error.message
+        error.response?.data || error.message,
       );
       throw new Error(`Receipt Drive Upload Failed: ${error.message}`);
     }

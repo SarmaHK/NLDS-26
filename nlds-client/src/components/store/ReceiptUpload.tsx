@@ -2,7 +2,14 @@
 
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Upload, CheckCircle, AlertCircle, X, FileText, Image as ImageIcon } from "lucide-react";
+import {
+  Upload,
+  CheckCircle,
+  AlertCircle,
+  X,
+  FileText,
+  Image as ImageIcon,
+} from "lucide-react";
 
 interface ReceiptUploadProps {
   file: File | null;
@@ -16,11 +23,20 @@ function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-const ACCEPTED_TYPES = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
+const ACCEPTED_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "application/pdf",
+];
 const ACCEPTED_EXT = ["jpg", "jpeg", "png", "pdf"];
 const MAX_SIZE_MB = 10;
 
-export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadProps) {
+export default function ReceiptUpload({
+  file,
+  onChange,
+  error,
+}: ReceiptUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -67,10 +83,22 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
           background: "rgba(255,255,255,0.015)",
         }}
       >
-        <div style={{ width: 8, height: 8, background: "var(--red)", borderRadius: "50%", boxShadow: "0 0 10px rgba(196,30,58,0.5)" }} />
+        <div
+          style={{
+            width: 8,
+            height: 8,
+            background: "var(--red)",
+            borderRadius: "50%",
+            boxShadow: "0 0 10px rgba(196,30,58,0.5)",
+          }}
+        />
         <span
           className="font-classified font-bold"
-          style={{ fontSize: "11px", letterSpacing: "0.26em", color: "#ffffff" }}
+          style={{
+            fontSize: "11px",
+            letterSpacing: "0.26em",
+            color: "#ffffff",
+          }}
         >
           UPLOAD PAYMENT RECEIPT
         </span>
@@ -92,7 +120,13 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
 
       <div className="px-6 py-6 sm:px-8 sm:py-8">
         <p
-          style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.7, fontWeight: 300, marginBottom: "1.25rem" }}
+          style={{
+            fontSize: "0.88rem",
+            color: "var(--text-muted)",
+            lineHeight: 1.7,
+            fontWeight: 300,
+            marginBottom: "1.25rem",
+          }}
         >
           Upload your payment receipt to complete the mission authorization.
         </p>
@@ -104,7 +138,10 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
           aria-label="Upload payment receipt"
           className={`reg-upload ${isDragging ? "reg-upload--active" : ""} ${secured ? "reg-upload--secured" : ""}`}
           style={{ minHeight: 160 }}
-          onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setIsDragging(true);
+          }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={onDrop}
           onClick={() => !secured && inputRef.current?.click()}
@@ -120,7 +157,10 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
             type="file"
             className="sr-only"
             accept=".jpg,.jpeg,.png,.pdf,image/jpeg,image/jpg,image/png,application/pdf"
-            onChange={(e) => { const f = e.target.files?.[0]; if (f) validateAndSet(f); }}
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) validateAndSet(f);
+            }}
             id="receipt-upload-input"
           />
 
@@ -134,24 +174,45 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
                 className="flex flex-col items-center gap-3 w-full"
               >
                 {isPDF ? (
-                  <FileText className="w-8 h-8" style={{ color: "var(--text)" }} strokeWidth={1.25} />
+                  <FileText
+                    className="w-8 h-8"
+                    style={{ color: "var(--text)" }}
+                    strokeWidth={1.25}
+                  />
                 ) : (
-                  <CheckCircle className="w-8 h-8" style={{ color: "var(--text)" }} strokeWidth={1.25} />
+                  <CheckCircle
+                    className="w-8 h-8"
+                    style={{ color: "var(--text)" }}
+                    strokeWidth={1.25}
+                  />
                 )}
                 <span
                   className="font-classified"
-                  style={{ fontSize: "11px", letterSpacing: "0.22em", color: "var(--text)" }}
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.22em",
+                    color: "var(--text)",
+                  }}
                 >
                   ✓ RECEIPT SECURED
                 </span>
                 <span
-                  style={{ fontSize: "0.8rem", color: "var(--text-muted)", textAlign: "center", maxWidth: 280, wordBreak: "break-all" }}
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--text-muted)",
+                    textAlign: "center",
+                    maxWidth: 280,
+                    wordBreak: "break-all",
+                  }}
                 >
                   {file.name} · {formatBytes(file.size)}
                 </span>
                 <div className="flex gap-2 mt-1">
                   <button
-                    onClick={(e) => { e.stopPropagation(); inputRef.current?.click(); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      inputRef.current?.click();
+                    }}
                     className="font-classified px-3 py-1.5 transition-colors hover:border-white/30"
                     style={{
                       fontSize: "9px",
@@ -165,7 +226,11 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
                     REPLACE
                   </button>
                   <button
-                    onClick={(e) => { e.stopPropagation(); onChange(null); setValidationError(null); }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onChange(null);
+                      setValidationError(null);
+                    }}
                     className="flex items-center gap-1 font-classified px-3 py-1.5 transition-colors"
                     style={{
                       fontSize: "9px",
@@ -195,11 +260,17 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
                 />
                 <span
                   className="font-classified"
-                  style={{ fontSize: "11px", letterSpacing: "0.22em", color: isDragging ? "var(--red)" : "rgba(255,255,255,0.6)" }}
+                  style={{
+                    fontSize: "11px",
+                    letterSpacing: "0.22em",
+                    color: isDragging ? "var(--red)" : "rgba(255,255,255,0.6)",
+                  }}
                 >
                   {isDragging ? "DROP TO UPLOAD" : "DROP YOUR RECEIPT HERE"}
                 </span>
-                <span style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                <span
+                  style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}
+                >
                   JPG · PNG · PDF · MAX {MAX_SIZE_MB} MB
                 </span>
                 <span
@@ -224,10 +295,20 @@ export default function ReceiptUpload({ file, onChange, error }: ReceiptUploadPr
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-start gap-2 mt-3 p-2"
-            style={{ background: "rgba(196,30,58,0.06)", border: "1px solid rgba(196,30,58,0.2)" }}
+            style={{
+              background: "rgba(196,30,58,0.06)",
+              border: "1px solid rgba(196,30,58,0.2)",
+            }}
           >
-            <AlertCircle size={13} style={{ color: "var(--red)", flexShrink: 0, marginTop: 1 }} />
-            <span style={{ fontSize: "11px", color: "var(--red)", lineHeight: 1.5 }}>{displayError}</span>
+            <AlertCircle
+              size={13}
+              style={{ color: "var(--red)", flexShrink: 0, marginTop: 1 }}
+            />
+            <span
+              style={{ fontSize: "11px", color: "var(--red)", lineHeight: 1.5 }}
+            >
+              {displayError}
+            </span>
           </motion.div>
         )}
       </div>

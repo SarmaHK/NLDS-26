@@ -37,10 +37,21 @@ export default function CartItem({ item }: CartItemProps) {
       >
         {item.image ? (
           /* eslint-disable-next-line @next/next/no-img-element */
-          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-full object-cover"
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
-            <div style={{ width: 22, height: 22, border: "1px solid rgba(196,30,58,0.3)", borderRadius: "50%" }} />
+            <div
+              style={{
+                width: 22,
+                height: 22,
+                border: "1px solid rgba(196,30,58,0.3)",
+                borderRadius: "50%",
+              }}
+            />
           </div>
         )}
       </div>
@@ -51,7 +62,12 @@ export default function CartItem({ item }: CartItemProps) {
           <div className="flex items-start justify-between gap-1.5">
             <p
               className="font-display truncate"
-              style={{ fontSize: "1.1rem", letterSpacing: "0.03em", color: "#ffffff", lineHeight: 1.1 }}
+              style={{
+                fontSize: "1.1rem",
+                letterSpacing: "0.03em",
+                color: "#ffffff",
+                lineHeight: 1.1,
+              }}
             >
               {item.name}
             </p>
@@ -86,13 +102,21 @@ export default function CartItem({ item }: CartItemProps) {
           <div className="flex items-center gap-1.5 mt-1 flex-wrap">
             <span
               className="font-classified"
-              style={{ fontSize: "8.5px", letterSpacing: "0.16em", color: "var(--text-ghost)" }}
+              style={{
+                fontSize: "8.5px",
+                letterSpacing: "0.16em",
+                color: "var(--text-ghost)",
+              }}
             >
               {item.itemCode}
             </span>
             {item.size && (
               <>
-                <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "9px" }}>·</span>
+                <span
+                  style={{ color: "rgba(255,255,255,0.2)", fontSize: "9px" }}
+                >
+                  ·
+                </span>
                 <span
                   className="font-classified"
                   style={{
@@ -123,7 +147,9 @@ export default function CartItem({ item }: CartItemProps) {
             }}
           >
             <button
-              onClick={() => updateQty(item.productId, item.size, item.quantity - 1)}
+              onClick={() =>
+                updateQty(item.productId, item.size, item.quantity - 1)
+              }
               disabled={item.quantity <= 1}
               aria-label="Decrease quantity"
               className="flex items-center justify-center transition-colors"
@@ -131,7 +157,8 @@ export default function CartItem({ item }: CartItemProps) {
                 width: 30,
                 height: 28,
                 fontSize: "0.95rem",
-                color: item.quantity <= 1 ? "rgba(255,255,255,0.15)" : "#ffffff",
+                color:
+                  item.quantity <= 1 ? "rgba(255,255,255,0.15)" : "#ffffff",
                 background: "transparent",
                 border: "none",
                 borderRight: "1px solid rgba(255,255,255,0.08)",
@@ -142,12 +169,20 @@ export default function CartItem({ item }: CartItemProps) {
             </button>
             <span
               className="font-classified tabular flex items-center justify-center"
-              style={{ width: 34, height: 28, fontSize: "12px", color: "#ffffff", fontWeight: 500 }}
+              style={{
+                width: 34,
+                height: 28,
+                fontSize: "12px",
+                color: "#ffffff",
+                fontWeight: 500,
+              }}
             >
               {item.quantity}
             </span>
             <button
-              onClick={() => updateQty(item.productId, item.size, item.quantity + 1)}
+              onClick={() =>
+                updateQty(item.productId, item.size, item.quantity + 1)
+              }
               aria-label="Increase quantity"
               className="flex items-center justify-center transition-colors"
               style={{
@@ -168,7 +203,11 @@ export default function CartItem({ item }: CartItemProps) {
           {/* Line total price */}
           <span
             className="font-display"
-            style={{ fontSize: "1.15rem", letterSpacing: "0.04em", color: "#ffffff" }}
+            style={{
+              fontSize: "1.15rem",
+              letterSpacing: "0.04em",
+              color: "#ffffff",
+            }}
           >
             LKR {(item.price * item.quantity).toLocaleString()}
           </span>

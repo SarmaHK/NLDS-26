@@ -8,7 +8,10 @@ interface ProductGalleryProps {
   productName: string;
 }
 
-export default function ProductGallery({ images, productName }: ProductGalleryProps) {
+export default function ProductGallery({
+  images,
+  productName,
+}: ProductGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
@@ -50,7 +53,12 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               src={validImages[activeIndex]}
               alt={`${productName} — image ${activeIndex + 1}`}
               className="w-full h-full object-cover"
-              style={{ display: "block", minHeight: "100%", width: "100%", height: "100%" }}
+              style={{
+                display: "block",
+                minHeight: "100%",
+                width: "100%",
+                height: "100%",
+              }}
             />
           ) : (
             /* Placeholder when no image is available */
@@ -82,7 +90,11 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               </div>
               <span
                 className="font-classified"
-                style={{ fontSize: "10px", letterSpacing: "0.25em", color: "rgba(255,255,255,0.2)" }}
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.25em",
+                  color: "rgba(255,255,255,0.2)",
+                }}
               >
                 IMAGE CLASSIFIED
               </span>
@@ -105,7 +117,11 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
       {hasMultiple && (
         <div
           className="flex gap-2 flex-wrap p-3 z-10"
-          style={{ background: "rgba(6,6,8,0.85)", backdropFilter: "blur(6px)", borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          style={{
+            background: "rgba(6,6,8,0.85)",
+            backdropFilter: "blur(6px)",
+            borderTop: "1px solid rgba(255,255,255,0.06)",
+          }}
         >
           {validImages.map((img, idx) => (
             <button
@@ -117,9 +133,10 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
                 width: 52,
                 height: 52,
                 background: "#0a0a0c",
-                border: idx === activeIndex
-                  ? "1px solid var(--red)"
-                  : "1px solid rgba(255,255,255,0.1)",
+                border:
+                  idx === activeIndex
+                    ? "1px solid var(--red)"
+                    : "1px solid rgba(255,255,255,0.1)",
                 opacity: idx === activeIndex ? 1 : 0.5,
                 cursor: "pointer",
                 padding: 0,

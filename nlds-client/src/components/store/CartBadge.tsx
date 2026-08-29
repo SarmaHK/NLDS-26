@@ -21,7 +21,11 @@ export default function CartBadge() {
       />
       <span
         className="font-classified transition-colors group-hover:text-[var(--red)]"
-        style={{ fontSize: "11px", letterSpacing: "0.24em", color: "rgba(255,255,255,0.7)" }}
+        style={{
+          fontSize: "11px",
+          letterSpacing: "0.24em",
+          color: "rgba(255,255,255,0.7)",
+        }}
       >
         CART
       </span>

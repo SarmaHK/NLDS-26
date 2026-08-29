@@ -33,7 +33,8 @@ function CountdownCell({ label, value }: { label: string; value: number }) {
           height: "clamp(88px, 16vw, 164px)",
           background: "var(--surface-1)",
           border: "1px solid rgba(255,255,255,0.07)",
-          boxShadow: "0 0 40px rgba(196,30,58,0.04), inset 0 1px 0 rgba(255,255,255,0.04)",
+          boxShadow:
+            "0 0 40px rgba(196,30,58,0.04), inset 0 1px 0 rgba(255,255,255,0.04)",
         }}
       >
         {/* Top shine */}
@@ -114,26 +115,51 @@ export default function CountdownSection() {
       <div
         className="pointer-events-none absolute"
         style={{
-          left: "50%", top: "50%", transform: "translate(-50%, -50%)",
-          width: "600px", height: "300px",
-          background: "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
-          filter: "blur(100px)", opacity: 0.04,
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -50%)",
+          width: "600px",
+          height: "300px",
+          background:
+            "radial-gradient(ellipse, rgba(196,30,58,1) 0%, transparent 70%)",
+          filter: "blur(100px)",
+          opacity: 0.04,
         }}
       />
 
       {/* Centered content */}
-      <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", paddingLeft: "clamp(1.5rem, 6vw, 5rem)", paddingRight: "clamp(1.5rem, 6vw, 5rem)" }}>
-
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          paddingLeft: "clamp(1.5rem, 6vw, 5rem)",
+          paddingRight: "clamp(1.5rem, 6vw, 5rem)",
+        }}
+      >
         {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", marginBottom: "3rem", marginTop: "3rem" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1rem",
+            marginBottom: "3rem",
+            marginTop: "3rem",
+          }}
         >
-          <div style={{ height: "1px", width: "2.5rem", background: "var(--red)" }} />
+          <div
+            style={{ height: "1px", width: "2.5rem", background: "var(--red)" }}
+          />
           <span className="label-classified">MISSION LAUNCH</span>
-          <div style={{ height: "1px", width: "2.5rem", background: "var(--red)" }} />
+          <div
+            style={{ height: "1px", width: "2.5rem", background: "var(--red)" }}
+          />
         </motion.div>
 
         {/* Headline */}
@@ -142,7 +168,11 @@ export default function CountdownSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.1 }}
           className="font-display leading-[0.88]"
-          style={{ fontSize: "clamp(2rem, 6vw, 4.5rem)", color: "var(--text)", marginBottom: "1rem" }}
+          style={{
+            fontSize: "clamp(2rem, 6vw, 4.5rem)",
+            color: "var(--text)",
+            marginBottom: "1rem",
+          }}
         >
           T-MINUS
         </motion.h2>
@@ -162,15 +192,31 @@ export default function CountdownSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", flexWrap: "wrap" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1.5rem",
+            flexWrap: "wrap",
+          }}
         >
           {units.map((unit, i) => (
-            <div key={unit.label} style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-              <CountdownCell label={unit.label} value={mounted ? unit.value : 0} />
+            <div
+              key={unit.label}
+              style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}
+            >
+              <CountdownCell
+                label={unit.label}
+                value={mounted ? unit.value : 0}
+              />
               {i < units.length - 1 && (
                 <span
                   className="font-display hidden sm:block"
-                  style={{ fontSize: "clamp(1.5rem, 4vw, 3rem)", color: "rgba(196,30,58,0.5)", marginBottom: "2rem" }}
+                  style={{
+                    fontSize: "clamp(1.5rem, 4vw, 3rem)",
+                    color: "rgba(196,30,58,0.5)",
+                    marginBottom: "2rem",
+                  }}
                 >
                   :
                 </span>
@@ -184,14 +230,26 @@ export default function CountdownSection() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 0.6 }}
-          style={{ marginTop: "3.5rem", marginBottom: "3rem", display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem" }}
+          style={{
+            marginTop: "3.5rem",
+            marginBottom: "3rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.75rem",
+          }}
         >
-          <div style={{ height: "1px", width: "4rem", background: "var(--border-strong)" }} />
+          <div
+            style={{
+              height: "1px",
+              width: "4rem",
+              background: "var(--border-strong)",
+            }}
+          />
           <p className="font-classified text-[11px] tracking-[0.22em] text-white/40">
             NATIONAL LEADERSHIP DEVELOPMENT SEMINAR 2026
           </p>
         </motion.div>
-
       </div>
     </section>
   );

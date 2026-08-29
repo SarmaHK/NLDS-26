@@ -2,9 +2,9 @@
 
 /* ─── Tailwind v4 Theme Tokens ───────────────────────────────── */
 @theme {
-  --color-mission: #C41E3A;
-  --color-mission-dark: #8B0000;
-  --color-mission-light: #E53E3E;
+  --color-mission: #c41e3a;
+  --color-mission-dark: #8b0000;
+  --color-mission-light: #e53e3e;
   --font-sans: var(--font-poppins), system-ui, sans-serif;
   --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
   --font-classified: var(--font-jetbrains), "Courier New", monospace;
@@ -13,18 +13,18 @@
 /* ─── CSS Custom Properties ──────────────────────────────────── */
 :root {
   /* Color System */
-  --red: #C41E3A;
+  --red: #c41e3a;
   --red-dim: rgba(196, 30, 58, 0.25);
   --red-glow: rgba(196, 30, 58, 0.12);
-  --red-bright: #E53E3E;
+  --red-bright: #e53e3e;
 
   /* Surfaces */
   --bg: #060608;
-  --surface-1: #0E0E11;
+  --surface-1: #0e0e11;
   --surface-2: #161619;
 
   /* Text */
-  --text: #F0EDE8;
+  --text: #f0ede8;
   --text-dim: rgba(240, 237, 232, 0.85);
   --text-muted: rgba(240, 237, 232, 0.55);
   --text-ghost: rgba(240, 237, 232, 0.25);
@@ -37,7 +37,8 @@
   /* Fonts */
   --font-sans: var(--font-poppins), system-ui, sans-serif;
   --font-display: var(--font-bebas), "Arial Narrow", sans-serif;
-  --font-mono: var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
+  --font-mono:
+    var(--font-jetbrains), "JetBrains Mono", "Courier New", monospace;
 }
 
 /* ─── Reset & Base ───────────────────────────────────────────── */
@@ -110,7 +111,6 @@ img {
 /* ─── Keyframe Animations ────────────────────────────────────── */
 
 @keyframes grain {
-
   0%,
   100% {
     transform: translate(0, 0);
@@ -164,7 +164,6 @@ img {
 }
 
 @keyframes flicker {
-
   0%,
   100% {
     opacity: 1;
@@ -192,7 +191,6 @@ img {
 }
 
 @keyframes mission-blink {
-
   0%,
   100% {
     opacity: 1;
@@ -236,7 +234,6 @@ img {
 }
 
 @keyframes float-coord {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -272,7 +269,6 @@ img {
 }
 
 @keyframes glitch-slice {
-
   0%,
   40%,
   44%,
@@ -403,55 +399,55 @@ img {
 
 /* ─── Animation Delays ───────────────────────────────────────── */
 .delay-100 {
-  animation-delay: 0.10s;
+  animation-delay: 0.1s;
 }
 
 .delay-200 {
-  animation-delay: 0.20s;
+  animation-delay: 0.2s;
 }
 
 .delay-300 {
-  animation-delay: 0.30s;
+  animation-delay: 0.3s;
 }
 
 .delay-400 {
-  animation-delay: 0.40s;
+  animation-delay: 0.4s;
 }
 
 .delay-500 {
-  animation-delay: 0.50s;
+  animation-delay: 0.5s;
 }
 
 .delay-600 {
-  animation-delay: 0.60s;
+  animation-delay: 0.6s;
 }
 
 .delay-700 {
-  animation-delay: 0.70s;
+  animation-delay: 0.7s;
 }
 
 .delay-800 {
-  animation-delay: 0.80s;
+  animation-delay: 0.8s;
 }
 
 .delay-1000 {
-  animation-delay: 1.00s;
+  animation-delay: 1s;
 }
 
 .delay-1200 {
-  animation-delay: 1.20s;
+  animation-delay: 1.2s;
 }
 
 .delay-1500 {
-  animation-delay: 1.50s;
+  animation-delay: 1.5s;
 }
 
 .delay-2000 {
-  animation-delay: 2.00s;
+  animation-delay: 2s;
 }
 
 .delay-2500 {
-  animation-delay: 2.50s;
+  animation-delay: 2.5s;
 }
 
 /* ─── Mission Design Primitives ──────────────────────────────── */
@@ -548,7 +544,9 @@ img {
   background: transparent;
   border: 1px solid var(--border-strong);
   cursor: pointer;
-  transition: border-color 0.3s, color 0.3s;
+  transition:
+    border-color 0.3s,
+    color 0.3s;
   text-decoration: none;
 }
 
@@ -563,7 +561,9 @@ img {
   border: 1px solid var(--border);
   background: var(--surface-1);
   overflow: hidden;
-  transition: border-color 0.4s, background 0.4s;
+  transition:
+    border-color 0.4s,
+    background 0.4s;
 }
 
 .dossier-card:hover {
@@ -602,8 +602,16 @@ img {
   inset: 0;
   opacity: 0.15;
   background:
-    radial-gradient(circle at 18% 12%, rgba(196, 30, 58, 0.08) 0%, transparent 42%),
-    radial-gradient(circle at 82% 8%, rgba(240, 237, 232, 0.03) 0%, transparent 36%);
+    radial-gradient(
+      circle at 18% 12%,
+      rgba(196, 30, 58, 0.08) 0%,
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 82% 8%,
+      rgba(240, 237, 232, 0.03) 0%,
+      transparent 36%
+    );
 }
 
 .reg-shell__radar::before {
@@ -639,7 +647,9 @@ img {
   background: #111113;
   border: 1px solid rgba(255, 255, 255, 0.16);
   outline: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .reg-field::placeholder {
@@ -654,7 +664,9 @@ img {
 
 .reg-field:focus {
   border-color: var(--red);
-  box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.28), 0 0 18px rgba(196, 30, 58, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(196, 30, 58, 0.28),
+    0 0 18px rgba(196, 30, 58, 0.08);
 }
 
 .reg-field[aria-invalid="true"] {
@@ -679,7 +691,11 @@ img {
   border: 1px solid rgba(255, 255, 255, 0.3);
   background: rgba(255, 255, 255, 0.03);
   color: rgba(255, 255, 255, 0.85);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease, color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease;
 }
 
 .reg-choice:hover {
@@ -691,7 +707,9 @@ img {
   border-color: var(--red);
   color: var(--text);
   background: rgba(196, 30, 58, 0.06);
-  box-shadow: 0 0 0 1px rgba(196, 30, 58, 0.35), 0 0 28px rgba(196, 30, 58, 0.12);
+  box-shadow:
+    0 0 0 1px rgba(196, 30, 58, 0.35),
+    0 0 28px rgba(196, 30, 58, 0.12);
 }
 
 .reg-choice--active::after {
@@ -702,7 +720,8 @@ img {
   border: 1px solid transparent;
   background:
     linear-gradient(#0a0a0c, #0a0a0c) padding-box,
-    linear-gradient(120deg, transparent 20%, var(--red) 50%, transparent 80%) border-box;
+    linear-gradient(120deg, transparent 20%, var(--red) 50%, transparent 80%)
+      border-box;
   mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -740,7 +759,10 @@ img {
   background: #0c0c0e;
   cursor: pointer;
   text-align: center;
-  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .reg-upload:hover,
@@ -790,7 +812,10 @@ img {
 
 .reg-shell .btn-mission {
   box-shadow: 0 0 0 rgba(196, 30, 58, 0);
-  transition: background 0.3s, transform 0.25s ease, box-shadow 0.25s ease;
+  transition:
+    background 0.3s,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .reg-shell .btn-mission:hover {
@@ -807,7 +832,6 @@ img {
 
 /* ─── Reduced Motion ─────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {

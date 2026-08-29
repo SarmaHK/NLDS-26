@@ -3,13 +3,21 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, X, ArrowRight, ShieldCheck, Trash2, ArrowUpRight } from "lucide-react";
+import {
+  ShoppingBag,
+  X,
+  ArrowRight,
+  ShieldCheck,
+  Trash2,
+  ArrowUpRight,
+} from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/lib/store/cartStore";
 import CartItem from "@/components/store/CartItem";
 
 export default function CartDrawer() {
-  const { items, itemCount, subtotal, isCartOpen, closeCart, clearCart } = useCart();
+  const { items, itemCount, subtotal, isCartOpen, closeCart, clearCart } =
+    useCart();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -51,7 +59,10 @@ export default function CartDrawer() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[300]"
-            style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(8px)" }}
+            style={{
+              background: "rgba(0,0,0,0.85)",
+              backdropFilter: "blur(8px)",
+            }}
             onClick={closeCart}
           />
 
@@ -68,7 +79,8 @@ export default function CartDrawer() {
             style={{
               background: "#0a0a0c",
               borderLeft: "1px solid rgba(255,255,255,0.08)",
-              boxShadow: "-20px 0 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(196,30,58,0.12)",
+              boxShadow:
+                "-20px 0 60px rgba(0,0,0,0.9), 0 0 0 1px rgba(196,30,58,0.12)",
             }}
             aria-label="Mission Inventory Drawer"
             role="dialog"
@@ -76,7 +88,11 @@ export default function CartDrawer() {
             {/* Top red accent line */}
             <div
               className="absolute top-0 left-0 right-0 h-[2px]"
-              style={{ background: "linear-gradient(90deg, var(--red), transparent 70%)", opacity: 0.8 }}
+              style={{
+                background:
+                  "linear-gradient(90deg, var(--red), transparent 70%)",
+                opacity: 0.8,
+              }}
             />
 
             {/* Header with enlarged icons, bold typography, and generous gaps */}
@@ -126,7 +142,11 @@ export default function CartDrawer() {
                   </div>
                   <p
                     className="font-classified"
-                    style={{ fontSize: "9.5px", letterSpacing: "0.22em", color: "var(--text-muted)" }}
+                    style={{
+                      fontSize: "9.5px",
+                      letterSpacing: "0.22em",
+                      color: "var(--text-muted)",
+                    }}
                   >
                     STATUS // CLASSIFIED LOADOUT
                   </p>
@@ -175,18 +195,29 @@ export default function CartDrawer() {
                       background: "rgba(255,255,255,0.02)",
                     }}
                   >
-                    <ShoppingBag size={30} style={{ color: "rgba(255,255,255,0.25)" }} />
+                    <ShoppingBag
+                      size={30}
+                      style={{ color: "rgba(255,255,255,0.25)" }}
+                    />
                   </div>
                   <div className="flex flex-col gap-1.5">
                     <span
                       className="font-classified font-bold"
-                      style={{ fontSize: "12px", letterSpacing: "0.24em", color: "rgba(255,255,255,0.5)" }}
+                      style={{
+                        fontSize: "12px",
+                        letterSpacing: "0.24em",
+                        color: "rgba(255,255,255,0.5)",
+                      }}
                     >
                       NO GEAR DEPLOYED
                     </span>
                     <span
                       className="font-sans"
-                      style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.3)", fontWeight: 300 }}
+                      style={{
+                        fontSize: "0.85rem",
+                        color: "rgba(255,255,255,0.3)",
+                        fontWeight: 300,
+                      }}
                     >
                       Select equipment from the catalog to begin.
                     </span>
@@ -205,8 +236,22 @@ export default function CartDrawer() {
                   {/* Section Label with margin */}
                   <div className="flex items-center justify-between pb-1.5 mb-1 border-b border-white/[0.06]">
                     <div className="flex items-center gap-2">
-                      <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)" }} />
-                      <span className="font-classified font-medium" style={{ fontSize: "9px", letterSpacing: "0.24em", color: "var(--text-ghost)" }}>
+                      <div
+                        style={{
+                          width: 6,
+                          height: 6,
+                          borderRadius: "50%",
+                          background: "var(--red)",
+                        }}
+                      />
+                      <span
+                        className="font-classified font-medium"
+                        style={{
+                          fontSize: "9px",
+                          letterSpacing: "0.24em",
+                          color: "var(--text-ghost)",
+                        }}
+                      >
                         DEPLOYED ASSETS
                       </span>
                     </div>
@@ -266,13 +311,22 @@ export default function CartDrawer() {
                   <div className="flex items-center justify-between">
                     <span
                       className="font-classified"
-                      style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--text-ghost)" }}
+                      style={{
+                        fontSize: "9px",
+                        letterSpacing: "0.22em",
+                        color: "var(--text-ghost)",
+                      }}
                     >
-                      SUBTOTAL ({itemCount} {itemCount === 1 ? "ITEM" : "ITEMS"})
+                      SUBTOTAL ({itemCount} {itemCount === 1 ? "ITEM" : "ITEMS"}
+                      )
                     </span>
                     <span
                       className="font-classified tabular"
-                      style={{ fontSize: "11px", letterSpacing: "0.1em", color: "var(--text-muted)" }}
+                      style={{
+                        fontSize: "11px",
+                        letterSpacing: "0.1em",
+                        color: "var(--text-muted)",
+                      }}
                     >
                       LKR {subtotal.toLocaleString()}
                     </span>
@@ -283,13 +337,21 @@ export default function CartDrawer() {
                   <div className="flex items-baseline justify-between">
                     <span
                       className="font-classified font-bold"
-                      style={{ fontSize: "10.5px", letterSpacing: "0.24em", color: "var(--text)" }}
+                      style={{
+                        fontSize: "10.5px",
+                        letterSpacing: "0.24em",
+                        color: "var(--text)",
+                      }}
                     >
                       TOTAL PAYABLE
                     </span>
                     <span
                       className="font-display"
-                      style={{ fontSize: "1.5rem", letterSpacing: "0.04em", color: "var(--text)" }}
+                      style={{
+                        fontSize: "1.5rem",
+                        letterSpacing: "0.04em",
+                        color: "var(--text)",
+                      }}
                     >
                       LKR {subtotal.toLocaleString()}
                     </span>
@@ -320,10 +382,17 @@ export default function CartDrawer() {
 
                 {/* Tactical security footnote */}
                 <div className="flex items-center justify-center gap-1.5 pt-0.5">
-                  <ShieldCheck size={11} style={{ color: "rgba(255,255,255,0.3)" }} />
+                  <ShieldCheck
+                    size={11}
+                    style={{ color: "rgba(255,255,255,0.3)" }}
+                  />
                   <p
                     className="font-classified text-center"
-                    style={{ fontSize: "7.5px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.25)" }}
+                    style={{
+                      fontSize: "7.5px",
+                      letterSpacing: "0.18em",
+                      color: "rgba(255,255,255,0.25)",
+                    }}
                   >
                     SECURE ORDER · BANK TRANSFER PROOF REQUIRED
                   </p>

@@ -34,7 +34,8 @@ export default function OrderConfirmation({
           transform: "translateX(-50%)",
           width: "600px",
           height: "300px",
-          background: "radial-gradient(ellipse, rgba(196,30,58,0.8) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse, rgba(196,30,58,0.8) 0%, transparent 70%)",
           filter: "blur(120px)",
           opacity: 0.08,
         }}
@@ -73,7 +74,11 @@ export default function OrderConfirmation({
         >
           <span
             className="font-classified font-bold"
-            style={{ fontSize: "11px", letterSpacing: "0.26em", color: "var(--red)" }}
+            style={{
+              fontSize: "11px",
+              letterSpacing: "0.26em",
+              color: "var(--red)",
+            }}
           >
             TRANSMISSION SUCCESSFUL
           </span>
@@ -98,7 +103,10 @@ export default function OrderConfirmation({
               marginTop: 4,
             }}
           >
-            Thank you, <span className="text-white font-medium">{customerName}</span>. Your merchandise request has been received and is queued for verification.
+            Thank you,{" "}
+            <span className="text-white font-medium">{customerName}</span>. Your
+            merchandise request has been received and is queued for
+            verification.
           </p>
         </motion.div>
 
@@ -123,7 +131,11 @@ export default function OrderConfirmation({
           >
             <span
               className="font-classified font-bold"
-              style={{ fontSize: "10px", letterSpacing: "0.24em", color: "#ffffff" }}
+              style={{
+                fontSize: "10px",
+                letterSpacing: "0.24em",
+                color: "#ffffff",
+              }}
             >
               ORDER DOSSIER
             </span>
@@ -147,8 +159,16 @@ export default function OrderConfirmation({
             {[
               { label: "ORDER ID", value: orderId, isId: true },
               { label: "OPERATIVE NAME", value: customerName },
-              { label: "TOTAL PAYABLE", value: `LKR ${total.toLocaleString()}`, isPrice: true },
-              { label: "PAYMENT STATUS", value: "PENDING VERIFICATION", isStatus: true },
+              {
+                label: "TOTAL PAYABLE",
+                value: `LKR ${total.toLocaleString()}`,
+                isPrice: true,
+              },
+              {
+                label: "PAYMENT STATUS",
+                value: "PENDING VERIFICATION",
+                isStatus: true,
+              },
             ].map(({ label, value, isId, isPrice, isStatus }) => (
               <div
                 key={label}
@@ -157,7 +177,11 @@ export default function OrderConfirmation({
               >
                 <span
                   className="font-classified"
-                  style={{ fontSize: "9.5px", letterSpacing: "0.24em", color: "var(--text-ghost)" }}
+                  style={{
+                    fontSize: "9.5px",
+                    letterSpacing: "0.24em",
+                    color: "var(--text-ghost)",
+                  }}
                 >
                   {label}
                 </span>
@@ -166,10 +190,10 @@ export default function OrderConfirmation({
                     isPrice
                       ? "font-display text-[1.4rem] text-white"
                       : isId
-                      ? "font-display text-[1.15rem] text-white"
-                      : isStatus
-                      ? "font-classified text-[10px] tracking-[0.14em] text-[var(--red)]"
-                      : "font-sans text-[0.95rem] text-white"
+                        ? "font-display text-[1.15rem] text-white"
+                        : isStatus
+                          ? "font-classified text-[10px] tracking-[0.14em] text-[var(--red)]"
+                          : "font-sans text-[0.95rem] text-white"
                   }`}
                 >
                   {value}
@@ -179,7 +203,11 @@ export default function OrderConfirmation({
 
             <p
               className="font-classified text-center pt-2"
-              style={{ fontSize: "9px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.3)" }}
+              style={{
+                fontSize: "9px",
+                letterSpacing: "0.18em",
+                color: "rgba(255,255,255,0.3)",
+              }}
             >
               PLEASE SAVE YOUR ORDER ID FOR COMMUNICATION WITH THE MISSION TEAM.
             </p>
@@ -196,7 +224,11 @@ export default function OrderConfirmation({
           <Link
             href="/store"
             className="btn-mission flex items-center justify-center gap-2.5 flex-1"
-            style={{ padding: "16px 28px", fontSize: "12.5px", letterSpacing: "0.16em" }}
+            style={{
+              padding: "16px 28px",
+              fontSize: "12.5px",
+              letterSpacing: "0.16em",
+            }}
             id="confirmation-back-to-store"
           >
             <ShoppingBag size={16} />
@@ -205,7 +237,11 @@ export default function OrderConfirmation({
           <Link
             href="/"
             className="btn-ghost flex items-center justify-center gap-2.5 flex-1"
-            style={{ padding: "16px 28px", fontSize: "12.5px", letterSpacing: "0.16em" }}
+            style={{
+              padding: "16px 28px",
+              fontSize: "12.5px",
+              letterSpacing: "0.16em",
+            }}
             id="confirmation-back-to-home"
           >
             <ArrowLeft size={16} />

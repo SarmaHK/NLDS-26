@@ -26,7 +26,7 @@ export class MerchSheetsClient {
 
     if (!clientEmail || !privateKeyRaw || !this.spreadsheetId) {
       console.warn(
-        "[MerchSheetsClient] Missing credentials or GOOGLE_SHEETS_MERCH_SPREADSHEET_ID."
+        "[MerchSheetsClient] Missing credentials or GOOGLE_SHEETS_MERCH_SPREADSHEET_ID.",
       );
     }
 
@@ -51,7 +51,10 @@ export class MerchSheetsClient {
    * - Optimized column widths
    * - Text wrapping and proper alignments
    */
-  private async formatHeaderAndSheet(sheetId: number, sheetName: string): Promise<void> {
+  private async formatHeaderAndSheet(
+    sheetId: number,
+    sheetName: string,
+  ): Promise<void> {
     try {
       const columnWidths = [
         { startIndex: 0, endIndex: 1, width: 170 }, // Timestamp
@@ -67,20 +70,22 @@ export class MerchSheetsClient {
         { startIndex: 10, endIndex: 11, width: 300 }, // Receipt Drive Link
       ];
 
-      const dimensionRequests = columnWidths.map(({ startIndex, endIndex, width }) => ({
-        updateDimensionProperties: {
-          range: {
-            sheetId,
-            dimension: "COLUMNS",
-            startIndex,
-            endIndex,
+      const dimensionRequests = columnWidths.map(
+        ({ startIndex, endIndex, width }) => ({
+          updateDimensionProperties: {
+            range: {
+              sheetId,
+              dimension: "COLUMNS",
+              startIndex,
+              endIndex,
+            },
+            properties: {
+              pixelSize: width,
+            },
+            fields: "pixelSize",
           },
-          properties: {
-            pixelSize: width,
-          },
-          fields: "pixelSize",
-        },
-      }));
+        }),
+      );
 
       const requests: any[] = [
         // 1. Header Row Formatting (NLDS Red #C41E3A, Bold White Text, Centered, 10.5pt)
@@ -111,7 +116,8 @@ export class MerchSheetsClient {
                 wrapStrategy: "WRAP",
               },
             },
-            fields: "userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)",
+            fields:
+              "userEnteredFormat(backgroundColor,textFormat,horizontalAlignment,verticalAlignment,wrapStrategy)",
           },
         },
         // 2. Set Header Row Height (44px)
@@ -150,9 +156,14 @@ export class MerchSheetsClient {
         requestBody: { requests },
       });
 
-      console.log(`[MerchSheetsClient] Successfully applied NLDS styling to sheet "${sheetName}".`);
+      console.log(
+        `[MerchSheetsClient] Successfully applied NLDS styling to sheet "${sheetName}".`,
+      );
     } catch (err: any) {
-      console.warn("[MerchSheetsClient] Could not apply styling formatting:", err.message);
+      console.warn(
+        "[MerchSheetsClient] Could not apply styling formatting:",
+        err.message,
+      );
     }
   }
 
@@ -199,7 +210,9 @@ export class MerchSheetsClient {
           requestBody: { values: [headers] },
         });
 
-        console.log(`[MerchSheetsClient] Header row written to "${sheetName}".`);
+        console.log(
+          `[MerchSheetsClient] Header row written to "${sheetName}".`,
+        );
       }
 
       // Always ensure formatting (colors, freeze row, column widths) is applied
@@ -207,7 +220,10 @@ export class MerchSheetsClient {
 
       return sheetName;
     } catch (err: any) {
-      console.warn("[MerchSheetsClient] Could not verify/initialize headers:", err.message);
+      console.warn(
+        "[MerchSheetsClient] Could not verify/initialize headers:",
+        err.message,
+      );
       return "Sheet1";
     }
   }
@@ -218,7 +234,7 @@ export class MerchSheetsClient {
   async appendOrder(order: MerchOrderRowData): Promise<{ appended: boolean }> {
     if (!this.spreadsheetId) {
       throw new Error(
-        "GOOGLE_SHEETS_MERCH_SPREADSHEET_ID is not configured in the environment."
+        "GOOGLE_SHEETS_MERCH_SPREADSHEET_ID is not configured in the environment.",
       );
     }
 
@@ -260,12 +276,14 @@ export class MerchSheetsClient {
         requestBody: { values: [rowValues] },
       });
 
-      console.log(`[MerchSheetsClient] Order ${order.orderId} appended successfully.`);
+      console.log(
+        `[MerchSheetsClient] Order ${order.orderId} appended successfully.`,
+      );
       return { appended: true };
     } catch (error: any) {
       console.error(
         "[MerchSheetsClient] Failed to append order row:",
-        error.response?.data || error.message
+        error.response?.data || error.message,
       );
       throw new Error(`Sheets Append Failed: ${error.message}`);
     }

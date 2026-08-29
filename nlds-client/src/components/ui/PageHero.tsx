@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 
 interface PageHeroProps {
-  label:       string;   // e.g. "THE MISSION"
-  fileNo:      string;   // e.g. "NLDS-2026-ABOUT"
-  title:       string;   // e.g. "ABOUT"
-  subtitle?:   string;   // e.g. "NLDS'26"
+  label: string; // e.g. "THE MISSION"
+  fileNo: string; // e.g. "NLDS-2026-ABOUT"
+  title: string; // e.g. "ABOUT"
+  subtitle?: string; // e.g. "NLDS'26"
   description?: string;
 }
 
@@ -23,8 +23,8 @@ export default function PageHero({
       style={{
         background: "var(--bg)",
         minHeight: "clamp(380px, 50vh, 560px)",
-        paddingTop: "9rem",      /* generous top — clears navbar + breathes */
-        paddingBottom: "4rem",   /* clear gap before the section below */
+        paddingTop: "9rem" /* generous top — clears navbar + breathes */,
+        paddingBottom: "4rem" /* clear gap before the section below */,
         borderBottom: "1px solid var(--border)",
         textAlign: "center",
       }}
@@ -47,7 +47,8 @@ export default function PageHero({
         style={{
           width: "400px",
           height: "200px",
-          background: "radial-gradient(ellipse at top left, rgba(196,30,58,1) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse at top left, rgba(196,30,58,1) 0%, transparent 70%)",
           filter: "blur(80px)",
           opacity: 0.04,
         }}
@@ -88,15 +89,26 @@ export default function PageHero({
             alignItems: "center",
             justifyContent: "center",
             gap: "1rem",
-            marginBottom: "2rem",   /* space between label and title */
+            marginBottom: "2rem" /* space between label and title */,
           }}
         >
-          <div style={{ height: "1px", width: "1.5rem", background: "var(--red)" }} />
+          <div
+            style={{ height: "1px", width: "1.5rem", background: "var(--red)" }}
+          />
           <span className="label-classified">{label}</span>
-          <span className="font-classified" style={{ fontSize: "8px", color: "rgba(255,255,255,0.15)", letterSpacing: "0.15em" }}>
+          <span
+            className="font-classified"
+            style={{
+              fontSize: "8px",
+              color: "rgba(255,255,255,0.15)",
+              letterSpacing: "0.15em",
+            }}
+          >
             // {fileNo}
           </span>
-          <div style={{ height: "1px", width: "1.5rem", background: "var(--red)" }} />
+          <div
+            style={{ height: "1px", width: "1.5rem", background: "var(--red)" }}
+          />
         </motion.div>
 
         {/* Title + Subtitle */}
@@ -118,7 +130,9 @@ export default function PageHero({
               color: "var(--text)",
               letterSpacing: "0.04em",
               lineHeight: 0.88,
-              marginBottom: description ? "2.5rem" : "0",  /* space between title and description */
+              marginBottom: description
+                ? "2.5rem"
+                : "0" /* space between title and description */,
             }}
           >
             {title}

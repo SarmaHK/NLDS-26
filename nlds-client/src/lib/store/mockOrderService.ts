@@ -44,11 +44,12 @@ export async function submitOrder(payload: OrderPayload): Promise<OrderResult> {
     return {
       success: true,
       orderId: data.orderId,
-      message: data.message || "MISSION REQUEST RECEIVED. YOUR ORDER HAS BEEN RECORDED.",
+      message:
+        data.message ||
+        "MISSION REQUEST RECEIVED. YOUR ORDER HAS BEEN RECORDED.",
     };
   } catch (error: any) {
     console.error("[OrderService] Order submission failed:", error);
     throw error;
   }
 }
-

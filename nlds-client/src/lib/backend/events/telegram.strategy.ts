@@ -2,21 +2,21 @@ import { SyncStrategy, ExternalEvent } from "./sync.service";
 import { TelegramClient } from "../integrations/telegram";
 
 export class TelegramStrategy implements SyncStrategy {
-    providerName = "TELEGRAM";
-    private client = new TelegramClient();
+  providerName = "TELEGRAM";
+  private client = new TelegramClient();
 
-    async execute(event: ExternalEvent): Promise<void> {
-        if (event.type === "REGISTRATION_SUBMITTED") {
-            const message = this.formatNewMissionMessage(event.payload);
-            await this.client.sendMessage(message);
-        }
+  async execute(event: ExternalEvent): Promise<void> {
+    if (event.type === "REGISTRATION_SUBMITTED") {
+      const message = this.formatNewMissionMessage(event.payload);
+      await this.client.sendMessage(message);
     }
+  }
 
-    /**
-     * Statically extracts only explicit operation bounds while aggressively omitting Medical / Credentials.
-     */
-    private formatNewMissionMessage(data: any): string {
-        return `
+  /**
+   * Statically extracts only explicit operation bounds while aggressively omitting Medical / Credentials.
+   */
+  private formatNewMissionMessage(data: any): string {
+    return `
 ━━━━━━━━━━━━━━━━━━
 🚨 <b>NEW NLDS 2026 MISSION</b>
 ━━━━━━━━━━━━━━━━━━
@@ -57,5 +57,5 @@ SUBMITTED
 ━━━━━━━━━━━━━━━━━━
 <b>MISSION RECEIVED</b>
 ━━━━━━━━━━━━━━━━━━`.trim();
-    }
+  }
 }

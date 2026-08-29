@@ -11,7 +11,11 @@ import { ArrowRight, AlertCircle } from "lucide-react";
 import { useCart } from "@/lib/store/cartStore";
 import { submitOrder } from "@/lib/store/mockOrderService";
 import type { OrderPayload, OrderItem } from "@/lib/store/types";
-import { AIESEC_ENTITIES, ENTITY_IG_MAPPING, OTHER_ENTITY_IGS } from "@/lib/register/constants";
+import {
+  AIESEC_ENTITIES,
+  ENTITY_IG_MAPPING,
+  OTHER_ENTITY_IGS,
+} from "@/lib/register/constants";
 
 import OrderSummary from "@/components/store/OrderSummary";
 import PaymentDetails from "@/components/store/PaymentDetails";
@@ -41,14 +45,16 @@ const checkoutSchema = z
   .refine(
     (data) => {
       if (data.entity === "Other") {
-        return Boolean(data.customEntity && data.customEntity.trim().length >= 2);
+        return Boolean(
+          data.customEntity && data.customEntity.trim().length >= 2,
+        );
       }
       return true;
     },
     {
       message: "Please enter your organisation or university name",
       path: ["customEntity"],
-    }
+    },
   );
 
 type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -69,19 +75,28 @@ function FormField({ id, label, error, children, hint }: FieldProps) {
       <label
         htmlFor={id}
         className="font-sans font-medium uppercase tracking-wide"
-        style={{ fontSize: "11px", letterSpacing: "0.14em", color: error ? "var(--red)" : "var(--text-muted)" }}
+        style={{
+          fontSize: "11px",
+          letterSpacing: "0.14em",
+          color: error ? "var(--red)" : "var(--text-muted)",
+        }}
       >
         {label}
       </label>
       {children}
       {error && (
         <div className="flex items-center gap-1.5 mt-0.5">
-          <AlertCircle size={11} style={{ color: "var(--red)", flexShrink: 0 }} />
+          <AlertCircle
+            size={11}
+            style={{ color: "var(--red)", flexShrink: 0 }}
+          />
           <span style={{ fontSize: "11px", color: "var(--red)" }}>{error}</span>
         </div>
       )}
       {hint && !error && (
-        <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)" }}>{hint}</span>
+        <span style={{ fontSize: "11px", color: "rgba(255,255,255,0.25)" }}>
+          {hint}
+        </span>
       )}
     </div>
   );
@@ -97,17 +112,28 @@ function SectionHeader({ number, title }: { number: string; title: string }) {
     >
       <span
         className="font-classified"
-        style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--red)", opacity: 0.6 }}
+        style={{
+          fontSize: "9px",
+          letterSpacing: "0.22em",
+          color: "var(--red)",
+          opacity: 0.6,
+        }}
       >
         {number}
       </span>
       <span
         className="font-classified"
-        style={{ fontSize: "11px", letterSpacing: "0.28em", color: "var(--text-muted)" }}
+        style={{
+          fontSize: "11px",
+          letterSpacing: "0.28em",
+          color: "var(--text-muted)",
+        }}
       >
         {title}
       </span>
-      <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.04)" }} />
+      <div
+        style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.04)" }}
+      />
     </div>
   );
 }
@@ -153,7 +179,11 @@ export default function CheckoutForm() {
     : [];
 
   useEffect(() => {
-    if (selectedEntity && selectedIG && !igOptions.includes(selectedIG as never)) {
+    if (
+      selectedEntity &&
+      selectedIG &&
+      !igOptions.includes(selectedIG as never)
+    ) {
       setValue("initiativeGroup", "");
     }
   }, [selectedEntity, igOptions, selectedIG, setValue]);
@@ -246,7 +276,7 @@ export default function CheckoutForm() {
         }
         // Navigate to confirmation
         router.push(
-          `/store/confirmation?orderId=${encodeURIComponent(result.orderId)}&name=${encodeURIComponent(data.fullName)}&total=${total}`
+          `/store/confirmation?orderId=${encodeURIComponent(result.orderId)}&name=${encodeURIComponent(data.fullName)}&total=${total}`,
         );
       } else {
         setSubmitError("Submission failed. Please try again.");
@@ -291,7 +321,11 @@ export default function CheckoutForm() {
           paddingRight: "clamp(1rem, 4vw, 2rem)",
         }}
       >
-        <form onSubmit={handleSubmit(onSubmit)} noValidate className="w-full flex flex-col gap-8 sm:gap-10">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+          className="w-full flex flex-col gap-8 sm:gap-10"
+        >
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -301,10 +335,21 @@ export default function CheckoutForm() {
             {/* TOP: Order Summary (Full-Width Stretched) */}
             <div className="w-full">
               <div className="flex items-center gap-2 mb-2 px-1">
-                <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--red)" }} />
+                <div
+                  style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "var(--red)",
+                  }}
+                />
                 <span
                   className="font-classified font-medium"
-                  style={{ fontSize: "9.5px", letterSpacing: "0.24em", color: "var(--text-ghost)" }}
+                  style={{
+                    fontSize: "9.5px",
+                    letterSpacing: "0.24em",
+                    color: "var(--text-ghost)",
+                  }}
                 >
                   ORDER SUMMARY // MISSION ASSETS
                 </span>
@@ -324,7 +369,11 @@ export default function CheckoutForm() {
               <SectionHeader number="01" title="OPERATIVE DETAILS" />
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
-                <FormField id="fullName" label="Full Name *" error={errors.fullName?.message}>
+                <FormField
+                  id="fullName"
+                  label="Full Name *"
+                  error={errors.fullName?.message}
+                >
                   <input
                     id="fullName"
                     className="reg-field"
@@ -334,7 +383,11 @@ export default function CheckoutForm() {
                   />
                 </FormField>
 
-                <FormField id="email" label="Email Address *" error={errors.email?.message}>
+                <FormField
+                  id="email"
+                  label="Email Address *"
+                  error={errors.email?.message}
+                >
                   <input
                     id="email"
                     type="email"
@@ -345,7 +398,12 @@ export default function CheckoutForm() {
                   />
                 </FormField>
 
-                <FormField id="mobileNumber" label="Mobile Number *" error={errors.mobileNumber?.message} hint="+94 7X XXX XXXX">
+                <FormField
+                  id="mobileNumber"
+                  label="Mobile Number *"
+                  error={errors.mobileNumber?.message}
+                  hint="+94 7X XXX XXXX"
+                >
                   <input
                     id="mobileNumber"
                     type="tel"
@@ -356,7 +414,12 @@ export default function CheckoutForm() {
                   />
                 </FormField>
 
-                <FormField id="entity" label="AIESEC Entity *" error={errors.entity?.message} hint="Select the AIESEC entity you represent">
+                <FormField
+                  id="entity"
+                  label="AIESEC Entity *"
+                  error={errors.entity?.message}
+                  hint="Select the AIESEC entity you represent"
+                >
                   <select
                     id="entity"
                     className="reg-field cursor-pointer"
@@ -371,11 +434,22 @@ export default function CheckoutForm() {
                     }}
                     {...register("entity")}
                   >
-                    <option value="" disabled style={{ background: "#0a0a0c", color: "rgba(255,255,255,0.3)" }}>
+                    <option
+                      value=""
+                      disabled
+                      style={{
+                        background: "#0a0a0c",
+                        color: "rgba(255,255,255,0.3)",
+                      }}
+                    >
                       Identify your AIESEC entity...
                     </option>
                     {AIESEC_ENTITIES.map((ent) => (
-                      <option key={ent} value={ent} style={{ background: "#0a0a0c", color: "#ffffff" }}>
+                      <option
+                        key={ent}
+                        value={ent}
+                        style={{ background: "#0a0a0c", color: "#ffffff" }}
+                      >
                         {ent}
                       </option>
                     ))}
@@ -384,7 +458,11 @@ export default function CheckoutForm() {
 
                 {/* Conditional Initiative Group (IG) Dropdown */}
                 {selectedEntity && igOptions.length > 0 && (
-                  <FormField id="initiativeGroup" label="Initiative Group (IG)" error={errors.initiativeGroup?.message}>
+                  <FormField
+                    id="initiativeGroup"
+                    label="Initiative Group (IG)"
+                    error={errors.initiativeGroup?.message}
+                  >
                     <select
                       id="initiativeGroup"
                       className="reg-field cursor-pointer"
@@ -398,11 +476,21 @@ export default function CheckoutForm() {
                       }}
                       {...register("initiativeGroup")}
                     >
-                      <option value="" style={{ background: "#0a0a0c", color: "rgba(255,255,255,0.3)" }}>
+                      <option
+                        value=""
+                        style={{
+                          background: "#0a0a0c",
+                          color: "rgba(255,255,255,0.3)",
+                        }}
+                      >
                         Select Initiative Group (Optional)...
                       </option>
                       {igOptions.map((ig) => (
-                        <option key={ig} value={ig} style={{ background: "#0a0a0c", color: "#ffffff" }}>
+                        <option
+                          key={ig}
+                          value={ig}
+                          style={{ background: "#0a0a0c", color: "#ffffff" }}
+                        >
                           {ig}
                         </option>
                       ))}
@@ -412,7 +500,11 @@ export default function CheckoutForm() {
 
                 {/* Conditional Custom Entity Input for Other */}
                 {selectedEntity === "Other" && (
-                  <FormField id="customEntity" label="Custom Entity / University *" error={errors.customEntity?.message}>
+                  <FormField
+                    id="customEntity"
+                    label="Custom Entity / University *"
+                    error={errors.customEntity?.message}
+                  >
                     <input
                       id="customEntity"
                       className="reg-field"
@@ -444,7 +536,10 @@ export default function CheckoutForm() {
             >
               <ReceiptUpload
                 file={receiptFile}
-                onChange={(f) => { setReceiptFile(f); if (f) setReceiptError(""); }}
+                onChange={(f) => {
+                  setReceiptFile(f);
+                  if (f) setReceiptError("");
+                }}
                 error={receiptError}
               />
             </motion.div>
@@ -457,10 +552,15 @@ export default function CheckoutForm() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   className="flex items-center gap-2 px-4 py-3 rounded-[3px]"
-                  style={{ background: "rgba(196,30,58,0.08)", border: "1px solid rgba(196,30,58,0.25)" }}
+                  style={{
+                    background: "rgba(196,30,58,0.08)",
+                    border: "1px solid rgba(196,30,58,0.25)",
+                  }}
                 >
                   <AlertCircle size={15} style={{ color: "var(--red)" }} />
-                  <span style={{ fontSize: "12px", color: "var(--red)" }}>{submitError}</span>
+                  <span style={{ fontSize: "12px", color: "var(--red)" }}>
+                    {submitError}
+                  </span>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -504,9 +604,14 @@ export default function CheckoutForm() {
 
               <p
                 className="font-classified text-center"
-                style={{ fontSize: "8.5px", letterSpacing: "0.18em", color: "rgba(255,255,255,0.25)" }}
+                style={{
+                  fontSize: "8.5px",
+                  letterSpacing: "0.18em",
+                  color: "rgba(255,255,255,0.25)",
+                }}
               >
-                RECEIPT REQUIRED · BANK TRANSFER ONLY · ORDERS PROCESSED AFTER VERIFICATION
+                RECEIPT REQUIRED · BANK TRANSFER ONLY · ORDERS PROCESSED AFTER
+                VERIFICATION
               </p>
             </div>
           </motion.div>

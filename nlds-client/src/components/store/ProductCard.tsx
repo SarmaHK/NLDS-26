@@ -11,7 +11,11 @@ interface ProductCardProps {
   onClick: (product: Product) => void;
 }
 
-export default function ProductCard({ product, index, onClick }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  index,
+  onClick,
+}: ProductCardProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -30,7 +34,9 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
       role="button"
       aria-label={`View ${product.name}`}
       tabIndex={0}
-      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onClick(product); }}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") onClick(product);
+      }}
     >
       {/* Card container */}
       <motion.div
@@ -61,10 +67,13 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
           <motion.div
             className="absolute inset-0 z-10 pointer-events-none"
             initial={{ opacity: 0, x: "-30%" }}
-            animate={hovered ? { opacity: 1, x: "130%" } : { opacity: 0, x: "-30%" }}
+            animate={
+              hovered ? { opacity: 1, x: "130%" } : { opacity: 0, x: "-30%" }
+            }
             transition={{ duration: 0.7, ease: "linear" }}
             style={{
-              background: "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
+              background:
+                "linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%)",
               width: "60%",
             }}
           />
@@ -81,7 +90,11 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
           >
             <span
               className="font-classified"
-              style={{ fontSize: "8.5px", letterSpacing: "0.22em", color: "rgba(255,255,255,0.7)" }}
+              style={{
+                fontSize: "8.5px",
+                letterSpacing: "0.22em",
+                color: "rgba(255,255,255,0.7)",
+              }}
             >
               {product.itemCode}
             </span>
@@ -99,7 +112,11 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
             >
               <span
                 className="font-classified font-semibold"
-                style={{ fontSize: "8.5px", letterSpacing: "0.18em", color: "#fff" }}
+                style={{
+                  fontSize: "8.5px",
+                  letterSpacing: "0.18em",
+                  color: "#fff",
+                }}
               >
                 {product.badge}
               </span>
@@ -130,12 +147,45 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
                   justifyContent: "center",
                 }}
               >
-                <div style={{ width: 28, height: 28, border: "1px solid rgba(196,30,58,0.4)", borderRadius: "50%", position: "relative" }}>
-                  <div style={{ position: "absolute", top: "50%", left: "-8px", right: "-8px", height: 1, background: "rgba(196,30,58,0.3)" }} />
-                  <div style={{ position: "absolute", left: "50%", top: "-8px", bottom: "-8px", width: 1, background: "rgba(196,30,58,0.3)" }} />
+                <div
+                  style={{
+                    width: 28,
+                    height: 28,
+                    border: "1px solid rgba(196,30,58,0.4)",
+                    borderRadius: "50%",
+                    position: "relative",
+                  }}
+                >
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "-8px",
+                      right: "-8px",
+                      height: 1,
+                      background: "rgba(196,30,58,0.3)",
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "50%",
+                      top: "-8px",
+                      bottom: "-8px",
+                      width: 1,
+                      background: "rgba(196,30,58,0.3)",
+                    }}
+                  />
                 </div>
               </div>
-              <span className="font-classified" style={{ fontSize: "9px", letterSpacing: "0.25em", color: "rgba(255,255,255,0.15)" }}>
+              <span
+                className="font-classified"
+                style={{
+                  fontSize: "9px",
+                  letterSpacing: "0.25em",
+                  color: "rgba(255,255,255,0.15)",
+                }}
+              >
                 IMAGE CLASSIFIED
               </span>
             </div>
@@ -158,7 +208,11 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
             <div className="flex items-center justify-between">
               <span
                 className="font-classified"
-                style={{ fontSize: "9px", letterSpacing: "0.22em", color: "var(--text-ghost)" }}
+                style={{
+                  fontSize: "9px",
+                  letterSpacing: "0.22em",
+                  color: "var(--text-ghost)",
+                }}
               >
                 OFFICIAL ISSUE
               </span>
@@ -167,7 +221,9 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
                 style={{
                   fontSize: "9px",
                   letterSpacing: "0.22em",
-                  color: product.available ? "var(--red)" : "rgba(255,255,255,0.25)",
+                  color: product.available
+                    ? "var(--red)"
+                    : "rgba(255,255,255,0.25)",
                 }}
               >
                 {product.available ? "● AVAILABLE" : "● SOLD OUT"}
@@ -201,7 +257,10 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
           </div>
 
           {/* Bottom section: Price & Action button */}
-          <div className="mt-4 pt-4 flex flex-col gap-3" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
+          <div
+            className="mt-4 pt-4 flex flex-col gap-3"
+            style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}
+          >
             <div className="flex items-baseline justify-between">
               <span className="font-classified text-[10px] tracking-[0.2em] text-[var(--text-ghost)]">
                 PRICE
@@ -226,12 +285,13 @@ export default function ProductCard({ product, index, onClick }: ProductCardProp
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             >
-              <span
-                className="font-classified text-[10px] tracking-[0.22em] text-white/80 group-hover:text-white transition-colors"
-              >
+              <span className="font-classified text-[10px] tracking-[0.22em] text-white/80 group-hover:text-white transition-colors">
                 VIEW ITEM SPECIFICATIONS
               </span>
-              <ArrowRight size={13} className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all" />
+              <ArrowRight
+                size={13}
+                className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all"
+              />
             </div>
           </div>
         </div>

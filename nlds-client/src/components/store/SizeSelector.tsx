@@ -14,18 +14,33 @@ export default function SizeSelector({
   if (!sizes || sizes.length === 0) return null;
 
   return (
-    <div className="flex flex-col gap-2.5 w-full text-left" style={{ textAlign: "left" }}>
-      <div className="flex items-center justify-between w-full" style={{ marginBottom: "0.25rem" }}>
+    <div
+      className="flex flex-col gap-2.5 w-full text-left"
+      style={{ textAlign: "left" }}
+    >
+      <div
+        className="flex items-center justify-between w-full"
+        style={{ marginBottom: "0.25rem" }}
+      >
         <span
           className="font-classified"
-          style={{ fontSize: "9.5px", letterSpacing: "0.22em", color: "var(--text-muted)", textAlign: "left" }}
+          style={{
+            fontSize: "9.5px",
+            letterSpacing: "0.22em",
+            color: "var(--text-muted)",
+            textAlign: "left",
+          }}
         >
           SELECT SIZE
         </span>
         {selected && (
           <span
             className="font-classified"
-            style={{ fontSize: "10px", letterSpacing: "0.18em", color: "var(--red)" }}
+            style={{
+              fontSize: "10px",
+              letterSpacing: "0.18em",
+              color: "var(--red)",
+            }}
           >
             {selected}
           </span>
@@ -45,7 +60,9 @@ export default function SizeSelector({
                 letterSpacing: "0.12em",
                 fontWeight: 500,
                 color: isActive ? "#fff" : "rgba(255,255,255,0.65)",
-                background: isActive ? "rgba(196,30,58,0.15)" : "rgba(255,255,255,0.03)",
+                background: isActive
+                  ? "rgba(196,30,58,0.15)"
+                  : "rgba(255,255,255,0.03)",
                 border: isActive
                   ? "1px solid var(--red)"
                   : "1px solid rgba(255,255,255,0.12)",
