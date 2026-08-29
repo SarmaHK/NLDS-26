@@ -213,7 +213,7 @@ export default function Footer() {
                   className="font-classified"
                   style={{ fontSize: "11px", letterSpacing: "0.3em", color: "var(--text-dim)", marginBottom: "0.75rem", textTransform: "uppercase" }}
                 >
-                  MISSION DATE
+                  TENTATIVE MISSION DATE
                 </p>
                 <span className="font-classified" style={{ fontSize: "12px", letterSpacing: "0.2em", color: "var(--text)" }}>
                   09 — 11 OCTOBER 2026
