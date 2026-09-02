@@ -10,6 +10,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // ── Temporarily disable /store route (re-enable by removing this block) ──
+  async redirects() {
+    return [
+      { source: "/store", destination: "/", permanent: false },
+      { source: "/store/:path*", destination: "/", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

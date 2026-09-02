@@ -86,7 +86,7 @@ export const RegistrationSuccessEmail: React.FC<
         </Text>
 
         <Text style={heroSubtitle}>
-          DEAR FUTURE {recipientName.toUpperCase()}
+          DEAR FUTURE AGENT {recipientName.toUpperCase()}
         </Text>
 
         {/* Reticle / Crosshair Divider */}
